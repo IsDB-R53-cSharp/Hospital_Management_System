@@ -1,7 +1,7 @@
 # Hospital_Management_System_1
 
 
-![Project Logo](./images/logo.png)
+![Project Logo](./Images/logo.png)
 
 A comprehensive Hospital Management System designed to streamline hospital operations efficiently. This system provides modules for patient management, appointment scheduling, billing, electronic health records (EHR), pharmacy inventory management, laboratory test management, reporting, and more.
 
@@ -36,10 +36,10 @@ View a live demo of the Hospital Management System [here](https://your-demo-url.
 
 ## Screenshots
 
-![Screenshot 1](./images/screenshot1.png)
+![Screenshot 1](./Images/screenshot1.png)
 *Caption for Screenshot 1*
 
-![Screenshot 2](./images/screenshot2.png)
+![Screenshot 2](./Images/screenshot2.png)
 *Caption for Screenshot 2*
 
 ## Getting Started
