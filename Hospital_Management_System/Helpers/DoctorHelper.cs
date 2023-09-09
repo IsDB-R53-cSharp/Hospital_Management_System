@@ -1,4 +1,5 @@
 ﻿using HMS.Models;
+using HMS.Models.SurgeryWard;
 using static HMS.Models.DbModels;
 using static HMS.Models.Doctor;
 

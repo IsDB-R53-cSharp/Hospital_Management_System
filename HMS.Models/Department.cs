@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HMS.Models.SurgeryWard;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

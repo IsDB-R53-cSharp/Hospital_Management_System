@@ -1,4 +1,5 @@
 ﻿using HMS.Models;
+using HMS.Models.SurgeryWard;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
