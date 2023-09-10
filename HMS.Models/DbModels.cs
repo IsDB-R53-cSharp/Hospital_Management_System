@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HMS.Models.SurgeryWard;
 
 namespace HMS.Models
 {
@@ -61,25 +62,7 @@ namespace HMS.Models
             public DateTime NextScheduleDate { get; set; }
             public string ContactNumber { get; set; } = default!;
         }
-        
-        public class WardCabin
-        {
-            [Key]
-            public int WardID { get; set; }
-            public string WardName { get; set; } = default!;
-            public int BedCabinNumber { get; set; }
-            [ForeignKey("Departments")]
-            public int DepartmentID { get; set; }
-            //[ForeignKey("Doctor")]
-            //public int DoctorID { get; set; }
-            //[ForeignKey("Nurse")]
-            //public int NurseID { get; set; }
-            //nev
-            //public Doctor Doctor { get; set; }
-            //public Nurse Nurse { get; set; }
-            public Department Departments { get; set; }
-            public virtual ICollection<PatientRegister> PatientRegisters { get; set; } = new HashSet<PatientRegister>();
-        }
+       
         public class Appointment
         {
             [Key]
@@ -209,29 +192,7 @@ namespace HMS.Models
             //add prescription id
 
         }
-        public class SurgeryProcedure
-        {
-            [Key]
-            public int SurgeryID { get; set; }
-            [ForeignKey("PatientRegister")]
-            public int PatientID { get; set; }
-            public string ProcedureType { get; set; } = default!;
-            public DateTime SurgeryDate { get; set; }
-            [ForeignKey("Doctor")]
-            public int DoctorID { get; set; }
-            public string Observations { get; set; } = default!;
-            public string Preoperative_Diagnosis { get; set; } = default!;
-            public string Postoperative_Diagnosis { get; set; } = default!;
-            [ForeignKey("LabTest")]
-            public int TestID { get; set; }
-            [ForeignKey("Prescription")]
-            public int PrescriptionID { get; set; }
-            //nev
-            public virtual PatientRegister PatientRegister { get; set; } = default!;
-            public virtual Doctor Doctor { get; set; } = default!;
-            public virtual LabTest LabTest { get; set; } = default!;
-            public virtual Prescriptions Prescription { get; set; } = default!;
-        }
+        
         public class DischargeTransfer
         {
             [Key]
