@@ -50,7 +50,7 @@ namespace HMS.Models
     public enum TechnicianType
     {
         [Display(Name = "Medical Technician")]
-        Medical=1,
+        Medical = 1,
 
         [Display(Name = "Laboratory Technician")]
         Laboratory,
