@@ -10,12 +10,32 @@ namespace Hospital_Management_System.Helpers
 
         }
 
+        //public LabTechnicianHelper(LabTechnician labTechnician)
+        //{
+        //    this.TechnicianID = labTechnician.TechnicianID;
+        //    this.DepartmentID = labTechnician.DepartmentID;
+        //    this.TechnicianName = labTechnician.TechnicianName;
+        //    this.TechnicianType = labTechnician.TechnicianType;
+        //    this.JoinDate = labTechnician.JoinDate;
+        //    this.ResignDate = labTechnician.ResignDate;
+        //    this.employeeStatus = labTechnician.employeeStatus;
+        //    this.Education_Info = labTechnician.Education_Info;
+        //    this.Departments = labTechnician.Departments;
+        //    this.Labtest = labTechnician.Labtest.ToList();
+        //}
+
         public LabTechnicianHelper(LabTechnician labTechnician)
         {
             this.TechnicianID = labTechnician.TechnicianID;
             this.DepartmentID = labTechnician.DepartmentID;
             this.TechnicianName = labTechnician.TechnicianName;
-            this.TechnicianType = labTechnician.TechnicianType;
+
+            // parse TechnicianType from string to enum
+            if (Enum.TryParse(labTechnician.TechnicianType.ToString(), out TechnicianType technicianType))
+            {
+                this.TechnicianType = technicianType;
+            }
+
             this.JoinDate = labTechnician.JoinDate;
             this.ResignDate = labTechnician.ResignDate;
             this.employeeStatus = labTechnician.employeeStatus;
@@ -23,6 +43,7 @@ namespace Hospital_Management_System.Helpers
             this.Departments = labTechnician.Departments;
             this.Labtest = labTechnician.Labtest.ToList();
         }
+
 
         public int TechnicianID { get; set; }
         public int DepartmentID { get; set; }

@@ -112,13 +112,13 @@ namespace Hospital_Management_System.Controllers
         //{
         //    try
         //    {
-        //        LabTechnician existingLabTechnician = _labTechnicianRepo.GetTechnicianById(id);
+        //        LabTechnician existingLabTechnician = _labTechnicianRepo.GetLabTechnicianById(id);
         //        if (existingLabTechnician == null)
         //        {
         //            return NotFound($"Lab Technician with ID {id} not found.");
         //        }
 
-        //        _labTechnicianRepo.DeleteTechnician(id);
+        //        _labTechnicianRepo.DeleteLabTechnician(id);
 
         //        return Ok($"Lab Technician with ID {id} has been deleted.");
         //    }
@@ -127,5 +127,26 @@ namespace Hospital_Management_System.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public IActionResult DeleteLabTechnician(int id)
+        {
+            try
+            {
+                LabTechnician existingLabTechnician = _labTechnicianRepo.GetLabTechnicianById(id);
+                if (existingLabTechnician == null)
+                {
+                    return NotFound($"Lab Technician with ID {id} not found.");
+                }
+
+                return BadRequest("Lab Technician can't be deleted. Change lab technician status instead.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

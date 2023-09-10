@@ -56,7 +56,7 @@ namespace HMS.Models
     public enum OtherEmployeeType
     {
         [Display(Name = "Janitor")]
-        Janitor,
+        Janitor = 1,
 
         [Display(Name = "Word Boy")]
         Wordboy,

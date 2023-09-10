@@ -60,7 +60,7 @@ namespace HMS.Models
     public enum doctortype
     {
         [Display(Name = "General Practitioner")]
-        generalpractitioner,
+        generalpractitioner=1,
 
         [Display(Name = "Specialist")]
         specialist,

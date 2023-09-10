@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HMS.Models;
-using HMS.Models;
+
 
 namespace HMS.Models
 {
@@ -22,6 +22,7 @@ namespace HMS.Models
         [ForeignKey("Department")]
         public int DepartmentID { get; set; }
 
+        [EnumDataType(typeof(TechnicianType))]
         public TechnicianType TechnicianType { get; set; } = default!;
 
         [Column(TypeName = "date")]
@@ -42,7 +43,6 @@ namespace HMS.Models
         [StringLength(200)]
         public string Education_Info { get; set; } = default!;
 
-        [NotMapped]
         public virtual Department? Departments { get; set; } = default!;
 
         public virtual ICollection<LabTest> Labtest { get; set; } = new List<LabTest>();

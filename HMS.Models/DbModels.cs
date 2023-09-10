@@ -76,22 +76,7 @@ namespace HMS.Models
         [NotMapped]
         public virtual Doctor Doctor { get; set; }
     }
-    public class Outdoor
-    {
-        [Key]
-        public int OutdoorID { get; set; }
-        [ForeignKey("PatientRegister")]
-        public int PatientID { get; set; }
-        public string TreatmentType { get; set; }
-        public DateTime TreatmentDate { get; set; }
-        public string TicketNumber { get; set; }
-        public int InvoiceID { get; set; }// ?
-        public int DoctorID { get; set; }
-        public string Remarks { get; set; }
-        public bool IsAdmissionRequired { get; set; } //prescription jabe na?
-        public virtual PatientRegister PatientRegister { get; set; }
-        public virtual Invoice Invoice { get; set; }
-    }
+    
     public class PatientRegister
     {
         [Key]
