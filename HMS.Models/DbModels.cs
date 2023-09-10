@@ -108,16 +108,16 @@ namespace HMS.Models
             public string EmergencyContact { get; set; } = default!;
             public DateTime AdmissionDate { get; set; }
             public string BloodType { get; set; } = default!;
-            public bool IsTransferred { get; set; }
+            public bool? IsTransferred { get; set; }
             [ForeignKey("WardCabin")]
-            public int WardID { get; set; }
+            public int? WardID { get; set; }
             // add navigation properties
-            public virtual WardCabin WardCabin { get; set; } = default!;
-            public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
-            public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
-            public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
-            public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
-            public virtual ICollection<DischargeTransfer> DischargeTransfers { get; set; } = new List<DischargeTransfer>();
+            public virtual WardCabin? WardCabin { get; set; } = default!;
+            public virtual ICollection<Invoice>? Invoices { get; set; } = new List<Invoice>();
+            public virtual ICollection<Prescriptions>? Prescriptions { get; set; } = new List<Prescriptions>();
+            public virtual ICollection<MedicalRecords>? MedicalRecords { get; set; } = new List<MedicalRecords>();
+            public virtual ICollection<SurgeryProcedure>? SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
+            public virtual ICollection<DischargeTransfer>? DischargeTransfers { get; set; } = new List<DischargeTransfer>();
         }
         public class Prescriptions
         {
