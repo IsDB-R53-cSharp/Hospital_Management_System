@@ -11,7 +11,7 @@ namespace Hospital_Management_System.Helpers
         {
             if (imageFile != null && imageFile.Length > 0)
             {
-                var uploadPath = Path.Combine("wwwroot", "Images"); // Modify the path as needed
+                var uploadPath = Path.Combine("wwwroot", "Images");
                 if (!Directory.Exists(uploadPath))
                 {
                     Directory.CreateDirectory(uploadPath);
@@ -25,7 +25,7 @@ namespace Hospital_Management_System.Helpers
                     await imageFile.CopyToAsync(stream);
                 }
 
-                return Path.Combine("Images", fileName); // Return the relative path
+                return Path.Combine("Images", fileName); 
             }
 
             return null;

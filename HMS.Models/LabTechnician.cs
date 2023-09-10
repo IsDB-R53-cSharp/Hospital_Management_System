@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static HMS.Models.DbModels;
+using HMS.Models;
+using HMS.Models;
 
 namespace HMS.Models
 {
@@ -49,7 +50,7 @@ namespace HMS.Models
     public enum TechnicianType
     {
         [Display(Name = "Medical Technician")]
-        Medical,
+        Medical=1,
 
         [Display(Name = "Laboratory Technician")]
         Laboratory,

@@ -1,6 +1,5 @@
 ﻿using HMS.Models;
-using static HMS.Models.DbModels;
-using static HMS.Models.LabTechnician;
+
 
 namespace Hospital_Management_System.Helpers
 {

@@ -8,7 +8,6 @@ using System.Numerics;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using static HMS.Models.DbModels;
 using LabTechnician = HMS.Models.LabTechnician;
 
 namespace HMS.DAL.Data

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using static HMS.Models.DbModels;
 
 namespace Hospital_Management_System.Helpers
 {

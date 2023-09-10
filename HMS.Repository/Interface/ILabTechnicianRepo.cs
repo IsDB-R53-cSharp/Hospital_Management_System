@@ -9,7 +9,7 @@ namespace HMS.Repository.Interface
 {
     public interface ILabTechnicianRepo
     {
-        IEnumerable<LabTechnician> GetLabTechnicians();
+        IQueryable<LabTechnician> GetLabTechnicians();
         LabTechnician GetLabTechnicianById(int id);
         void SaveLabTechnician(LabTechnician labTechnician);
         void DeleteLabTechnician(int id);
