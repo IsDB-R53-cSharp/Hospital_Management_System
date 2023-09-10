@@ -17,7 +17,7 @@ namespace HMS.Models
         [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
         public string OtherEmployeeName { get; set; } = default!;
 
-        public string OtherEmployeeType { get; set; } = default!;
+        public OtherEmployeeType OtherEmployeeType { get; set; } = default!;
 
         [Column(TypeName = "date")]
         [Display(Name = "Join Date")]
