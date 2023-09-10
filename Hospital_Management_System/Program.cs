@@ -43,6 +43,9 @@ namespace Hospital_Management_System
             builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>)); 
             builder.Services.AddScoped<IDoctorRepo, DoctorRepo>();
             builder.Services.AddScoped<INurseRepo, NurseRepo>();
+            builder.Services.AddScoped<ILabTechnicianRepo, LabTechnicianRepo>();
+
+
             builder.Services.AddScoped<ImageHelper>();
 
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();

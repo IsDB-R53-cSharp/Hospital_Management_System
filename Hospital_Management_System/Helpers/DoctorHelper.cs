@@ -21,6 +21,7 @@ namespace Hospital_Management_System.Helpers
             this.JoinDate = doctor.JoinDate;
             this.ResignDate = doctor.ResignDate;
             this.Education_Info = doctor.Education_Info;
+            //this.employeeStatus = labTechnician.employeeStatus;   //status
             this.Department = doctor.Department;
             this.Prescriptions = doctor.Prescriptions.ToList();
             this.Appointments = doctor.Appointments.ToList();
@@ -50,7 +51,7 @@ namespace Hospital_Management_System.Helpers
             doctor.Specialization = this.Specialization;
             this.doctortype = doctor.Doctortype;
             doctor.JoinDate = this.JoinDate;
-            //doctor.Image = ConvertFileToByte(this.Image);
+            //this.employeeStatus = labTechnician.employeeStatus;   status?
             doctor.Education_Info = this.Education_Info;
             doctor.Department = this.Department;
             doctor.Prescriptions = this.Prescriptions;
