@@ -38,6 +38,30 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetLabTechnicianById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetLabTechnicianById(int id)
+        {
+            try
+            {
+                LabTechnician labTechnician = _labTechnicianRepo.GetLabTechnicianById(id);
+
+                if (labTechnician == null)
+                {
+                    return NotFound($"Lab Technician with ID {id} not found.");
+                }
+
+                return Ok(labTechnician);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

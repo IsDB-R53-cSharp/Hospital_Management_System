@@ -39,6 +39,30 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetDoctorById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetDoctorById(int id)
+        {
+            try
+            {
+                Doctor doctor = _docRepo.GetDoctorById(id);
+
+                if (doctor == null)
+                {
+                    return NotFound($"Doctor with ID {id} not found.");
+                }
+
+                return Ok(doctor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         [Route("Insert")]
         public async Task<IActionResult> PostDoctor([FromForm] DoctorHelper doctorHelper)

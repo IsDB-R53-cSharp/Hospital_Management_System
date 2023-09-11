@@ -41,7 +41,7 @@ namespace Hospital_Management_System.Helpers
         public EmployeeStatus employeeStatus { get; set; }
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
         //public List<WardCabin> WardCabins { get; set; }
 
         public Nurse GetNurse()
