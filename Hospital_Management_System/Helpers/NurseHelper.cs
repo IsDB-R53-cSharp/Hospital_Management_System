@@ -25,9 +25,8 @@ namespace Hospital_Management_System.Helpers
             this.JoinDate = nurse.JoinDate;
             this.ResignDate = nurse.ResignDate;
             this.employeeStatus = nurse.employeeStatus;
-            //this.Image = ConvertByteToFile(nurse.Image);
             this.Education_Info = nurse.Education_Info;
-            this.Department = nurse.Department;
+            //this.Department = nurse.Department;
             //this.WardCabins = nurse.WardCabins.ToList();
         }
 
@@ -41,7 +40,7 @@ namespace Hospital_Management_System.Helpers
         public EmployeeStatus employeeStatus { get; set; }
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
-        public Department? Department { get; set; }
+        //public Department? Department { get; set; }
         //public List<WardCabin> WardCabins { get; set; }
 
         public Nurse GetNurse()
@@ -55,37 +54,13 @@ namespace Hospital_Management_System.Helpers
             nurse.JoinDate = this.JoinDate;
             nurse.ResignDate = this.ResignDate;
             nurse.employeeStatus = this.employeeStatus;
-            //nurse.Image = ConvertFileToByte(this.Image);
             nurse.Education_Info = this.Education_Info;
-            nurse.Department = this.Department;
+            //nurse.Department = this.Department;
             //nurse.WardCabins = this.WardCabins;
             return nurse;
         }
 
-        // Helper method to save images
-        public async Task<string> SaveImageAsync(IFormFile imageFile)
-        {
-            if (imageFile != null && imageFile.Length > 0)
-            {
-                var uploadPath = Path.Combine("wwwroot", "Images"); // Modify the path as needed
-                if (!Directory.Exists(uploadPath))
-                {
-                    Directory.CreateDirectory(uploadPath);
-                }
-
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                var filePath = Path.Combine(uploadPath, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await imageFile.CopyToAsync(stream);
-                }
-
-                return Path.Combine("Images", fileName); // Return the relative path
-            }
-
-            return null;
-        }
+        
 
         
     }

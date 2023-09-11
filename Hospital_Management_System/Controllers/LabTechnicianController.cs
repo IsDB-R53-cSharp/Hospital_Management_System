@@ -114,11 +114,11 @@ namespace Hospital_Management_System.Controllers
                 existingLabTechnician.TechnicianName = labTechnicianHelper.TechnicianName;
                 existingLabTechnician.TechnicianType = labTechnicianHelper.TechnicianType;
                 existingLabTechnician.JoinDate = labTechnicianHelper.JoinDate;
-                existingLabTechnician.Image = imagePath; // Update the image path
+                existingLabTechnician.Image = imagePath; 
                 existingLabTechnician.Education_Info = labTechnicianHelper.Education_Info;
                 existingLabTechnician.employeeStatus = labTechnicianHelper.employeeStatus;
-                existingLabTechnician.Departments = labTechnicianHelper.Departments;
-                existingLabTechnician.Labtest = labTechnicianHelper.Labtest;
+                //existingLabTechnician.Departments = labTechnicianHelper.Departments;
+                //existingLabTechnician.Labtest = labTechnicianHelper.Labtest;
 
                 _labTechnicianRepo.SaveLabTechnician(existingLabTechnician);
 

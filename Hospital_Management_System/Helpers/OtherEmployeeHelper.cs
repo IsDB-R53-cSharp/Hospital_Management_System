@@ -12,12 +12,10 @@ namespace Hospital_Management_System.Helpers
         {
             EmployeeID = otherEmployee.EmployeeID;
             OtherEmployeeName = otherEmployee.OtherEmployeeName;
-            //OtherEmployeeType = otherEmployee.OtherEmployeeType;
             JoinDate = otherEmployee.JoinDate;
             ResignDate = otherEmployee.ResignDate;
             EmployeeStatus = otherEmployee.employeeStatus;
             Education_Info = otherEmployee.Education_Info;
-            // Set other properties as needed
         }
 
         public int EmployeeID { get; set; }
@@ -34,12 +32,10 @@ namespace Hospital_Management_System.Helpers
             OtherEmployee otherEmployee = new OtherEmployee();
             otherEmployee.EmployeeID = EmployeeID;
             otherEmployee.OtherEmployeeName = OtherEmployeeName;
-            //otherEmployee.OtherEmployeeType = OtherEmployeeType;
             otherEmployee.JoinDate = JoinDate;
             otherEmployee.ResignDate = ResignDate;
             otherEmployee.employeeStatus = EmployeeStatus;
             otherEmployee.Education_Info = Education_Info;
-            // Set other properties as needed
 
             return otherEmployee;
         }

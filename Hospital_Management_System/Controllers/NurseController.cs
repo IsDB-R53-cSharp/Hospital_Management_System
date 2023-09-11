@@ -136,9 +136,9 @@ namespace HMS.WebApi.Controllers
                 existingNurse.JoinDate = nurseHelper.JoinDate;
                 existingNurse.ResignDate = nurseHelper.ResignDate;
                 existingNurse.employeeStatus = nurseHelper.employeeStatus;
-                existingNurse.Image = imagePath; // Update the image path
+                existingNurse.Image = imagePath;
                 existingNurse.Education_Info = nurseHelper.Education_Info;
-                existingNurse.Department = nurseHelper.Department;
+                //existingNurse.Department = nurseHelper.Department;
 
                 _nurseRepo.SaveNurse(existingNurse);
 
