@@ -128,51 +128,6 @@ namespace HMS.Models
         public string DiagonesNotes { get; set; } = default!;
         public string FollowUpInstructions { get; set; } = default!;
 
-        [NotMapped]
-        public virtual Medicine Medicine { get; set; } = default!;
-        public virtual PatientRegister PatientRegister { get; set; } = default!;
-        public virtual Doctor Doctor { get; set; } = default!;
-        public virtual LabTest? LabTest { get; set; } = default!;
-        public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
-        public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
-    }
-    public class LabTest
-    {
-        [Key]
-        public int TestID { get; set; }
-        public string TestName { get; set; } = default!;
-        public decimal Price { get; set; }
-        //[ForeignKey("Departments")]
-        //public int DepartmentID { get; set; }
-        //[ForeignKey("Doctor")]
-        //public int DoctorID { get; set; }
-        [ForeignKey("PatientRegister")]
-        public int PatientID { get; set; }
-        public string Result { get; set; } = default!;
-        [ForeignKey("LabTechnician")]
-        public int TechnicianID { get; set; }
-        //nev
-        [NotMapped]
-        public virtual LabTechnician LabTechnician { get; set; } = default!;
-        public virtual PatientRegister PatientRegister { get; set; } = default!;
-        //public virtual Department Departments { get; set; } = default!;
-        public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
-        public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
-        public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
-    }
-    public class MedicalRecords
-    {
-        [Key]
-        public int MedicalRecordsID { get; set; }
-        public bool PatientType { get; set; } //indore/outdoor -- enum?
-        public DateTime RecordDate { get; set; }
-        public string MedicalHistory { get; set; } = default!; //prescription history + other history
-        [ForeignKey("Patient")]
-        public int PatientID { get; set; }//for patient basic info
-        public PatientRegister Patient { get; set; } = default!;
-
-        //add prescription id
-
     }
 
     public class DischargeTransfer

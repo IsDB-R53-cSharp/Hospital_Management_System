@@ -41,6 +41,33 @@ namespace Hospital_Management_System.Controllers
 
             return medicineVMs;
         }
+        [HttpGet("GetMedicine/{id}")]
+        public async Task<ActionResult<MedicineVM>> GetMedicineVMById(int id)
+        {
+            var medicineVM = await _context.Medicines
+                .Include(m => m.MedicineGeneric)
+                .Include(m => m.Manufacturer)
+                .Where(m => m.MedicineID == id)
+                .Select(m => new MedicineVM
+                {
+                    MedicineID = m.MedicineID,
+                    MedicineName = m.MedicineName,
+                    ExpireDate = m.ExpireDate,
+                    Quantity = m.Quantity,
+                    SellPrice = m.SellPrice,
+                    Discount = m.Discount,
+                    Manufacturer = m.Manufacturer,
+                    MedicineGeneric = m.MedicineGeneric
+                })
+                .FirstOrDefaultAsync();
+
+            if (medicineVM == null)
+            {
+                return NotFound();
+            }
+
+            return medicineVM;
+        }
         [HttpPost]
         [Route("PostMedicine")]
         public async Task<ActionResult<MedicineVM>> PostMedicineVM(MedicineVM medicineVM)
