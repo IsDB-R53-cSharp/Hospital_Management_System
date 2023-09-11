@@ -119,41 +119,6 @@ namespace HMS.Models
             public virtual ICollection<SurgeryProcedure>? SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
             public virtual ICollection<DischargeTransfer>? DischargeTransfers { get; set; } = new List<DischargeTransfer>();
         }
-        public class Prescriptions
-        {
-            [Key]
-            public int PrescriptionID { get; set; }
-            [ForeignKey("PatientRegister")]
-            public int PatientID { get; set; }
-            [ForeignKey("Medicine")]
-            public int MedicinID { get; set; }
-            public DateTime PrescriptionDate { get; set; }
-            public string Dosage { get; set; } = default!;
-            public string Advice { get; set; } = default!;
-            public string ProgressNotes { get; set; } = default!;
-            public DateTime? NextVisit { get; set; } = default!; // Nullable
-            public bool AdmissionSuggested { get; set; } = default!;
-            //public string PrescribedBy { get; set; } //doctor name comes via DoctorID
-            [ForeignKey("Doctor")]
-            public int DoctorID { get; set; }
-            [ForeignKey("LabTest")]
-            public int TestID { get; set; }
-            public DateTime DiagnosisDate { get; set; }//work as prescription date
-            public string Symptoms { get; set; } = default!;
-            public DateTime SymptomStartDate { get; set; }
-            public int Severity { get; set; }
-            public string Duration { get; set; } = default!;
-            public string DiagonesNotes { get; set; } = default!;
-            public string FollowUpInstructions { get; set; } = default!;
-
-            [NotMapped]
-            public virtual Medicine Medicine { get; set; } = default!;
-            public virtual PatientRegister PatientRegister { get; set; } = default!;
-            public virtual Doctor Doctor { get; set; } = default!;
-            public virtual LabTest LabTest { get; set; } = default!;
-            public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
-            public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
-        }
         public class LabTest
         {
             [Key]
