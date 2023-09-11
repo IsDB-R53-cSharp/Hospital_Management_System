@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static HMS.Models.DbModels;
+using HMS.Models;
 using HMS.Models.SurgeryWard;
 
 namespace HMS.Models
@@ -54,7 +54,7 @@ namespace HMS.Models
     public enum NurseType
     {
         [Display(Name = "General Nurse")]
-        General,
+        General=1,
 
         [Display(Name = "Ward Duty Nurse")]
         WordDuty,
@@ -74,14 +74,12 @@ namespace HMS.Models
 
     public enum NurseLevel
     {
-        Intern,
-        Junior,
+        Junior=1,
         Intermediate,
         Senior,
-
         [Display(Name = "Head Nurse")]
         HeadNurse,
-
+        Intern,
         Other
     }
 

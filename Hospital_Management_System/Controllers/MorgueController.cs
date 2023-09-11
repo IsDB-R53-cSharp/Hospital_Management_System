@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HMS.Models;
 using HMS.DAL.Data;
-using static HMS.Models.DbModels;
+
 
 namespace Hospital_Management_System.Controllers
 {

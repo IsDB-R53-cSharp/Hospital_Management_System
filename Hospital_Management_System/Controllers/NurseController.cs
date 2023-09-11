@@ -125,6 +125,27 @@ namespace HMS.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public IActionResult DeleteNurse(int id)
+        {
+            try
+            {
+                Nurse existingNurse = _nurseRepo.GetNurseById(id);
+                if (existingNurse == null)
+                {
+                    return NotFound($"Nurse with ID {id} not found.");
+                }
+
+                return BadRequest("Nurse can't be deleted. Change nurse status instead.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
 

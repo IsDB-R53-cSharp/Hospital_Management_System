@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static HMS.Models.DbModels;
+using HMS.Models;
 using HMS.Models.SurgeryWard;
 
 namespace HMS.Models
@@ -60,7 +60,7 @@ namespace HMS.Models
     public enum doctortype
     {
         [Display(Name = "General Practitioner")]
-        generalpractitioner,
+        generalpractitioner=1,
 
         [Display(Name = "Specialist")]
         specialist,

@@ -126,5 +126,26 @@ namespace Hospital_Management_System.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public IActionResult DeleteDoctor(int id)
+        {
+            try
+            {
+                Doctor existingDoctor = _docRepo.GetDoctorById(id);
+                if (existingDoctor == null)
+                {
+                    return NotFound($"Doctor with ID {id} not found.");
+                }
+
+                return BadRequest("Doctor can't be deleted. Change doctor status instead.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

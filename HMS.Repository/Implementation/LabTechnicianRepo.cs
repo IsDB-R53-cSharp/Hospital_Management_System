@@ -16,7 +16,7 @@ namespace HMS.Repository.Implementation
             this._labTechnicianRepo = labTechnicianRepo;
         }
 
-        public IEnumerable<LabTechnician> GetLabTechnicians()
+        public IQueryable<LabTechnician> GetLabTechnicians()
         {
             try
             {

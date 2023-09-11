@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static HMS.Models.DbModels;
+using HMS.Models;
 
 namespace HMS.Models
 {

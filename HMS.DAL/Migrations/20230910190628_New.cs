@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HMS.DAL.Migrations
 {
-    public partial class a : Migration
+    public partial class New : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,8 @@ namespace HMS.DAL.Migrations
                     AmbulanceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AmbulanceNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DrivingLiense = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DriverName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Availability = table.Column<bool>(type: "bit", nullable: false)
@@ -45,33 +47,40 @@ namespace HMS.DAL.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DepartmentDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.DepartmentID);
+                    table.PrimaryKey("PK_Departments", x => x.DepartmentId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medicines",
+                name: "Manufacturer",
                 columns: table => new
                 {
-                    MedicineID = table.Column<int>(type: "int", nullable: false)
+                    ManufacturerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MedicineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GenericName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Manufacturer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SellQuantity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ManufacturerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medicines", x => x.MedicineID);
+                    table.PrimaryKey("PK_Manufacturer", x => x.ManufacturerID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MedicineGeneric",
+                columns: table => new
+                {
+                    MedicineGenericID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MedicineGenericNames = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicineGeneric", x => x.MedicineGenericID);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,13 +106,13 @@ namespace HMS.DAL.Migrations
                 {
                     EmployeeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmployeePosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkShift = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Education_Info = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AttendanceDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    OtherEmployeeName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    OtherEmployeeType = table.Column<int>(type: "int", nullable: false),
+                    JoinDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ResignDate = table.Column<DateTime>(type: "date", nullable: true),
+                    employeeStatus = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Education_Info = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,13 +143,15 @@ namespace HMS.DAL.Migrations
                 {
                     DoctorID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DoctorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DoctorName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    Specialization = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkShift = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Education_Info = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Specialization = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Doctortype = table.Column<int>(type: "int", nullable: false),
+                    JoinDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ResignDate = table.Column<DateTime>(type: "date", nullable: true),
+                    employeeStatus = table.Column<int>(type: "int", nullable: false),
+                    Education_Info = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,7 +160,7 @@ namespace HMS.DAL.Migrations
                         name: "FK_Doctors_Departments_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentID",
+                        principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -171,7 +182,7 @@ namespace HMS.DAL.Migrations
                         name: "FK_LabEquipments_Departments_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentID",
+                        principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -181,13 +192,14 @@ namespace HMS.DAL.Migrations
                 {
                     TechnicianID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TechnicianName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TechnicianName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    TechnicianType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkShift = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Education_Info = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TechnicianType = table.Column<int>(type: "int", nullable: false),
+                    JoinDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ResignDate = table.Column<DateTime>(type: "date", nullable: true),
+                    employeeStatus = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Education_Info = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,7 +208,7 @@ namespace HMS.DAL.Migrations
                         name: "FK_LabTechnicians_Departments_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentID",
+                        principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -206,13 +218,15 @@ namespace HMS.DAL.Migrations
                 {
                     NurseID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NurseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NurseName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    NurseLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkShift = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Education_Info = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    NurseLevel = table.Column<int>(type: "int", nullable: false),
+                    NurseType = table.Column<int>(type: "int", nullable: false),
+                    JoinDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ResignDate = table.Column<DateTime>(type: "date", nullable: true),
+                    employeeStatus = table.Column<int>(type: "int", nullable: false),
+                    Education_Info = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,7 +235,7 @@ namespace HMS.DAL.Migrations
                         name: "FK_Nurses_Departments_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentID",
+                        principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -231,7 +245,7 @@ namespace HMS.DAL.Migrations
                 {
                     WardID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WardName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WardName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     BedCabinNumber = table.Column<int>(type: "int", nullable: false),
                     DepartmentID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -242,7 +256,38 @@ namespace HMS.DAL.Migrations
                         name: "FK_WardCabins_Departments_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentID",
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Medicines",
+                columns: table => new
+                {
+                    MedicineID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MedicineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    SellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MedicineGenericID = table.Column<int>(type: "int", nullable: false),
+                    ManufacturerID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medicines", x => x.MedicineID);
+                    table.ForeignKey(
+                        name: "FK_Medicines_Manufacturer_ManufacturerID",
+                        column: x => x.ManufacturerID,
+                        principalTable: "Manufacturer",
+                        principalColumn: "ManufacturerID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Medicines_MedicineGeneric_MedicineGenericID",
+                        column: x => x.MedicineGenericID,
+                        principalTable: "MedicineGeneric",
+                        principalColumn: "MedicineGenericID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -258,17 +303,17 @@ namespace HMS.DAL.Migrations
                     AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AppointmentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TicketNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AppointmentStatus = table.Column<bool>(type: "bit", nullable: false)
+                    AppointmentStatus = table.Column<bool>(type: "bit", nullable: false),
+                    NurseID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Appointments", x => x.AppointmentID);
                     table.ForeignKey(
-                        name: "FK_Appointments_Doctors_DoctorID",
-                        column: x => x.DoctorID,
-                        principalTable: "Doctors",
-                        principalColumn: "DoctorID",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Appointments_Nurses_NurseID",
+                        column: x => x.NurseID,
+                        principalTable: "Nurses",
+                        principalColumn: "NurseID");
                 });
 
             migrationBuilder.CreateTable(
@@ -386,9 +431,9 @@ namespace HMS.DAL.Migrations
                 {
                     OutdoorID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PatientID = table.Column<int>(type: "int", nullable: false),
+                    PatientID = table.Column<int>(type: "int", nullable: true),
                     TreatmentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TreatmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TreatmentDate = table.Column<DateTime>(type: "date", nullable: false),
                     TicketNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InvoiceID = table.Column<int>(type: "int", nullable: false),
                     DoctorID = table.Column<int>(type: "int", nullable: false),
@@ -408,8 +453,7 @@ namespace HMS.DAL.Migrations
                         name: "FK_Outdoors_PatientRegisters_PatientID",
                         column: x => x.PatientID,
                         principalTable: "PatientRegisters",
-                        principalColumn: "PatientID",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "PatientID");
                 });
 
             migrationBuilder.CreateTable(
@@ -434,7 +478,8 @@ namespace HMS.DAL.Migrations
                     Severity = table.Column<int>(type: "int", nullable: false),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiagonesNotes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FollowUpInstructions = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    FollowUpInstructions = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NurseID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -450,7 +495,12 @@ namespace HMS.DAL.Migrations
                         column: x => x.TestID,
                         principalTable: "LabTests",
                         principalColumn: "TestID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Prescriptions_Nurses_NurseID",
+                        column: x => x.NurseID,
+                        principalTable: "Nurses",
+                        principalColumn: "NurseID");
                     table.ForeignKey(
                         name: "FK_Prescriptions_PatientRegisters_PatientID",
                         column: x => x.PatientID,
@@ -500,14 +550,15 @@ namespace HMS.DAL.Migrations
                     SurgeryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PatientID = table.Column<int>(type: "int", nullable: false),
-                    ProcedureType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SurgeryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SurgeryType = table.Column<int>(type: "int", nullable: false),
+                    SurgeryDate = table.Column<DateTime>(type: "date", nullable: false),
                     DoctorID = table.Column<int>(type: "int", nullable: false),
-                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Preoperative_Diagnosis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Postoperative_Diagnosis = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Observations = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Preoperative_Diagnosis = table.Column<int>(type: "int", nullable: false),
+                    Postoperative_Diagnosis = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     TestID = table.Column<int>(type: "int", nullable: false),
-                    PrescriptionID = table.Column<int>(type: "int", nullable: false)
+                    PrescriptionID = table.Column<int>(type: "int", nullable: false),
+                    NurseID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -525,6 +576,11 @@ namespace HMS.DAL.Migrations
                         principalColumn: "TestID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_SurgeryProcedures_Nurses_NurseID",
+                        column: x => x.NurseID,
+                        principalTable: "Nurses",
+                        principalColumn: "NurseID");
+                    table.ForeignKey(
                         name: "FK_SurgeryProcedures_PatientRegisters_PatientID",
                         column: x => x.PatientID,
                         principalTable: "PatientRegisters",
@@ -539,9 +595,9 @@ namespace HMS.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_DoctorID",
+                name: "IX_Appointments_NurseID",
                 table: "Appointments",
-                column: "DoctorID");
+                column: "NurseID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DischargeTransfers_PatientID",
@@ -594,6 +650,16 @@ namespace HMS.DAL.Migrations
                 column: "PrescriptionsPrescriptionID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Medicines_ManufacturerID",
+                table: "Medicines",
+                column: "ManufacturerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Medicines_MedicineGenericID",
+                table: "Medicines",
+                column: "MedicineGenericID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Nurses_DepartmentID",
                 table: "Nurses",
                 column: "DepartmentID");
@@ -619,6 +685,11 @@ namespace HMS.DAL.Migrations
                 column: "DoctorID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Prescriptions_NurseID",
+                table: "Prescriptions",
+                column: "NurseID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Prescriptions_PatientID",
                 table: "Prescriptions",
                 column: "PatientID");
@@ -632,6 +703,11 @@ namespace HMS.DAL.Migrations
                 name: "IX_SurgeryProcedures_DoctorID",
                 table: "SurgeryProcedures",
                 column: "DoctorID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SurgeryProcedures_NurseID",
+                table: "SurgeryProcedures",
+                column: "NurseID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SurgeryProcedures_PatientID",
@@ -681,9 +757,6 @@ namespace HMS.DAL.Migrations
                 name: "Morgues");
 
             migrationBuilder.DropTable(
-                name: "Nurses");
-
-            migrationBuilder.DropTable(
                 name: "OtherEmployees");
 
             migrationBuilder.DropTable(
@@ -696,6 +769,12 @@ namespace HMS.DAL.Migrations
                 name: "WasteManagements");
 
             migrationBuilder.DropTable(
+                name: "Manufacturer");
+
+            migrationBuilder.DropTable(
+                name: "MedicineGeneric");
+
+            migrationBuilder.DropTable(
                 name: "Invoices");
 
             migrationBuilder.DropTable(
@@ -706,6 +785,9 @@ namespace HMS.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "LabTests");
+
+            migrationBuilder.DropTable(
+                name: "Nurses");
 
             migrationBuilder.DropTable(
                 name: "LabTechnicians");
