@@ -1,8 +1,9 @@
 ﻿using HMS.DAL.Data;
+using HMS.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static HMS.Models.DbModels;
+
 
 namespace Hospital_Management_System.Controllers
 {

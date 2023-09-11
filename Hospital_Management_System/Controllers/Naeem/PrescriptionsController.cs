@@ -3,6 +3,7 @@ using HMS.Models;
 using HMS.Models.SurgeryWard;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_Management_System.Controllers.Naeem
 {
@@ -15,6 +16,7 @@ namespace Hospital_Management_System.Controllers.Naeem
         {
             this.db = db;
         }
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Prescriptions>>> GetPrescriptions()
         {
             var prs=await db.Prescriptions.ToListAsync();
