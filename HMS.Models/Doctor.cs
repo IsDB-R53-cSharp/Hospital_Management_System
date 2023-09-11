@@ -49,13 +49,13 @@ namespace HMS.Models
         public virtual Department? Department { get; set; } = default!;
 
         [NotMapped]
-        public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
+        public virtual ICollection<Prescriptions?> Prescriptions { get; set; } = new List<Prescriptions?>();
 
         [NotMapped]
-        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
 
         [NotMapped]
-        public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
+        public virtual ICollection<SurgeryProcedure?> SurgeryProcedures { get; set; } = new List<SurgeryProcedure?>();
     }
     public enum doctortype
     {

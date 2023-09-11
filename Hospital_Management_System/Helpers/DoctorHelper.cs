@@ -20,11 +20,11 @@ namespace Hospital_Management_System.Helpers
             this.JoinDate = doctor.JoinDate;
             this.ResignDate = doctor.ResignDate;
             this.Education_Info = doctor.Education_Info;
-            //this.employeeStatus = labTechnician.employeeStatus;   //status missing
-            this.Department = doctor.Department;
-            this.Prescriptions = doctor.Prescriptions.ToList();
-            this.Appointments = doctor.Appointments.ToList();
-            this.SurgeryProcedures = doctor.SurgeryProcedures.ToList();
+            this.employeeStatus = doctor.employeeStatus;
+            //this.Department = doctor.Department;
+            //this.Prescriptions = doctor.Prescriptions.ToList();
+            //this.Appointments = doctor.Appointments.ToList();
+            //this.SurgeryProcedures = doctor.SurgeryProcedures.ToList();
         }
 
         public int DoctorID { get; set; }
@@ -36,10 +36,11 @@ namespace Hospital_Management_System.Helpers
         public DateTime? ResignDate { get; set; }
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
-        public Department? Department { get; set; }
-        public List<Prescriptions>? Prescriptions { get; set; }
-        public List<Appointment>? Appointments { get; set; }
-        public List<SurgeryProcedure>? SurgeryProcedures { get; set; }
+        public EmployeeStatus employeeStatus { get; set; }
+        //public Department? Department { get; set; }
+        //public List<Prescriptions>? Prescriptions { get; set; }
+        //public List<Appointment>? Appointments { get; set; }
+        //public List<SurgeryProcedure>? SurgeryProcedures { get; set; }
 
         public Doctor GetDoctor()
         {
@@ -50,12 +51,12 @@ namespace Hospital_Management_System.Helpers
             doctor.Specialization = this.Specialization;
             this.doctortype = doctor.Doctortype;
             doctor.JoinDate = this.JoinDate;
-            //this.employeeStatus = labTechnician.employeeStatus;   status missing?
+            doctor.employeeStatus = this.employeeStatus;
             doctor.Education_Info = this.Education_Info;
-            doctor.Department = this.Department;
-            doctor.Prescriptions = this.Prescriptions;
-            doctor.Appointments = this.Appointments;
-            doctor.SurgeryProcedures = this.SurgeryProcedures;
+            //doctor.Department = this.Department;
+            //doctor.Prescriptions = this.Prescriptions;
+            //doctor.Appointments = this.Appointments;
+            //doctor.SurgeryProcedures = this.SurgeryProcedures;
             return doctor;
         }
 

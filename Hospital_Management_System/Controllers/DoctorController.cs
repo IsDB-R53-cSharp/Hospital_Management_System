@@ -112,12 +112,12 @@ namespace Hospital_Management_System.Controllers
                 existingDoctor.Specialization = doctorHelper.Specialization;
                 existingDoctor.Doctortype = doctorHelper.doctortype;
                 existingDoctor.JoinDate = doctorHelper.JoinDate;
-                existingDoctor.Image = imagePath; // Update the image path
+                existingDoctor.Image = imagePath; 
                 existingDoctor.Education_Info = doctorHelper.Education_Info;
-                existingDoctor.Department = doctorHelper.Department;
-                existingDoctor.Prescriptions = doctorHelper.Prescriptions;
-                existingDoctor.Appointments = doctorHelper.Appointments;
-                existingDoctor.SurgeryProcedures = doctorHelper.SurgeryProcedures;
+                //existingDoctor.Department = doctorHelper.Department;
+                //existingDoctor.Prescriptions = doctorHelper.Prescriptions;
+                //existingDoctor.Appointments = doctorHelper.Appointments;
+                //existingDoctor.SurgeryProcedures = doctorHelper.SurgeryProcedures;
 
                 _docRepo.SaveDoctor(existingDoctor);
 
