@@ -14,6 +14,9 @@ namespace HMS.Models
         [Key]
         public int TestID { get; set; }
         public string TestName { get; set; } = default!;
+
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         //[ForeignKey("Departments")]
         //public int DepartmentID { get; set; }

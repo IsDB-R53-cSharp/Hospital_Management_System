@@ -15,7 +15,13 @@ namespace HMS.Models
         public string MedicineName { get; set; } = default!;
         public DateTime ExpireDate { get; set; }
         public int Quantity { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal SellPrice { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Discount { get; set; }
         [ForeignKey("MedicineGeneric")]
         public int MedicineGenericID { get; set; } // Foreign key

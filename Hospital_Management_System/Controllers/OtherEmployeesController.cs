@@ -40,6 +40,30 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetOtherEmployeeById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetOtherEmployeeById(int id)
+        {
+            try
+            {
+                OtherEmployee otherEmployee = _otherEmployeeRepo.GetOtherEmployeeById(id);
+
+                if (otherEmployee == null)
+                {
+                    return NotFound($"Other Employee with ID {id} not found.");
+                }
+
+                return Ok(otherEmployee);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         [Route("Insert")]
         public async Task<IActionResult> PostOtherEmployee([FromForm] OtherEmployeeHelper otherEmployeeHelper)

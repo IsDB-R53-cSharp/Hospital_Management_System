@@ -15,7 +15,6 @@ namespace Hospital_Management_System.Helpers
             this.TechnicianID = labTechnician.TechnicianID;
             this.DepartmentID = labTechnician.DepartmentID;
             this.TechnicianName = labTechnician.TechnicianName;
-
             this.TechnicianType = labTechnician.TechnicianType;
 
             //// parse TechnicianType from string to enum
@@ -28,8 +27,8 @@ namespace Hospital_Management_System.Helpers
             this.ResignDate = labTechnician.ResignDate;
             this.employeeStatus = labTechnician.employeeStatus;
             this.Education_Info = labTechnician.Education_Info;
-            this.Departments = labTechnician.Departments;
-            this.Labtest = labTechnician.Labtest.ToList();
+            //this.Departments = labTechnician.Departments;
+            //this.Labtest = labTechnician.Labtest.ToList();
         }
 
 
@@ -42,8 +41,8 @@ namespace Hospital_Management_System.Helpers
         public EmployeeStatus employeeStatus { get; set; }
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
-        public Department? Departments { get; set; }
-        public List<LabTest>? Labtest { get; set; }
+        //public Department? Departments { get; set; }
+        //public List<LabTest>? Labtest { get; set; }
 
         public LabTechnician GetLabTechnician()
         {
@@ -56,8 +55,8 @@ namespace Hospital_Management_System.Helpers
             labTechnician.ResignDate = this.ResignDate;
             labTechnician.employeeStatus = this.employeeStatus;
             labTechnician.Education_Info = this.Education_Info;
-            labTechnician.Departments = this.Departments;
-            labTechnician.Labtest = this.Labtest;
+            //labTechnician.Departments = this.Departments;
+            //labTechnician.Labtest = this.Labtest;
             return labTechnician;
         }
     }

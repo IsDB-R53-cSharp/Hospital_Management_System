@@ -15,25 +15,70 @@ namespace HMS.Models
 
         [ForeignKey("PatientRegister")]
         public int? PatientID { get; set; }
-        public string TreatmentType { get; set; } //add enum
+
+        [EnumDataType(typeof(TreatmentType))]
+        public TreatmentType TreatmentType { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "Join Date")]
+        [Display(Name = "Treatment Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime TreatmentDate { get; set; }
 
-        public string TicketNumber { get; set; }
+        [Display(Name = "Outdoor Ticket Number")]
+        public string TicketNumber { get; set; } = default!;
 
-        public int InvoiceID { get; set; }// FK
+        [ForeignKey("Bill")]
+        public int BillID { get; set; }
 
+        [ForeignKey("Doctor")]
         public int DoctorID { get; set; }
 
-        public string Remarks { get; set; }
+        public string Remarks { get; set; } = default!;
 
         public bool IsAdmissionRequired { get; set; }
 
-        public virtual PatientRegister PatientRegister { get; set; }
+        public virtual PatientRegister? PatientRegister { get; set; }
 
-        public virtual Invoice Invoice { get; set; }
+        public virtual Bill? Bill { get; set; }
+    }
+    public enum TreatmentType
+    {
+        [Display(Name = "Emergency")]
+        Emergency = 1,
+
+        [Display(Name = "Minor Treatment")]
+        MinorTreatment,
+
+        [Display(Name = "Vaccination")]
+        Vaccination,
+
+        [Display(Name = "Wound Dressing")]
+        WoundDressing,
+
+        [Display(Name = "Prescription Renewal")]
+        PrescriptionRenewal,
+
+        [Display(Name = "Physical Therapy")]
+        PhysicalTherapy,
+
+        [Display(Name = "Blood Pressure Check")]
+        BloodPressureCheck,
+
+        //[Display(Name = "X-ray")]
+        //XRay,
+
+        //[Display(Name = "Laboratory Tests")]
+        //LaboratoryTests,
+
+        [Display(Name = "Consultation")]
+        Consultation,
+
+        [Display(Name = "Follow-up")]
+        FollowUp,
+
+        [Display(Name = "Dental Checkup")]
+        DentalCheckup,
+
+        other
     }
 }

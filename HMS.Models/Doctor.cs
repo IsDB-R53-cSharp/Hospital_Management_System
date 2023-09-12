@@ -25,6 +25,7 @@ namespace HMS.Models
         [StringLength(20, ErrorMessage = "Enter Doctor Speciality Only (Ex: Heart, Kidney)")]
         public string Specialization { get; set; } = default!;
 
+        [EnumDataType(typeof(doctortype))]
         public doctortype Doctortype { get; set; } = default!;
 
         [Column(TypeName = "date")]
@@ -49,13 +50,13 @@ namespace HMS.Models
         public virtual Department? Department { get; set; } = default!;
 
         [NotMapped]
-        public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
+        public virtual ICollection<Prescriptions?> Prescriptions { get; set; } = new List<Prescriptions?>();
 
         [NotMapped]
-        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
 
         [NotMapped]
-        public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
+        public virtual ICollection<SurgeryProcedure?> SurgeryProcedures { get; set; } = new List<SurgeryProcedure?>();
     }
     public enum doctortype
     {

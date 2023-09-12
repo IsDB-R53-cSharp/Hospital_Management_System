@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+
 namespace Hospital_Management_System
 {
     public class Program

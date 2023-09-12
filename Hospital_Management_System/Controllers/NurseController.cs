@@ -39,6 +39,30 @@ namespace HMS.WebApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetNurseById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetNurseById(int id)
+        {
+            try
+            {
+                Nurse nurse = _nurseRepo.GetNurseById(id);
+
+                if (nurse == null)
+                {
+                    return NotFound($"Nurse with ID {id} not found.");
+                }
+
+                return Ok(nurse);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         [Route("Insert")]
         public async Task<IActionResult> PostNurse([FromForm] NurseHelper nurseHelper)
@@ -112,9 +136,9 @@ namespace HMS.WebApi.Controllers
                 existingNurse.JoinDate = nurseHelper.JoinDate;
                 existingNurse.ResignDate = nurseHelper.ResignDate;
                 existingNurse.employeeStatus = nurseHelper.employeeStatus;
-                existingNurse.Image = imagePath; // Update the image path
+                existingNurse.Image = imagePath;
                 existingNurse.Education_Info = nurseHelper.Education_Info;
-                existingNurse.Department = nurseHelper.Department;
+                //existingNurse.Department = nurseHelper.Department;
 
                 _nurseRepo.SaveNurse(existingNurse);
 
@@ -148,162 +172,4 @@ namespace HMS.WebApi.Controllers
 
     }
 }
-
-
-
-
-
-//using HMS.Models;
-//using HMS.Repository.Interface;
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
-//using System;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using static HMS.Models.DbModels;
-//using Hospital_Management_System.Helpers;
-
-//namespace HMS.WebApi.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class NursesController : ControllerBase
-//    {
-//        private readonly INurseRepo _nurseRepo;
-
-//        public NursesController(INurseRepo nurseRepo)
-//        {
-//            _nurseRepo = nurseRepo;
-//        }
-
-//        [HttpGet]
-//        [Route("GetNurse")]
-//        [ProducesResponseType(StatusCodes.Status200OK)]
-//        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//        public IActionResult GetNurse()
-//        {
-//            try
-//            {
-//                var nurses = _nurseRepo.GetNurses().ToList();
-//                return Ok(nurses);
-//            }
-//            catch (Exception ex)
-//            {
-//                return BadRequest(ex.Message);
-//            }
-//        }
-
-//        [HttpPost]
-//        [Route("Insert")]
-//        public async Task<IActionResult> PostNurse([FromForm] NurseHelper nurseHelper)
-//        {
-//            try
-//            {
-//                // Create an instance of NurseHelper
-//                NurseHelper nurseHelperInstance = new NurseHelper();
-
-//                // Handle image upload
-//                string imagePath = await nurseHelperInstance.SaveImageAsync(nurseHelper.Image);
-
-//                Nurse nurseToSave = nurseHelper.GetNurse();
-//                nurseToSave.Image = imagePath;
-
-//                // Check if there's an existing nurse with the same ID
-//                Nurse existingNurse = _nurseRepo.GetNurseById(nurseToSave.NurseID);
-//                if (existingNurse != null)
-//                {
-//                    // Update the nurse's properties
-//                    existingNurse.DepartmentID = nurseToSave.DepartmentID;
-//                    existingNurse.NurseName = nurseToSave.NurseName;
-//                    existingNurse.NurseLevel = nurseToSave.NurseLevel;
-//                    existingNurse.NurseType = nurseToSave.NurseType;
-//                    existingNurse.JoinDate = nurseToSave.JoinDate;
-//                    existingNurse.ResignDate = nurseToSave.ResignDate;
-//                    existingNurse.employeeStatus = nurseToSave.employeeStatus;
-//                    existingNurse.Image = nurseToSave.Image;
-//                    existingNurse.Education_Info = nurseToSave.Education_Info;
-//                    existingNurse.Department = nurseToSave.Department;
-//                    //existingNurse.WardCabins = nurseToSave.WardCabins;
-
-//                    _nurseRepo.SaveNurse(existingNurse);
-//                }
-//                else
-//                {
-//                    // Create a new nurse
-//                    _nurseRepo.SaveNurse(nurseToSave);
-//                }
-
-//                return Ok(nurseToSave);
-//            }
-//            catch (Exception ex)
-//            {
-//                return BadRequest(ex.Message);
-//            }
-//        }
-
-//        [HttpPut]
-//        [Route("Update/{id}")]
-//        public async Task<IActionResult> PostNurse(int id, [FromForm] NurseHelper nurseHelper)
-//        {
-//            try
-//            {
-//                // Create an instance of NurseHelper
-//                NurseHelper nurseHelperInstance = new NurseHelper();
-
-//                // Handle image upload
-//                string imagePath = await nurseHelperInstance.SaveImageAsync(nurseHelper.Image);
-
-//                Nurse existingNurse = _nurseRepo.GetNurseById(id);
-
-//                if (existingNurse == null)
-//                {
-//                    return NotFound($"Nurse with ID {id} not found.");
-//                }
-
-//                // Update the existing nurse's properties
-//                existingNurse.DepartmentID = nurseHelper.DepartmentID;
-//                existingNurse.NurseName = nurseHelper.NurseName;
-//                existingNurse.NurseLevel = nurseHelper.NurseLevel;
-//                existingNurse.NurseType = nurseHelper.NurseType;
-//                existingNurse.JoinDate = nurseHelper.JoinDate;
-//                existingNurse.ResignDate = nurseHelper.ResignDate;
-//                existingNurse.employeeStatus = nurseHelper.employeeStatus;
-//                existingNurse.Image = imagePath; // Update the image path
-//                existingNurse.Education_Info = nurseHelper.Education_Info;
-//                existingNurse.Department = nurseHelper.Department;
-//                //existingNurse.WardCabins = nurseHelper.WardCabins;
-
-//                _nurseRepo.SaveNurse(existingNurse);
-
-//                return Ok(existingNurse);
-//            }
-//            catch (Exception ex)
-//            {
-//                return BadRequest(ex.Message);
-//            }
-//        }
-
-//        //[HttpDelete]
-//        //[Route("Delete/{id}")]
-//        //public IActionResult DeleteNurse(int id)
-//        //{
-//        //    try
-//        //    {
-//        //        Nurse existingNurse = _nurseRepo.GetNurseById(id);
-//        //        if (existingNurse == null)
-//        //        {
-//        //            return NotFound($"Nurse with ID {id} not found.");
-//        //        }
-
-//        //        _nurseRepo.DeleteNurse(id);
-
-//        //        return Ok($"Nurse with ID {id} has been deleted.");
-//        //    }
-//        //    catch (Exception ex)
-//        //    {
-//        //        return BadRequest(ex.Message);
-//        //    }
-//        //}
-//    }
-//}
 

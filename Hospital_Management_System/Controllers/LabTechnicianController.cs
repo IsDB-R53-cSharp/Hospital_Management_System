@@ -38,6 +38,30 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetLabTechnicianById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetLabTechnicianById(int id)
+        {
+            try
+            {
+                LabTechnician labTechnician = _labTechnicianRepo.GetLabTechnicianById(id);
+
+                if (labTechnician == null)
+                {
+                    return NotFound($"Lab Technician with ID {id} not found.");
+                }
+
+                return Ok(labTechnician);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -90,11 +114,11 @@ namespace Hospital_Management_System.Controllers
                 existingLabTechnician.TechnicianName = labTechnicianHelper.TechnicianName;
                 existingLabTechnician.TechnicianType = labTechnicianHelper.TechnicianType;
                 existingLabTechnician.JoinDate = labTechnicianHelper.JoinDate;
-                existingLabTechnician.Image = imagePath; // Update the image path
+                existingLabTechnician.Image = imagePath; 
                 existingLabTechnician.Education_Info = labTechnicianHelper.Education_Info;
                 existingLabTechnician.employeeStatus = labTechnicianHelper.employeeStatus;
-                existingLabTechnician.Departments = labTechnicianHelper.Departments;
-                existingLabTechnician.Labtest = labTechnicianHelper.Labtest;
+                //existingLabTechnician.Departments = labTechnicianHelper.Departments;
+                //existingLabTechnician.Labtest = labTechnicianHelper.Labtest;
 
                 _labTechnicianRepo.SaveLabTechnician(existingLabTechnician);
 

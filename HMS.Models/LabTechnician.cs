@@ -45,7 +45,7 @@ namespace HMS.Models
 
         public virtual Department? Departments { get; set; } = default!;
 
-        public virtual ICollection<LabTest> Labtest { get; set; } = new List<LabTest>();
+        public virtual ICollection<LabTest?> Labtest { get; set; } = new List<LabTest?>();
     }
     public enum TechnicianType
     {
