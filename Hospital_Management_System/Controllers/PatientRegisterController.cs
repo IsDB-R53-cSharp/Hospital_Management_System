@@ -46,8 +46,7 @@ namespace Hospital_Management_System.Controllers
         {
             _context.PatientRegisters.Add(patient);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetPatient), new { id = patient.PatientID }, patient);
+            return Ok(patient);
         }
 
         // PUT: api/Patient
@@ -77,7 +76,9 @@ namespace Hospital_Management_System.Controllers
                 }
             }
 
-            return NoContent();
+            //return NoContent();
+
+            return Ok(patient);
         }
 
 
@@ -94,7 +95,7 @@ namespace Hospital_Management_System.Controllers
             _context.PatientRegisters.Remove(patient);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("data delete successfully!!");
         }
 
         private bool PatientExists(int id)

@@ -15,9 +15,11 @@ namespace HMS.Models
         public bool PatientType { get; set; } //indore/outdoor -- enum?
         public DateTime RecordDate { get; set; }
         public string MedicalHistory { get; set; } = default!; //prescription history + other history
-        [ForeignKey("Patient")]
-        public int PatientID { get; set; }//for patient basic info
-        public PatientRegister Patient { get; set; } = default!;
+        //[ForeignKey("PatientRegister")]
+        public int? PatientID { get; set; }//for patient basic info
+
+        [NotMapped]
+        public PatientRegister? Patient { get; set; } = default!;
 
         //add prescription id
 

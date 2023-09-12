@@ -148,6 +148,20 @@ namespace HMS.DAL.Migrations
                     b.HasKey("DepartmentId");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            DepartmentId = 1,
+                            DepartmentDescription = "It is concerned with disorders and diseases of the nervous system",
+                            DepartmentName = "Neurology"
+                        },
+                        new
+                        {
+                            DepartmentId = 2,
+                            DepartmentDescription = "The branch of medicine dealing with children and their diseases.",
+                            DepartmentName = "Paediatrics"
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.DischargeTransfer", b =>
@@ -165,12 +179,10 @@ namespace HMS.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PatientID")
+                    b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
                     b.HasKey("DT_ID");
-
-                    b.HasIndex("PatientID");
 
                     b.ToTable("DischargeTransfers");
                 });
@@ -255,7 +267,7 @@ namespace HMS.DAL.Migrations
                     b.Property<decimal>("PaidAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("PatientID")
+                    b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
                     b.Property<string>("PaymentMethod")
@@ -275,8 +287,6 @@ namespace HMS.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("InvoiceID");
-
-                    b.HasIndex("PatientID");
 
                     b.ToTable("Invoices");
                 });
@@ -423,7 +433,7 @@ namespace HMS.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PatientID")
+                    b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
                     b.Property<bool>("PatientType")
@@ -438,8 +448,6 @@ namespace HMS.DAL.Migrations
                     b.HasKey("MedicalRecordsID");
 
                     b.HasIndex("LabTestTestID");
-
-                    b.HasIndex("PatientID");
 
                     b.HasIndex("PrescriptionsPrescriptionID");
 
@@ -671,50 +679,78 @@ namespace HMS.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientID"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("AdmissionDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("AdmissionDate")
+                        .HasColumnType("date");
 
-                    b.Property<string>("BloodType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("BloodType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmergencyContact")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("IsTransferred")
+                    b.Property<bool?>("IsTransferred")
                         .HasColumnType("bit");
 
                     b.Property<string>("PatientName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WardID")
+                    b.Property<int?>("WardID")
                         .HasColumnType("int");
 
                     b.HasKey("PatientID");
 
-                    b.HasIndex("WardID");
-
                     b.ToTable("PatientRegisters");
+
+                    b.HasData(
+                        new
+                        {
+                            PatientID = 1,
+                            Address = "dhaka",
+                            AdmissionDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = 6,
+                            DateOfBirth = new DateTime(1999, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "am@gmail.com",
+                            EmergencyContact = "123456789",
+                            Gender = 2,
+                            IsTransferred = false,
+                            PatientName = "amina begum",
+                            Phone = "12345678",
+                            WardID = 1
+                        },
+                        new
+                        {
+                            PatientID = 2,
+                            Address = "Pabna",
+                            AdmissionDate = new DateTime(2023, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = 8,
+                            DateOfBirth = new DateTime(1971, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "az@gmail.com",
+                            EmergencyContact = "123456789",
+                            Gender = 1,
+                            IsTransferred = false,
+                            PatientName = "Azman Mollah",
+                            Phone = "1233454",
+                            WardID = 3
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>
@@ -768,7 +804,10 @@ namespace HMS.DAL.Migrations
                     b.Property<int?>("NurseID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PatientID")
+                    b.Property<int?>("PatientID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PatientRegisterPatientID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PrescriptionDate")
@@ -799,7 +838,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("NurseID");
 
-                    b.HasIndex("PatientID");
+                    b.HasIndex("PatientRegisterPatientID");
 
                     b.HasIndex("TestID");
 
@@ -825,7 +864,7 @@ namespace HMS.DAL.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("PatientID")
+                    b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
                     b.Property<string>("Postoperative_Diagnosis")
@@ -837,6 +876,9 @@ namespace HMS.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("PrescriptionID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PrescriptionsPrescriptionID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SurgeryDate")
@@ -854,9 +896,9 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("NurseID");
 
-                    b.HasIndex("PatientID");
-
                     b.HasIndex("PrescriptionID");
+
+                    b.HasIndex("PrescriptionsPrescriptionID");
 
                     b.HasIndex("TestID");
 
@@ -887,6 +929,29 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("WardCabins");
+
+                    b.HasData(
+                        new
+                        {
+                            WardID = 1,
+                            BedCabinNumber = 23,
+                            DepartmentID = 1,
+                            WardName = "Neuro Care"
+                        },
+                        new
+                        {
+                            WardID = 2,
+                            BedCabinNumber = 40,
+                            DepartmentID = 2,
+                            WardName = "Child Care"
+                        },
+                        new
+                        {
+                            WardID = 3,
+                            BedCabinNumber = 12,
+                            DepartmentID = 1,
+                            WardName = "Nerve Care"
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.WasteManagement", b =>
@@ -930,17 +995,6 @@ namespace HMS.DAL.Migrations
                         .HasForeignKey("NurseID");
                 });
 
-            modelBuilder.Entity("HMS.Models.DischargeTransfer", b =>
-                {
-                    b.HasOne("HMS.Models.PatientRegister", "Patient")
-                        .WithMany("DischargeTransfers")
-                        .HasForeignKey("PatientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("HMS.Models.Doctor", b =>
                 {
                     b.HasOne("HMS.Models.Department", null)
@@ -948,17 +1002,6 @@ namespace HMS.DAL.Migrations
                         .HasForeignKey("DepartmentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("HMS.Models.Invoice", b =>
-                {
-                    b.HasOne("HMS.Models.PatientRegister", "PatientRegisters")
-                        .WithMany("Invoices")
-                        .HasForeignKey("PatientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PatientRegisters");
                 });
 
             modelBuilder.Entity("HMS.Models.LabEquipment", b =>
@@ -1004,17 +1047,9 @@ namespace HMS.DAL.Migrations
                         .WithMany("MedicalRecords")
                         .HasForeignKey("LabTestTestID");
 
-                    b.HasOne("HMS.Models.PatientRegister", "Patient")
-                        .WithMany("MedicalRecords")
-                        .HasForeignKey("PatientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HMS.Models.Prescriptions", null)
                         .WithMany("MedicalRecords")
                         .HasForeignKey("PrescriptionsPrescriptionID");
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("HMS.Models.Medicine", b =>
@@ -1062,17 +1097,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("PatientRegister");
                 });
 
-            modelBuilder.Entity("HMS.Models.PatientRegister", b =>
-                {
-                    b.HasOne("HMS.Models.SurgeryWard.WardCabin", "WardCabin")
-                        .WithMany("PatientRegisters")
-                        .HasForeignKey("WardID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WardCabin");
-                });
-
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>
                 {
                     b.HasOne("HMS.Models.Doctor", "Doctor")
@@ -1085,11 +1109,10 @@ namespace HMS.DAL.Migrations
                         .WithMany("Prescriptions")
                         .HasForeignKey("NurseID");
 
-                    b.HasOne("HMS.Models.PatientRegister", "PatientRegister")
+                    b.HasOne("HMS.Models.PatientRegister", null)
                         .WithMany("Prescriptions")
-                        .HasForeignKey("PatientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PatientRegisterPatientID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HMS.Models.LabTest", "LabTest")
                         .WithMany("Prescriptions")
@@ -1100,8 +1123,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("LabTest");
-
-                    b.Navigation("PatientRegister");
                 });
 
             modelBuilder.Entity("HMS.Models.SurgeryWard.SurgeryProcedure", b =>
@@ -1116,17 +1137,15 @@ namespace HMS.DAL.Migrations
                         .WithMany("SurgeryProcedures")
                         .HasForeignKey("NurseID");
 
-                    b.HasOne("HMS.Models.PatientRegister", "PatientRegister")
-                        .WithMany("SurgeryProcedures")
-                        .HasForeignKey("PatientID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("HMS.Models.Prescriptions", "Prescription")
+                        .WithMany()
+                        .HasForeignKey("PrescriptionID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HMS.Models.Prescriptions", "Prescription")
+                    b.HasOne("HMS.Models.Prescriptions", null)
                         .WithMany("SurgeryProcedures")
-                        .HasForeignKey("PrescriptionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PrescriptionsPrescriptionID");
 
                     b.HasOne("HMS.Models.LabTest", "LabTest")
                         .WithMany("SurgeryProcedures")
@@ -1137,8 +1156,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("LabTest");
-
-                    b.Navigation("PatientRegister");
 
                     b.Navigation("Prescription");
                 });
@@ -1191,15 +1208,7 @@ namespace HMS.DAL.Migrations
 
             modelBuilder.Entity("HMS.Models.PatientRegister", b =>
                 {
-                    b.Navigation("DischargeTransfers");
-
-                    b.Navigation("Invoices");
-
-                    b.Navigation("MedicalRecords");
-
                     b.Navigation("Prescriptions");
-
-                    b.Navigation("SurgeryProcedures");
                 });
 
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>
@@ -1207,11 +1216,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("MedicalRecords");
 
                     b.Navigation("SurgeryProcedures");
-                });
-
-            modelBuilder.Entity("HMS.Models.SurgeryWard.WardCabin", b =>
-                {
-                    b.Navigation("PatientRegisters");
                 });
 #pragma warning restore 612, 618
         }

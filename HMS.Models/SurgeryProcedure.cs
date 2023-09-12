@@ -23,8 +23,8 @@ namespace HMS.Models.SurgeryWard
         [Key]
         public int SurgeryID { get; set; }
 
-        [ForeignKey("PatientRegister")]
-        public int PatientID { get; set; }
+        //[ForeignKey("PatientRegister")]
+        public int? PatientID { get; set; }
 
         [EnumDataType(typeof(SurgeryType))]
         public SurgeryType SurgeryType { get; set; } = default!; //enum
@@ -54,8 +54,10 @@ namespace HMS.Models.SurgeryWard
 
         [ForeignKey("Prescription")]
         public int PrescriptionID { get; set; }
+
+        [NotMapped]
         //nev
-        public virtual PatientRegister PatientRegister { get; set; } = default!;
+        public virtual PatientRegister? PatientRegister { get; set; } = default!;
         public virtual Doctor Doctor { get; set; } = default!;
         public virtual LabTest LabTest { get; set; } = default!;
         public virtual Prescriptions Prescription { get; set; } = default!;

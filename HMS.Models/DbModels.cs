@@ -50,8 +50,8 @@ namespace HMS.Models
     {
         [Key]
         public int InvoiceID { get; set; }
-        [ForeignKey("PatientRegisters")]
-        public int PatientID { get; set; }
+        //[ForeignKey("PatientRegisters")]
+        public int? PatientID { get; set; }
         public string Transaction_Info { get; set; } = default!;
         public decimal Bill_Amount { get; set; }
         public decimal Discount { get; set; }
@@ -63,8 +63,8 @@ namespace HMS.Models
         public string BillingAddress { get; set; } = default!;
         public string BillingNotes { get; set; } = default!;
         public string PreparedBy { get; set; } = default!;
-
-        public PatientRegister PatientRegisters { get; set; } = default!;
+        [NotMapped]
+        public PatientRegister? PatientRegisters { get; set; } = default!;
         public virtual ICollection<Outdoor> Outdoors { get; set; } = new List<Outdoor>();
     }
 }
