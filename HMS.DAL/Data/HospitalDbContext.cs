@@ -39,43 +39,8 @@ namespace HMS.DAL.Data
         public DbSet<MedicalRecords> MedicalRecords { get; set; }
         public DbSet<SurgeryProcedure> SurgeryProcedures { get; set; }
         public DbSet<DischargeTransfer> DischargeTransfers { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Bill> Bills { get; set; }
         public DbSet<WardCabin> WardCabins { get; set; }
-
-        
-
-        //from mama to avoid exception
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Invoice>()
-                .Property(i => i.Bill_Amount)
-                .HasColumnType("decimal(18, 2)");
-
-            modelBuilder.Entity<Invoice>()
-                .Property(i => i.Discount)
-                .HasColumnType("decimal(18, 2)");
-
-            modelBuilder.Entity<Invoice>()
-                .Property(i => i.PaidAmount)
-                .HasColumnType("decimal(18, 2)");
-
-            modelBuilder.Entity<Invoice>()
-                .Property(i => i.Due)
-                .HasColumnType("decimal(18, 2)");
-
-            modelBuilder.Entity<LabTest>()
-                .Property(t => t.Price)
-                .HasColumnType("decimal(18, 2)");
-
-            modelBuilder.Entity<Medicine>()
-                .Property(m => m.SellPrice)
-                .HasColumnType("decimal(18, 2)");
-
-            
-
-
-
-        }
 
     }
 }

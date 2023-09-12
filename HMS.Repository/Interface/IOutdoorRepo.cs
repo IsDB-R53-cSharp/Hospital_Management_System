@@ -1,0 +1,46 @@
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+
+//namespace HMS.Repository.Interface
+//{
+//    internal interface IOutdoorRepo
+//    {
+//    }
+//}
+using HMS.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace HMS.Repository.Interface
+{
+    public interface IOutdoorRepository
+    {
+        Task<Outdoor> GetByIdAsync(int id); //retrieves an `Outdoor` entity by OutdoorID
+
+        Task<IEnumerable<Outdoor>> GetAllAsync();//Returns all Outdoor
+
+        Task<IEnumerable<Outdoor>> GetByPatientIdAsync(int patientId);//Retrieves Outdoor record for specific patient
+
+        Task<IEnumerable<Outdoor>> GetByTreatmentTypeAsync(TreatmentType treatmentType);//Get outdoor record based on treatment type (Emergency, Minor Treatment).
+
+        //Task<IEnumerable<Outdoor>> GetOutdoorsByDateRangeAsync(DateTime startDate, DateTime endDate);//retrieve outdoor records within a specified date range.
+
+        Task<IEnumerable<Outdoor>> GetByTreatmentDateAsync(DateTime treatmentDate);//Retrieves Outdoor entities based on the treatment date.
+
+
+        Task<IEnumerable<Outdoor>> GetByDoctorIdAsync(int doctorId);//Retrieves Outdoor entities associated with a specific doctor
+         
+        //Task<IEnumerable<Outdoor>> GetByInvoiceIdAsync(int invoiceId); //
+
+        Task AddAsync(Outdoor outdoor);// Adds a new Outdoor entity 
+        Task UpdateAsync(Outdoor outdoor);//Update Outdoor
+        Task DeleteAsync(int id);//Delete Outdoor      //necessary?
+
+        
+    }
+}
+

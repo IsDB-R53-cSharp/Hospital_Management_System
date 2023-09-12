@@ -20,15 +20,17 @@ namespace HMS.Models
         public TreatmentType TreatmentType { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "Join Date")]
+        [Display(Name = "Treatment Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime TreatmentDate { get; set; }
 
+        [Display(Name = "Outdoor Ticket Number")]
         public string TicketNumber { get; set; } = default!;
 
-        [ForeignKey("Invoice")]
-        public int InvoiceID { get; set; }
+        [ForeignKey("Bill")]
+        public int BillID { get; set; }
 
+        [ForeignKey("Doctor")]
         public int DoctorID { get; set; }
 
         public string Remarks { get; set; } = default!;
@@ -37,11 +39,8 @@ namespace HMS.Models
 
         public virtual PatientRegister? PatientRegister { get; set; }
 
-        public virtual Invoice? Invoice { get; set; }
-
-
+        public virtual Bill? Bill { get; set; }
     }
-
     public enum TreatmentType
     {
         [Display(Name = "Emergency")]
@@ -65,11 +64,11 @@ namespace HMS.Models
         [Display(Name = "Blood Pressure Check")]
         BloodPressureCheck,
 
-        [Display(Name = "X-ray")]
-        XRay,
+        //[Display(Name = "X-ray")]
+        //XRay,
 
-        [Display(Name = "Laboratory Tests")]
-        LaboratoryTests,
+        //[Display(Name = "Laboratory Tests")]
+        //LaboratoryTests,
 
         [Display(Name = "Consultation")]
         Consultation,

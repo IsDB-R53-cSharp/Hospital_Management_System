@@ -25,6 +25,7 @@ namespace HMS.Models
         [StringLength(20, ErrorMessage = "Enter Doctor Speciality Only (Ex: Heart, Kidney)")]
         public string Specialization { get; set; } = default!;
 
+        [EnumDataType(typeof(doctortype))]
         public doctortype Doctortype { get; set; } = default!;
 
         [Column(TypeName = "date")]
