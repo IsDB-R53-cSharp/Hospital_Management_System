@@ -13,8 +13,8 @@ namespace HMS.Models
         [Key]
         public int BillID { get; set; }
 
-        [ForeignKey("PatientRegisters")]
-        public int PatientID { get; set; }
+        //[ForeignKey("PatientRegisters")]
+        public int? PatientID { get; set; }
 
         [StringLength(500)]
         public string? TransactionInfo { get; set; } = default!;
@@ -68,6 +68,7 @@ namespace HMS.Models
         // Navigation properties
         [ForeignKey("Service")]
         public int? ServiceID { get; set; }
+        [NotMapped]
         public PatientRegister? PatientRegisters { get; set; } = default!;
         public virtual ICollection<Outdoor?> Outdoors { get; set; } = new List<Outdoor?>();
         public virtual Service? Service { get; set; } = default!;

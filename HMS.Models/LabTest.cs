@@ -22,15 +22,16 @@ namespace HMS.Models
         //public int DepartmentID { get; set; }
         //[ForeignKey("Doctor")]
         //public int DoctorID { get; set; }
-        [ForeignKey("PatientRegister")]
-        public int PatientID { get; set; }
+        //[ForeignKey("PatientRegister")]
+        public int? PatientID { get; set; }
         public string Result { get; set; } = default!;
         [ForeignKey("LabTechnician")]
         public int TechnicianID { get; set; }
         //nev
         [NotMapped]
         public virtual LabTechnician LabTechnician { get; set; } = default!;
-        public virtual PatientRegister PatientRegister { get; set; } = default!;
+        [NotMapped]
+        public virtual PatientRegister? PatientRegister { get; set; } = default!;
         //public virtual Department Departments { get; set; } = default!;
         public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
         public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();

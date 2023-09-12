@@ -33,7 +33,8 @@ namespace HMS.Models.SurgeryWard
         //public Nurse Nurse { get; set; }
         //nev
         [NotMapped]
-        public virtual Department Departments { get; set; } = default!;
-        public virtual ICollection<PatientRegister> PatientRegisters { get; set; } = new HashSet<PatientRegister>();
+        public virtual Department? Departments { get; set; } = default!;
+        [NotMapped]
+        public virtual ICollection<PatientRegister?> PatientRegisters { get; set; } = new List<PatientRegister?>();
     }
 }
