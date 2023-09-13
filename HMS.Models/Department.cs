@@ -19,8 +19,10 @@ namespace HMS.Models
         public string DepartmentDescription { get; set; } = default!;
         public virtual ICollection<Nurse> Nurses { get; set; } = new List<Nurse>();
         public virtual ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
-       
-        public virtual ICollection<WardCabin> WardCabins { get; set; } //= new List<WardCabin>();
+
+        public virtual ICollection<WardCabin>? WardCabins { get; set; } = null;
+        
+        //= new List<WardCabin>();
         //public virtual ICollection<LabTest> LabTests { get; set; }=new List<LabTest>();
     }
 }

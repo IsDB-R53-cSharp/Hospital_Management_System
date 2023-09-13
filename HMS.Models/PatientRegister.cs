@@ -20,7 +20,7 @@ namespace HMS.Models
         [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
         public string PatientName { get; set; } = default!;
 
-        [Required, EnumDataType(typeof(BloodType))]
+        [Required, EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
         [Column(TypeName = "date"),
@@ -56,20 +56,21 @@ namespace HMS.Models
 
         public bool? IsTransferred { get; set; }
 
-        [ForeignKey("WardCabin")]
-        public int? WardID { get; set; }
+        //[ForeignKey("WardCabin")]
+        public int? WardID { get; set; } = null;
 
         // Navigation properties
-        public virtual WardCabin? WardCabin { get; set; }
-
+        [NotMapped]
+        public virtual WardCabin? WardCabin { get; set; } = null;
+        [NotMapped]
         public virtual ICollection<Bill?> Bills { get; set; } = new List<Bill?>();
-
+        [NotMapped]
         public virtual ICollection<Prescriptions?> Prescriptions { get; set; } = new List<Prescriptions?>();
-
+        [NotMapped]
         public virtual ICollection<MedicalRecords?> MedicalRecords { get; set; } = new List<MedicalRecords?>();
-
+        [NotMapped]
         public virtual ICollection<SurgeryProcedure?> SurgeryProcedures { get; set; } = new List<SurgeryProcedure?>();
-
+        [NotMapped]
         public virtual ICollection<DischargeTransfer?> DischargeTransfers { get; set; } = new List<DischargeTransfer?>();
     }
     public enum BloodType

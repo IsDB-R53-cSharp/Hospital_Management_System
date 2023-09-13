@@ -14,8 +14,8 @@ namespace HMS.Models
     {
         [Key]
         public int PrescriptionID { get; set; }
-        [ForeignKey("PatientRegister")]
-        public int PatientID { get; set; }
+        //[ForeignKey("PatientRegister")]
+        public int? PatientID { get; set; }
         [ForeignKey("Medicine")]
         public int MedicinID { get; set; }
         [ForeignKey("Doctor")]
@@ -102,6 +102,7 @@ namespace HMS.Models
 
         [NotMapped]
         public virtual Medicine? Medicine { get; set; } = default!;
+        [NotMapped]
         public virtual PatientRegister? PatientRegister { get; set; } = default!;
         public virtual Doctor? Doctor { get; set; } = default!;
         public virtual LabTest? LabTest { get; set; } = default!;

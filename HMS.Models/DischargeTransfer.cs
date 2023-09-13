@@ -12,11 +12,11 @@ namespace HMS.Models
     {
         [Key]
         public int DT_ID { get; set; }
-        [ForeignKey("Patient")]
-        public int PatientID { get; set; }
+        //[ForeignKey("PatientRegister")]
+        public int? PatientID { get; set; }
         public DateTime DischargeDate { get; set; }
         public string DischargeSummary { get; set; } = default!;
-
-        public PatientRegister Patient { get; set; } = default!;
+        [NotMapped]
+        public PatientRegister? Patient { get; set; } = default!;
     }
 }
