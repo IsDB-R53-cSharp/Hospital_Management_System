@@ -9,12 +9,14 @@ namespace HMS.Models
 {
     public class Morgue
     {
+        //tray/or drawer Count
+        //
         [Key]
         public int MorgueID { get; set; }
-        public string DeceasedName { get; set; } = default!;
-        public bool IsPatient { get; set; }
-        public int PatientID { get; set; }
-        public DateTime DateOfDeath { get; set; }
-        public string CauseOfDeath { get; set; } = default!;
+        [Required(ErrorMessage = "Enter Morgue Name")]
+        [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
+        public string MorgueName { get; set; } = default!;
+        //
+        public ICollection<Drawer> Drawers { get; set; } = new List<Drawer>();
     }
 }

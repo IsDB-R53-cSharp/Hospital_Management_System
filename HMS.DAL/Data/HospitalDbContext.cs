@@ -20,6 +20,7 @@ namespace HMS.DAL.Data
 
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<BloodBank> BloodBanks { get; set; }
+        public DbSet<Drawer> Drawers { get; set; }
         public DbSet<Morgue> Morgues { get; set; }
         public DbSet<Ambulance> Ambulances { get; set; }
         public DbSet<WasteManagement> WasteManagements { get; set; }
