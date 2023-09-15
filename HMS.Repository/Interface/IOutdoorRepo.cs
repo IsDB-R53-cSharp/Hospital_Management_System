@@ -1,15 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-
-//namespace HMS.Repository.Interface
-//{
-//    internal interface IOutdoorRepo
-//    {
-//    }
-//}
+﻿
 using HMS.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +10,7 @@ namespace HMS.Repository.Interface
     {
         Task<Outdoor> GetByIdAsync(int id); //retrieves an `Outdoor` entity by OutdoorID
 
-        Task<IEnumerable<Outdoor>> GetAllAsync();//Returns all Outdoor
+        Task<IEnumerable<Outdoor>> GetAllAsync();//Returns all Outdoor record
 
         Task<IEnumerable<Outdoor>> GetByPatientIdAsync(int patientId);//Retrieves Outdoor record for specific patient
 
