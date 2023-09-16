@@ -28,9 +28,9 @@ namespace HMS.DAL.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
-            //SP code
+            //Store Procedure code
             var procGetOutdoorById = @"
-                -- Stored Procedure to Retrieve an Outdoor entity by OutdoorID
+                -- Retrieve an Outdoor entity by OutdoorID
                 CREATE PROCEDURE GetOutdoorById
                     @Id INT
                 AS
@@ -39,7 +39,6 @@ namespace HMS.DAL.Migrations
                         SELECT * FROM Outdoors WHERE OutdoorID = @Id;
                     END TRY
                     BEGIN CATCH
-                        -- Handle the error here
                         PRINT 'An error occurred: ' + ERROR_MESSAGE();
                     END CATCH;
                 END;
@@ -182,20 +181,20 @@ namespace HMS.DAL.Migrations
             ";
 
             var procDeleteOutdoor = @"
--- Stored Procedure to Delete an Outdoor Entity
-        CREATE PROCEDURE DeleteOutdoor
-            @OutdoorID INT
-        AS
-        BEGIN
-            BEGIN TRY
-                DELETE FROM Outdoors WHERE OutdoorID = @OutdoorID;
-            END TRY
-            BEGIN CATCH
-                -- Handle the error here
-                PRINT 'An error occurred: ' + ERROR_MESSAGE();
-            END CATCH;
-        }
-        ";
+            -- Stored Procedure to Delete an Outdoor Entity
+                    CREATE PROCEDURE DeleteOutdoor
+                        @OutdoorID INT
+                    AS
+                    BEGIN
+                        BEGIN TRY
+                            DELETE FROM Outdoors WHERE OutdoorID = @OutdoorID;
+                        END TRY
+                        BEGIN CATCH
+                            -- Handle the error here
+                            PRINT 'An error occurred: ' + ERROR_MESSAGE();
+                        END CATCH;
+                    }
+                    ";
 
             migrationBuilder.Sql(procGetOutdoorById);
             migrationBuilder.Sql(procGetAllOutdoors);
