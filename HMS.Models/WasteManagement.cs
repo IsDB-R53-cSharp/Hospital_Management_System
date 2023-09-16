@@ -21,11 +21,38 @@ namespace HMS.Models
         public string DisposalMethod { get; set; } = default!;
         public int Quantity { get; set; }
         [Column(TypeName = "date"),
-        Display(Name = "NextDelivery Date"),
+        Display(Name = "NextSchedule Date"),
         DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
         ApplyFormatInEditMode = true)]
-        public DateTime NextDeliveryDate { get; set; }
+        public DateTime NextScheduleDate { get; set; }
         [Display(Name = "Phone No")]
         public string ContactNumber { get; set; } = default!;
     }
+    //public enum WasteType
+    //{
+    //    [Display(Name = "General Waste")]
+    //    General = 1,
+
+    //    [Display(Name = "Biological Waste")]
+    //    Biological = 2,
+
+    //    [Display(Name = "Hazardous Waste")]
+    //    Hazardous = 3,
+
+    //    [Display(Name = "Electronic Waste")]
+    //    Electronic = 4,
+
+    //    [Display(Name = "Pharmaceutical Waste")]
+    //    Pharmaceutical = 5,
+
+    //    [Display(Name = "Sharps Waste")]
+    //    Sharps = 6,
+
+    //    [Display(Name = "Chemical Waste")]
+    //    Chemical = 7,
+
+    //    [Display(Name = "Radiological Waste")]
+    //    Radiological = 8,
+    //}
+    //public WasteType WasteType { get; set; }
 }
