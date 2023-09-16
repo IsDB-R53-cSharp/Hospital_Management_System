@@ -6,12 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="DbInitializer\**" />
-    <EmbeddedResource Remove="DbInitializer\**" />
-    <None Remove="DbInitializer\**" />
-  </ItemGroup>
+ 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.21" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21">
 			<PrivateAssets>all</PrivateAssets>
@@ -25,6 +24,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\HMS.Models\HMS.Models.csproj" />
