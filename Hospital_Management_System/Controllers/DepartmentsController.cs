@@ -3,6 +3,7 @@
 using HMS.DAL.Helper;
 using HMS.Models.ViewModels;
 using HMS.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

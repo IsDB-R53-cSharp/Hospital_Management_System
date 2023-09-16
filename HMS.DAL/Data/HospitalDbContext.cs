@@ -1,5 +1,6 @@
 ﻿using HMS.Models;
 using HMS.Models.SurgeryWard;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using LabTechnician = HMS.Models.LabTechnician;
 
 namespace HMS.DAL.Data
 {
-    public class HospitalDbContext : DbContext
+    public class HospitalDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options)
         {
@@ -130,6 +131,16 @@ namespace HMS.DAL.Data
             .HasOne(sp => sp.Prescription)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
+
+
+
+            //for auth
+            //modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+            // or for auth
+            base.OnModelCreating(modelBuilder);
+
         }
 
     }
