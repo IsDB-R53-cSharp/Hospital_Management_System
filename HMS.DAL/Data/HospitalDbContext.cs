@@ -42,6 +42,7 @@ namespace HMS.DAL.Data
         public DbSet<SurgeryProcedure> SurgeryProcedures { get; set; }
         public DbSet<DischargeTransfer> DischargeTransfers { get; set; }
         public DbSet<Bill> Bills { get; set; }
+        public DbSet<Service> Services { get; set; }
         public DbSet<WardCabin>? WardCabins { get; set; } = null;
 
 

@@ -14,7 +14,7 @@ namespace HMS.Models
         public int ServiceID { get; set; }
 
         [StringLength(100)]
-        public string ServiceName { get; set; } = default!;  // name or enum??
+        public string ServiceName { get; set; } = default!;
 
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
