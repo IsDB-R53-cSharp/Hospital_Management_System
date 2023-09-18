@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HMS.Models; 
 using HMS.DAL.Data;
+using Microsoft.AspNet.Identity;
 
 
 namespace Hospital_Management_System.Controllers
@@ -13,23 +14,23 @@ namespace Hospital_Management_System.Controllers
     [ApiController]
     public class AmbulancesController : ControllerBase
     {
-        private readonly HospitalDbContext _context;
+        private readonly HospitalDbContext db;
 
-        public AmbulancesController(HospitalDbContext context)
+        public AmbulancesController(HospitalDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ambulance>>> GetAmbulances()
         {
-            return await _context.Ambulances.ToListAsync();
+            return await db.Ambulances.ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Ambulance>> GetAmbulance(int id)
         {
-            var ambulance = await _context.Ambulances.FindAsync(id);
+            var ambulance = await db.Ambulances.FindAsync(id);
 
             if (ambulance == null)
             {
@@ -39,63 +40,33 @@ namespace Hospital_Management_System.Controllers
             return ambulance;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAmbulance(int id, Ambulance ambulance)
-        {
-            if (id != ambulance.AmbulanceID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(ambulance).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AmbulanceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         [HttpPost]
         public async Task<ActionResult<Ambulance>> CreateAmbulance(Ambulance ambulance)
         {
-            //driver Phone Nubmer and Ambulance Number
-            _context.Ambulances.Add(ambulance);
-            await _context.SaveChangesAsync();
+            await db.Database.ExecuteSqlRawAsync("EXEC InsertAmbulance @AmbulanceNumber={0}, @PhoneNumber={1}, @DrivingLiense={2}, @DriverName={3}, @LastLocation={4},@Availability={5}", ambulance.AmbulanceNumber, ambulance.PhoneNumber, ambulance.DrivingLiense, ambulance.DriverName, ambulance.LastLocation, ambulance.Availability);
+            return Ok("Ambulance inserted successfully.");
+        }
 
-            return CreatedAtAction(nameof(GetAmbulance), new { id = ambulance.AmbulanceID }, ambulance);
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAmbulance(int id, Ambulance ambulance)
+        {
+
+          await  db.Database.ExecuteSqlRawAsync("EXEC UpdateAmbulance  @AmbulanceID={0}, @AmbulanceNumber={1}, @PhoneNumber={2}, @DrivingLiense={3}, @DriverName={4}, @LastLocation={5},@Availability={6}", ambulance.AmbulanceID,ambulance.AmbulanceNumber, ambulance.PhoneNumber, ambulance.DrivingLiense, ambulance.DriverName, ambulance.LastLocation, ambulance.Availability);
+            return Ok("Ambulance Update successfully.");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmbulance(int id)
         {
-            var ambulance = await _context.Ambulances.FindAsync(id);
-            if (ambulance == null)
+            var ID =await db.Ambulances.FirstOrDefaultAsync(x => x.AmbulanceID == id);
+            await db.Database.ExecuteSqlRawAsync("EXEC DeleteAmbulance @AmbulanceID={0}", ID);
+            if (ID == null)
             {
-                return NotFound();
+                return BadRequest(" Ambulance Data Not Found!!!");
             }
-
-            _context.Ambulances.Remove(ambulance);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok("Ambulance deleted successfully.");
         }
 
-        private bool AmbulanceExists(int id)
-        {
-            return _context.Ambulances.Any(a => a.AmbulanceID == id);
-        }
+
     }
 }
