@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
-using HMS.Models; 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using HMS.DAL.Data;
+using HMS.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNet.Identity;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -14,90 +17,58 @@ namespace Hospital_Management_System.Controllers
     public class WasteManagementController : ControllerBase
     {
         private readonly HospitalDbContext _context;
+        private readonly ILogger<WasteManagementController> _logger;
 
-        public WasteManagementController(HospitalDbContext context)
+        public WasteManagementController(HospitalDbContext context, ILogger<WasteManagementController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetWasteEntries()
+        public IActionResult GetWasteManagements()
         {
-            var wasteEntries = await _context.WasteManagements.ToListAsync();
-            return Ok(wasteEntries);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult> GetWasteEntry(int id)
-        {
-            var wasteEntry = await _context.WasteManagements.FindAsync(id);
-            if (wasteEntry == null)
+            try
             {
-                return NotFound();
+                var wasteManagements = _context.WasteManagements.FromSqlRaw("EXEC SpAllWasteManagement").ToList();
+                return Ok(wasteManagements);
             }
-            return Ok(wasteEntry);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving waste management records.");
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateWasteEntry(WasteManagement wasteEntry)
+        public IActionResult PostWasteManagement([FromBody] WasteManagement wasteManagement)
         {
-            if (ModelState.IsValid)
-            {
-                //schedule date
-                //validation
-                _context.WasteManagements.Add(wasteEntry);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetWasteEntry), new { id = wasteEntry.WasteID }, wasteEntry);
-            }
-            return BadRequest(ModelState);
+            _context.Database.ExecuteSqlRaw("EXEC InsertWasteManagement @WasteType ={0}, @DisposalDate ={1}, @DisposalMethod ={2}, @Quantity ={3}, @NextScheduleDate ={4}, @ContactNumber ={5}", wasteManagement.WasteType, wasteManagement.DisposalDate, wasteManagement.DisposalMethod, wasteManagement.Quantity, wasteManagement.NextScheduleDate, wasteManagement.ContactNumber);
+
+            return Ok("wasteManagement inserted successfully");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateWasteEntry(int id, WasteManagement updatedWasteEntry)
+        public IActionResult PutWasteManagement(int id, [FromBody] WasteManagement wasteManagement)
         {
-            if (id != updatedWasteEntry.WasteID)
-            {
-                return BadRequest();
-            }
+            _context.Database.ExecuteSqlRaw("EXEC UpdateWasteManagement @WasteID={0}, @WasteType ={1}, @DisposalDate ={2}, @DisposalMethod ={3}, @Quantity ={4}, @NextScheduleDate ={5}, @ContactNumber ={6}", wasteManagement.WasteID, wasteManagement.WasteType, wasteManagement.DisposalDate, wasteManagement.DisposalMethod, wasteManagement.Quantity, wasteManagement.NextScheduleDate, wasteManagement.ContactNumber);
 
-            _context.Entry(updatedWasteEntry).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!WasteEntryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok("wasteManagement Updated successfully");
         }
+
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteWasteEntry(int id)
+        public IActionResult DeleteWasteManagement(int id)
         {
-            var wasteEntry = await _context.WasteManagements.FindAsync(id);
-            if (wasteEntry == null)
+            var ID = _context.WasteManagements.FirstOrDefault(x => x.WasteID == id);
+
+            _context.Database.ExecuteSqlRaw("EXEC DeleteWasteManagement @WasteID={0}", ID);
+            if (ID != null)
             {
-                return NotFound();
+                return Ok("WasteManagement Delete Successfully");
             }
-
-            _context.WasteManagements.Remove(wasteEntry);
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        private bool WasteEntryExists(int id)
-        {
-            return _context.WasteManagements.Any(e => e.WasteID == id);
+            return BadRequest("WasteManagement Invalid Data");
         }
     }
 }
+
