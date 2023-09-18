@@ -84,8 +84,8 @@ namespace HMS.DAL.Migrations
                 AS
                 BEGIN
                     BEGIN TRY
-                        --If PatientRegister doesn't have PatientID
-                        IF NOT EXISTS (SELECT 1 FROM PatientRegister WHERE PatientID = @PatientId)
+                        --If PatientRegisters doesn't have PatientID
+                        IF NOT EXISTS (SELECT 1 FROM PatientRegisters WHERE PatientID = @PatientId)
                         BEGIN
                             THROW 50002, 'PatientID not Exist!! ', 1
                         END
@@ -94,7 +94,7 @@ namespace HMS.DAL.Migrations
                             -- specific patient hasn't received any treatment (in Outdoor)
                             IF NOT EXISTS (SELECT 1 FROM Outdoors WHERE PatientID = @PatientId)
                             BEGIN
-                                -- PatientRegister has PatientID, but outdoor haven't
+                                -- PatientRegisters has PatientID, but outdoor haven't
                                 THROW 50003, 'This PatientID exist but It hasn''t received any treatment in Outdoor yet', 2
                             END
                             SELECT * FROM Outdoors WHERE PatientID = @PatientId
@@ -168,7 +168,7 @@ namespace HMS.DAL.Migrations
                 BEGIN
                     BEGIN TRY
                         -- Check DoctorID exists or not
-                        IF NOT EXISTS (SELECT 1 FROM Doctor WHERE DoctorID = @DoctorId)
+                        IF NOT EXISTS (SELECT 1 FROM Doctors WHERE DoctorID = @DoctorId)
                         BEGIN
                         -- if DoctorID is not found
                         THROW 50007, 'DoctorID not exist', 1
@@ -232,10 +232,10 @@ namespace HMS.DAL.Migrations
 		                END
 
                         -- If PaymentStatus is Due, auto-populate Remarks
-                        IF EXISTS (SELECT 1 FROM Bill WHERE BillID = @BillID AND PaymentStatus = 2) -- PaymentStatus enum index 2 means 'Due'
-                        BEGIN
-                            SET @Remarks = 'Payment due'
-                        END
+                        //IF EXISTS (SELECT 1 FROM Bills WHERE BillID = @BillID AND PaymentStatus = 2) -- PaymentStatus enum index 2 means 'Due'
+                        //BEGIN
+                        //    SET @Remarks = 'Payment due'
+                        //END
 
                         -- Insert the record into Outdoors
                         INSERT INTO Outdoors (PatientID, TreatmentType, TreatmentDate, TicketNumber, BillID, DoctorID, Remarks, IsAdmissionRequired)
