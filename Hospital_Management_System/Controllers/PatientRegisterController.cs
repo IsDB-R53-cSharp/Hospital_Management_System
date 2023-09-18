@@ -22,7 +22,8 @@ namespace HMS.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PatientRegister>>> GetAllPatient()
         {
-            return await _context.PatientRegisters.ToListAsync();
+            //return await _context.PatientRegisters.ToListAsync();
+            return await _context.PatientRegisters.FromSqlRaw("SpAllPatient").ToListAsync();
         }
 
         // GET: api/Patient By ID
@@ -44,8 +45,12 @@ namespace HMS.Controllers
         [HttpPost]
         public async Task<ActionResult<PatientRegister>> CreatePatient(PatientRegister patient)
         {
-            _context.PatientRegisters.Add(patient);
-            await _context.SaveChangesAsync();
+            //_context.PatientRegisters.Add(patient);
+            //await _context.SaveChangesAsync();
+            //return Ok(patient);
+
+            _context.Database.ExecuteSqlRaw("EXEC SPpatientInsert @patinetName={0}, @gender={1},@dateOfBirth={2}, @address={3}, @phoneNumber={4},  @email={5},@emergencyContact={6},@admissionDate={7}, @bloodType={8}, @isTransferred={9},@wardId={10}", patient.PatientName, patient.Gender, patient.DateOfBirth, patient.Address, patient.PhoneNumber,patient.Email,patient.EmergencyContact,patient.AdmissionDate, patient.BloodType, patient.IsTransferred, patient.WardID);
+            await _context.SaveChangesAsync();  
             return Ok(patient);
         }
 
@@ -53,31 +58,35 @@ namespace HMS.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePatient(int id, PatientRegister patient)
         {
-            if (id != patient.PatientID)
-            {
-                return BadRequest();
-            }
+            //if (id != patient.PatientID)
+            //{
+            //    return BadRequest();
+            //}
 
-            _context.Entry(patient).State = EntityState.Modified;
+            //_context.Entry(patient).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PatientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!PatientExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
-            //return NoContent();
+            ////return NoContent();
 
+            //return Ok(patient);
+
+            _context.Database.ExecuteSqlRaw("EXEC SPpatientUpdate @patientId={0}, @patinetName={1}, @gender={2},@dateOfBirth={3}, @address={4}, @phoneNumber={5},  @email={6},@emergencyContact={7},@admissionDate={8}, @bloodType={9}, @isTransferred={10},@wardId={11}", id, patient.PatientName, patient.Gender, patient.DateOfBirth, patient.Address, patient.PhoneNumber, patient.Email,patient.EmergencyContact, patient.AdmissionDate, patient.BloodType, patient.IsTransferred, patient.WardID);
+            await _context.SaveChangesAsync();
             return Ok(patient);
         }
 
@@ -86,22 +95,30 @@ namespace HMS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePatient(int id)
         {
+            //var patient = await _context.PatientRegisters.FindAsync(id);
+            //if (patient == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //_context.PatientRegisters.Remove(patient);
+            //await _context.SaveChangesAsync();
+
+            //return Ok("data deleted successfully!!");
+
             var patient = await _context.PatientRegisters.FindAsync(id);
+            _context.Database.ExecuteSqlRaw("EXEC SpPatientDelete @patientId={0}", id);
             if (patient == null)
             {
-                return NotFound();
+                return BadRequest("Patient id is invalid");
             }
-
-            _context.PatientRegisters.Remove(patient);
-            await _context.SaveChangesAsync();
-
-            return Ok("data deleted successfully!!");
+            return Ok("data deleted successfully");
         }
 
-        private bool PatientExists(int id)
-        {
-            return _context.PatientRegisters.Any(e => e.PatientID == id);
-        }
+        //private bool PatientExists(int id)
+        //{
+        //    return _context.PatientRegisters.Any(e => e.PatientID == id);
+        //}
 
 
 
