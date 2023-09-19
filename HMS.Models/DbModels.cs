@@ -39,6 +39,7 @@ namespace HMS.Models
         public virtual Doctor Doctor { get; set; }
     }
     
-    //DisCharge class Cut to out side
+    //DisCharge class Cut to outside
+    //Medical records class cut to outside  --- controller not done
 
 }

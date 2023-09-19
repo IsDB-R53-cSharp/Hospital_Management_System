@@ -68,9 +68,12 @@ namespace HMS.Models
         // Navigation properties
         [ForeignKey("Service")]
         public int? ServiceID { get; set; }
+
         [NotMapped]
         public PatientRegister? PatientRegisters { get; set; } = default!;
+
         public virtual ICollection<Outdoor?> Outdoors { get; set; } = new List<Outdoor?>();
+
         public virtual Service? Service { get; set; } = default!;
 
         // Custom validation methods
@@ -125,31 +128,4 @@ namespace HMS.Models
         [Display(Name = "Waived")]
         Waived = 2
     }
-
-
-    //old bill table -- hazera
-    //public class Bill
-    //{
-    //    [Key]
-    //    public int BillID { get; set; }
-    //    [ForeignKey("PatientRegisters")]
-    //    public int PatientID { get; set; }
-    //    public string Transaction_Info { get; set; } = default!;
-    //    public decimal Bill_Amount { get; set; }
-    //    public decimal Discount { get; set; }
-    //    public decimal PaidAmount { get; set; }
-    //    public decimal Due { get; set; }
-    //    public string PaymentMethod { get; set; } = default!;
-    //    public string PaymentStatus { get; set; } = default!;
-    //    public DateTime BillDate { get; set; }
-    //    public string? BillingAddress { get; set; } = default!;
-    //    public string? BillingNotes { get; set; } = default!;
-    //    public string PreparedBy { get; set; } = default!;
-    //    //nev
-    //    [ForeignKey("Service")]
-    //    public int ServiceID { get; set; }
-    //    public PatientRegister PatientRegisters { get; set; } = default!;
-    //    public virtual ICollection<Outdoor> Outdoors { get; set; } = new List<Outdoor>();
-    //    public virtual Service Service { get; set; } = default!;
-    //}
 }
