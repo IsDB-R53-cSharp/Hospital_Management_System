@@ -13,7 +13,8 @@ namespace HMS.Models
         [Display(Name = "Drawer No")]
         public string DrawerNo { get; set; } = default!;
         public int DrawerCount { get; set; }
+        public int MorgueID { get; set; }
         //nev
-        public virtual ICollection<Morgue> Morgues { get; set; } = new List<Morgue>();
+        public virtual Morgue? Morgue { get; set; }
     }
 }
