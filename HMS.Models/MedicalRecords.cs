@@ -20,7 +20,9 @@ namespace HMS.Models
         [NotMapped]
         public PatientRegister? Patient { get; set; } = default!;
 
-        //add prescription id
+        //add prescription id fk
+
+        //controller not done
 
     }
 }

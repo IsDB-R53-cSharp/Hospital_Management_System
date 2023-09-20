@@ -8,11 +8,17 @@ using System.Threading.Tasks;
 
 namespace HMS.Models
 {
+    public enum MedicineType
+    {
+        Liquid=1, Tablet,Capsules,Cream,Suppositories,Drops,Inhalers,Injections
+    }
     public class Medicine
     {
         [Key]
         public int MedicineID { get; set; }
         public string MedicineName { get; set; } = default!;
+        public MedicineType MedicineType { get; set; }
+        public string Strength { get; set; }
         public DateTime ExpireDate { get; set; }
         public int Quantity { get; set; }
 

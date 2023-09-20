@@ -12,6 +12,8 @@ namespace HMS.Models.ViewModels
         [Key]
         public int MedicineID { get; set; }
         public string MedicineName { get; set; } = default!;
+        public MedicineType MedicineType { get; set; }
+        public Strength Strength { get; set; }
         public DateTime ExpireDate { get; set; }
         public int Quantity { get; set; }
         public decimal SellPrice { get; set; }
