@@ -4,6 +4,7 @@ using HMS.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230920061217_WasteManagement")]
+    partial class WasteManagement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -435,7 +437,12 @@ namespace HMS.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MorgueID")
+                        .HasColumnType("int");
+
                     b.HasKey("DrawerID");
+
+                    b.HasIndex("MorgueID");
 
                     b.ToTable("Drawers");
                 });
@@ -665,17 +672,12 @@ namespace HMS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MorgueID"), 1L, 1);
 
-                    b.Property<int>("DrawerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("MorgueName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("MorgueID");
-
-                    b.HasIndex("DrawerId");
 
                     b.ToTable("Morgues");
                 });
@@ -1278,6 +1280,17 @@ namespace HMS.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HMS.Models.Drawer", b =>
+                {
+                    b.HasOne("HMS.Models.Morgue", "Morgue")
+                        .WithMany("Drawers")
+                        .HasForeignKey("MorgueID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Morgue");
+                });
+
             modelBuilder.Entity("HMS.Models.LabEquipment", b =>
                 {
                     b.HasOne("HMS.Models.Department", "Departments")
@@ -1335,17 +1348,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Manufacturer");
 
                     b.Navigation("MedicineGeneric");
-                });
-
-            modelBuilder.Entity("HMS.Models.Morgue", b =>
-                {
-                    b.HasOne("HMS.Models.Drawer", "Drawer")
-                        .WithMany("Morgues")
-                        .HasForeignKey("DrawerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Drawer");
                 });
 
             modelBuilder.Entity("HMS.Models.Nurse", b =>
@@ -1511,11 +1513,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("WardCabins");
                 });
 
-            modelBuilder.Entity("HMS.Models.Drawer", b =>
-                {
-                    b.Navigation("Morgues");
-                });
-
             modelBuilder.Entity("HMS.Models.LabTechnician", b =>
                 {
                     b.Navigation("Labtest");
@@ -1528,6 +1525,11 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Prescriptions");
 
                     b.Navigation("SurgeryProcedures");
+                });
+
+            modelBuilder.Entity("HMS.Models.Morgue", b =>
+                {
+                    b.Navigation("Drawers");
                 });
 
             modelBuilder.Entity("HMS.Models.Nurse", b =>
