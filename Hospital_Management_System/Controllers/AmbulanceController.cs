@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HMS.Models; 
 using HMS.DAL.Data;
-using Microsoft.AspNet.Identity;
+
 
 
 namespace Hospital_Management_System.Controllers

@@ -232,10 +232,10 @@ namespace HMS.DAL.Migrations
 		                END
 
                         -- If PaymentStatus is Due, auto-populate Remarks
-                        //IF EXISTS (SELECT 1 FROM Bills WHERE BillID = @BillID AND PaymentStatus = 2) -- PaymentStatus enum index 2 means 'Due'
-                        //BEGIN
-                        //    SET @Remarks = 'Payment due'
-                        //END
+                        --IF EXISTS (SELECT 1 FROM Bills WHERE BillID = @BillID AND PaymentStatus = 2) -- PaymentStatus enum index 2 means 'Due'
+                        --BEGIN
+                        --    SET @Remarks = 'Payment due'
+                        --END
 
                         -- Insert the record into Outdoors
                         INSERT INTO Outdoors (PatientID, TreatmentType, TreatmentDate, TicketNumber, BillID, DoctorID, Remarks, IsAdmissionRequired)

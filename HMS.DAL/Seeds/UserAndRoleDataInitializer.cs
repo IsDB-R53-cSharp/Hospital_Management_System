@@ -31,7 +31,7 @@ namespace HMS.DAL.Seeds
                     ImageName = "ADMIN",
                     Email = "admin@gmail.com",
                     NormalizedEmail = "ADMIN@GMAIL.COM",
-                    PhoneNumber = "+8801677672824",
+                    PhoneNumber = "+8801743560992",
                     EmailConfirmed = true,
                     LockoutEnabled = false,
                     SecurityStamp = Guid.NewGuid().ToString(),

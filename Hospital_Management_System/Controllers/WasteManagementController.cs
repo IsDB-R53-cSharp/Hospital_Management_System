@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using HMS.DAL.Data;
 using HMS.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNet.Identity;
+
 
 namespace Hospital_Management_System.Controllers
 {
