@@ -8,13 +8,6 @@ namespace HMS.DAL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
-                name: "WasteType",
-                table: "WasteManagements",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
             string getall = @"create proc SpAllWasteManagement
               as
               BEGIN
@@ -27,7 +20,7 @@ namespace HMS.DAL.Migrations
             END";
             string InsertWasteManagement = @"
        CREATE PROCEDURE InsertWasteManagement
-            @WasteType INT,
+            @WasteType NVARCHAR(255),
             @DisposalDate DATETIME,
             @DisposalMethod NVARCHAR(255),
             @Quantity INT,
@@ -41,7 +34,7 @@ namespace HMS.DAL.Migrations
             string UpdateWasteManagement = @"
         CREATE PROCEDURE UpdateWasteManagement
             @WasteID INT,
-            @WasteType INT,
+            @WasteType NVARCHAR(255),
             @DisposalDate DATETIME,
             @DisposalMethod NVARCHAR(255),
             @Quantity INT,
@@ -77,13 +70,6 @@ namespace HMS.DAL.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "WasteType",
-                table: "WasteManagements",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int");
             string getall = @"Drop proc SpAllWasteManagement";
             string getbyid = @"Drop proc SpWasteManagementsgetById";
             string InsertWasteManagement = @"Drop proc InsertWasteManagement";
