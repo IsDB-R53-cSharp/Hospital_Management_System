@@ -209,25 +209,37 @@ namespace HMS.DAL.Migrations
 								THROW 50009, 'Duplicate TicketNumber not allowed', 1;
 							END
 
-							-- DoctorID null check
-							IF @DoctorID IS NULL
-							BEGIN
-								ROLLBACK TRANSACTION;
-								THROW 50010, 'You can''t insert outdoor record without Doctor Name', 2;
-							END
+							-- DoctorID null?
+						    IF @DoctorID IS NULL
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50010, 'You can''t insert outdoor record without DoctorID', 2;
+						    END
+						    -- DoctorID exists?
+						    ELSE IF NOT EXISTS (SELECT 1 FROM Doctors WHERE DoctorID = @DoctorID)
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50011, 'Selected DoctorID does not exist in the Doctor table', 5;
+						    END
 
-							-- PatientID is null?
-							IF @PatientID IS NULL
-							BEGIN
-								ROLLBACK TRANSACTION;
-								THROW 50011, 'You can''t insert outdoor record without Patient Name', 1;
-							END
+						    --PatientID null?
+						    IF @PatientID IS NULL
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50012, 'You can''t insert outdoor record without PatientID', 1;
+						    END
+						    -- PatientID exists?
+						    ELSE IF NOT EXISTS (SELECT 1 FROM PatientRegisters WHERE PatientID = @PatientID)
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50013, 'Selected PatientID does not exist in the PatientRegister table', 6;
+						    END
 
-                            -- TreatmentDate is Past Date or not
+                            -- TreatmentDate is Past Date or not?
 							IF @TreatmentDate < CAST(GETDATE() AS DATE)
 							BEGIN
 								ROLLBACK TRANSACTION;
-								THROW 50012, 'Treatment Date must be today or a future date', 3;
+								THROW 50014, 'Treatment Date must be today or a future date', 3;
 							END
 
 							-- Generate a temporary BillID
@@ -278,29 +290,40 @@ namespace HMS.DAL.Migrations
                         BEGIN
                             -- duplicate Ticket check
                             ROLLBACK TRANSACTION;
-                            THROW 50013, 'TicketNumber is already associated with a different BillID', 1;
+                            THROW 50015, 'TicketNumber is already associated with a different BillID', 1;
                         END
 
-                        -- DoctorID NULL??
-                        IF @DoctorID IS NULL
-                        BEGIN
-                            -- Rollback the transaction and throw an error for missing DoctorID
-                            ROLLBACK TRANSACTION;
-                            THROW 50010, 'You can''t update outdoor record without DoctorID', 2;
-                        END
+                        -- DoctorID null?
+						    IF @DoctorID IS NULL
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50010, 'You can''t insert outdoor record without DoctorID', 2;
+						    END
+						    -- DoctorID exists?
+						    ELSE IF NOT EXISTS (SELECT 1 FROM Doctors WHERE DoctorID = @DoctorID)
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50011, 'Selected DoctorID does not exist in the Doctor table', 5;
+						    END
 
-                        --PatientID NULL?
-                        IF @PatientID IS NULL
-                        BEGIN
-                            ROLLBACK TRANSACTION;
-                            THROW 50011, 'You can''t update outdoor record without PatientID', 1;
-                        END
+						    --PatientID null?
+						    IF @PatientID IS NULL
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50012, 'You can''t insert outdoor record without PatientID', 1;
+						    END
+						    -- PatientID exists?
+						    ELSE IF NOT EXISTS (SELECT 1 FROM PatientRegisters WHERE PatientID = @PatientID)
+						    BEGIN
+							    ROLLBACK TRANSACTION;
+							    THROW 50013, 'Selected PatientID does not exist in the PatientRegister table', 6;
+						    END
 
 		                -- TreatmentDate past date or not
 		                IF @TreatmentDate < CAST(GETDATE() AS DATE)
 		                BEGIN
 			                ROLLBACK TRANSACTION;
-			                THROW 50012, 'Treatment Date must be today or a future date', 3;
+			                THROW 50018, 'Treatment Date must be today or a future date', 3;
 		                END
 
 
