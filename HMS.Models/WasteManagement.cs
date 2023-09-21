@@ -12,7 +12,7 @@ namespace HMS.Models
     {
         [Key]
         public int WasteID { get; set; }
-        public string WasteType { get; set; } = default!;
+        public WasteType WasteType { get; set; }
         [Column(TypeName = "date"),
         Display(Name = "Disposal Date"),
         DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
@@ -28,31 +28,31 @@ namespace HMS.Models
         [Display(Name = "Phone No")]
         public string ContactNumber { get; set; } = default!;
     }
-    //public enum WasteType
-    //{
-    //    [Display(Name = "General Waste")]
-    //    General = 1,
+    public enum WasteType
+    {
+        [Display(Name = "General Waste")]
+        General = 1,
 
-    //    [Display(Name = "Biological Waste")]
-    //    Biological = 2,
+        [Display(Name = "Biological Waste")]
+        Biological = 2,
 
-    //    [Display(Name = "Hazardous Waste")]
-    //    Hazardous = 3,
+        [Display(Name = "Hazardous Waste")]
+        Hazardous = 3,
 
-    //    [Display(Name = "Electronic Waste")]
-    //    Electronic = 4,
+        [Display(Name = "Electronic Waste")]
+        Electronic = 4,
 
-    //    [Display(Name = "Pharmaceutical Waste")]
-    //    Pharmaceutical = 5,
+        [Display(Name = "Pharmaceutical Waste")]
+        Pharmaceutical = 5,
 
-    //    [Display(Name = "Sharps Waste")]
-    //    Sharps = 6,
+        [Display(Name = "Sharps Waste")]
+        Sharps = 6,
 
-    //    [Display(Name = "Chemical Waste")]
-    //    Chemical = 7,
+        [Display(Name = "Chemical Waste")]
+        Chemical = 7,
 
-    //    [Display(Name = "Radiological Waste")]
-    //    Radiological = 8,
-    //}
-    //public WasteType WasteType { get; set; }
+        [Display(Name = "Radiological Waste")]
+        Radiological = 8,
+    }
+   
 }

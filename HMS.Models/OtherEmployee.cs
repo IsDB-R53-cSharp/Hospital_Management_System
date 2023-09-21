@@ -37,6 +37,12 @@ namespace HMS.Models
         [StringLength(200)]
         [Display(Name = "Education Info")]
         public string Education_Info { get; set; } = default!;
+
+        [Required(ErrorMessage = "Please enter phone number")]
+        [Display(Name = "Driver Phone Number")]
+        public string PhoneNumber { get; set; } = default!;
+
+        public virtual ICollection<Ambulance> Ambulances { get; set; } = new List<Ambulance>();
     }
     public enum EmployeeStatus
     {
@@ -70,9 +76,13 @@ namespace HMS.Models
         [Display(Name = "Maintenance")]
         Maintenance,
 
-        [Display(Name = "Driver")]
+        [Display(Name = "Ambulance Driver")]
         Driver,
 
         others
     }
+
+
+
+    //need to modify controller---- Abdullah
 }

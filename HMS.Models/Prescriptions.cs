@@ -14,6 +14,13 @@ namespace HMS.Models
     {
         [Key]
         public int PrescriptionID { get; set; }
+        [ForeignKey("Symptoms")]
+        public int SymptomsID { get; set; }
+        [ForeignKey("Advice")]
+        public int AdviceID { get; set; }
+        [ForeignKey("Test")]
+        public int TestsID { get; set; }
+
         //[ForeignKey("PatientRegister")]
         public int? PatientID { get; set; }
         [ForeignKey("Medicine")]
@@ -36,9 +43,9 @@ namespace HMS.Models
         [StringLength(250, ErrorMessage = "Please do not enter values over 250 characters")]
         public string Dosage { get; set; } = default!;
 
-        [Required(ErrorMessage = "Please enter Advice")]
-        [StringLength(250, ErrorMessage = "Please do not enter values over 250 characters")]
-        public string Advice { get; set; } = default!;
+        //[Required(ErrorMessage = "Please enter Advice")]
+        //[StringLength(250, ErrorMessage = "Please do not enter values over 250 characters")]
+        //public string Advice { get; set; } = default!;
 
 
         [Required(ErrorMessage = "Please enter Progress Notes")]
@@ -77,36 +84,46 @@ namespace HMS.Models
         public DateTime? DiagnosisDate { get; set; }//work as prescription date
 
 
-        [Required(ErrorMessage = "Please enter Symptoms")]
-        [StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
-        public string Symptoms { get; set; } = default!;
-        [Required]
-        [Column(TypeName = "date"),
-         Display(Name = "SymptomStart Date"),
-         DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
-         ApplyFormatInEditMode = true)]
-        public DateTime SymptomStartDate { get; set; }
-        [Required(ErrorMessage = "Please enter severity"), Range(0, 100)]
-        [Display(Name = "Severity")]
-        public int Severity { get; set; }
+        //[Required(ErrorMessage = "Please enter Symptoms")]
+        //[StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
+        ///public string Symptoms { get; set; } = default!;
+        //[Required]
+        //[Column(TypeName = "date"),
+        // Display(Name = "SymptomStart Date"),
+        // DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
+        // ApplyFormatInEditMode = true)]
+        //public DateTime SymptomStartDate { get; set; }
+        //[Required(ErrorMessage = "Please enter severity"), Range(0, 100)]
+        //[Display(Name = "Severity")]
+        //public int Severity { get; set; }
         [Required(ErrorMessage = "Please enter duration")]
         [StringLength(55, ErrorMessage = "Please do not enter values over 55 characters")]
         public string Duration { get; set; } = default!;
-        [Required(ErrorMessage = "Please enter diagonesNotes")]
-        [StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
-        public string DiagonesNotes { get; set; } = default!;
+        //[Required(ErrorMessage = "Please enter diagonesNotes")]
+        //[StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
+        //public string DiagonesNotes { get; set; } = default!;
         [Required(ErrorMessage = "Please enter follow up instructions")]
         [StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
         [Display(Name = "Follow Up Instructions")]
-        public string FollowUpInstructions { get; set; } = default!;
+        public string FollowUpInstructions { get; set; } = default!;//Spacial nullble
 
         [NotMapped]
         public virtual Medicine? Medicine { get; set; } = default!;
         [NotMapped]
         public virtual PatientRegister? PatientRegister { get; set; } = default!;
+        [NotMapped]
         public virtual Doctor? Doctor { get; set; } = default!;
+        [NotMapped]
         public virtual LabTest? LabTest { get; set; } = default!;
+        [NotMapped]
+        public virtual Symptoms? Symptoms { get; set; } = default!;
+        [NotMapped]
+        public virtual Advice? Advice { get; set; } = default!;
+        [NotMapped]
+        public virtual Test?  Test { get; set; } = default!;
+        [NotMapped]
         public virtual ICollection<MedicalRecords>? MedicalRecords { get; set; } = new List<MedicalRecords>();
+        [NotMapped]
         public virtual ICollection<SurgeryProcedure>? SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
     }
 }
