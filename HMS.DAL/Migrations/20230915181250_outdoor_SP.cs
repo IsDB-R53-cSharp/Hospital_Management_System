@@ -159,7 +159,6 @@ namespace HMS.DAL.Migrations
                 GO
                 ";
 
-
             var procGetOutdoorsByDoctorId = @"
                 -- stored procedure ==> Get Outdoor record By searching DoctorId
                 CREATE PROCEDURE GetOutdoorsByDoctorId
@@ -191,66 +190,71 @@ namespace HMS.DAL.Migrations
 
             var procAddOutdoor = @"
                 -- stored procedure ==> Add new Outdoor record
-                CREATE PROCEDURE AddOutdoor
-                    @PatientID INT,
-                    @TreatmentType INT,
-                    @TreatmentDate DATE,
-                    @TicketNumber NVARCHAR(255),
-                    @BillID INT,
-                    @DoctorID INT,
-                    @Remarks NVARCHAR(MAX),
-                    @IsAdmissionRequired BIT
-                AS
-                BEGIN
-                    BEGIN TRY
-                        -- Check if the TicketNumber already exists
-                        IF EXISTS (SELECT 1 FROM Outdoors WHERE TicketNumber = @TicketNumber)
-                        BEGIN
-                            -- error for duplicate outdoor ID
-                            THROW 50009, 'Duplicate TicketNumber not allowed', 1
-                        END
+                    create PROCEDURE AddOutdoor
+						@PatientID INT,
+						@TreatmentType INT,
+						@TreatmentDate DATE,
+						@TicketNumber NVARCHAR(255),
+						@DoctorID INT,
+						@Remarks NVARCHAR(MAX),
+						@IsAdmissionRequired BIT
+					AS
+					BEGIN
+						BEGIN TRY
+							BEGIN TRANSACTION;
+							-- TicketNumber exists check
+							IF EXISTS (SELECT 1 FROM Outdoors WHERE TicketNumber = @TicketNumber)
+							BEGIN
+								ROLLBACK TRANSACTION;
+								THROW 50009, 'Duplicate TicketNumber not allowed', 1;
+							END
 
-                        -- Check if PatientID is null
-                        IF @DoctorID IS NULL
-                        BEGIN
-                            -- error for missing DoctorID
-                            THROW 50010, 'You can''t insert outdoor record without DoctorID', 2
-                        END
+							-- DoctorID null check
+							IF @DoctorID IS NULL
+							BEGIN
+								ROLLBACK TRANSACTION;
+								THROW 50010, 'You can''t insert outdoor record without Doctor Name', 2;
+							END
 
-		                -- Check if PatientID is null
-                        IF @PatientID IS NULL
-                        BEGIN
-                            -- error for missing PatientID
-                            THROW 50011, 'You can''t insert outdoor record without PatientID', 1
-                        END
+							-- PatientID is null?
+							IF @PatientID IS NULL
+							BEGIN
+								ROLLBACK TRANSACTION;
+								THROW 50011, 'You can''t insert outdoor record without Patient Name', 1;
+							END
 
-		                -- Check if TreatmentDate is tomorrow or later
-		                IF DATEDIFF(DAY, GETDATE(), @TreatmentDate) > 0
-		                BEGIN
-			                -- error for incorrect TreatmentDate
-			                THROW 50012, 'Date selection is wrong', 3
-		                END
+                            -- TreatmentDate is Past Date or not
+							IF @TreatmentDate < CAST(GETDATE() AS DATE)
+							BEGIN
+								ROLLBACK TRANSACTION;
+								THROW 50012, 'Treatment Date must be today or a future date', 3;
+							END
 
-                        -- If PaymentStatus is Due, auto-populate Remarks
-                        --IF EXISTS (SELECT 1 FROM Bills WHERE BillID = @BillID AND PaymentStatus = 2) -- PaymentStatus enum index 2 means 'Due'
-                        --BEGIN
-                        --    SET @Remarks = 'Payment due'
-                        --END
+							-- Generate a temporary BillID
+							DECLARE @NewBillID INT;
+							INSERT INTO Bills (PatientID, TransactionInfo, BillAmount, Discount, PaidAmount, PaymentMethod, PaymentStatus, BillDate, isInsurance, InsuranceInfo, BillingAddress, BillingNotes, PreparedBy, ServiceID)
+							VALUES (@PatientID, 'for outdoor', 0.00, NULL, 0.00, 0, 1, GETDATE(), 0, NULL, NULL, NULL, 'Cashier name', NULL);
 
-                        -- Insert the record into Outdoors
-                        INSERT INTO Outdoors (PatientID, TreatmentType, TreatmentDate, TicketNumber, BillID, DoctorID, Remarks, IsAdmissionRequired)
-                        VALUES (@PatientID, @TreatmentType, @TreatmentDate, @TicketNumber, @BillID, @DoctorID, @Remarks, @IsAdmissionRequired)
-                    END TRY
-                    BEGIN CATCH
-                        PRINT 'An error occurred: ' + ERROR_MESSAGE()
-                    END CATCH
-                END
-                GO
+							-- get newly generated BillID
+							SET @NewBillID = SCOPE_IDENTITY();
+
+							-- add new Outdoors record with new BillID
+							INSERT INTO Outdoors (PatientID, TreatmentType, TreatmentDate, TicketNumber, BillID, DoctorID, Remarks, IsAdmissionRequired)
+							VALUES (@PatientID, @TreatmentType, @TreatmentDate, @TicketNumber, @NewBillID, @DoctorID, @Remarks, @IsAdmissionRequired);
+
+							COMMIT TRANSACTION;
+						END TRY
+						BEGIN CATCH
+							ROLLBACK TRANSACTION;
+							PRINT 'An error occurred: ' + ERROR_MESSAGE();
+						END CATCH
+					END
+				GO
                 ";
 
             var procUpdateOutdoor = @"
                 -- stored procedure ==> UpdateOutdoor
-                CREATE PROCEDURE UpdateOutdoor
+                create PROCEDURE UpdateOutdoor
                     @OutdoorID INT,
                     @PatientID INT,
                     @TreatmentType INT,
@@ -263,31 +267,44 @@ namespace HMS.DAL.Migrations
                 AS
                 BEGIN
                     BEGIN TRY
-		                --TicketNumber already exists
-                        IF EXISTS (SELECT 1 FROM Outdoors WHERE TicketNumber = @TicketNumber AND OutdoorID != @OutdoorID)
+                        BEGIN TRANSACTION;
+                        -- Ticket already exists for different BillID??
+                        IF EXISTS (
+                            SELECT 1
+                            FROM Outdoors
+                            WHERE TicketNumber = @TicketNumber
+                              AND BillID <> @BillID
+                        )
                         BEGIN
-                            -- for duplicate outdoor ID
-                            THROW 50009, 'Duplicate TicketNumber not allowed', 1
+                            -- duplicate Ticket check
+                            ROLLBACK TRANSACTION;
+                            THROW 50013, 'TicketNumber is already associated with a different BillID', 1;
                         END
 
+                        -- DoctorID NULL??
                         IF @DoctorID IS NULL
                         BEGIN
-                            -- for missing DoctorID
-                            THROW 50010, 'You can''t update outdoor record without DoctorID', 2
+                            -- Rollback the transaction and throw an error for missing DoctorID
+                            ROLLBACK TRANSACTION;
+                            THROW 50010, 'You can''t update outdoor record without DoctorID', 2;
                         END
 
+                        --PatientID NULL?
                         IF @PatientID IS NULL
                         BEGIN
-                            -- for missing PatientID
-                            THROW 50011, 'You can''t update outdoor record without PatientID', 1
+                            ROLLBACK TRANSACTION;
+                            THROW 50011, 'You can''t update outdoor record without PatientID', 1;
                         END
 
-		                --TreatmentDate tomorrow = not allowed
-		                IF DATEDIFF(DAY, GETDATE(), @TreatmentDate) > 0
+		                -- TreatmentDate past date or not
+		                IF @TreatmentDate < CAST(GETDATE() AS DATE)
 		                BEGIN
-			                THROW 50012, 'Date selection is wrong', 3
+			                ROLLBACK TRANSACTION;
+			                THROW 50012, 'Treatment Date must be today or a future date', 3;
 		                END
 
+
+                        -- Update the Outdoor record
                         UPDATE Outdoors
                         SET PatientID = @PatientID,
                             TreatmentType = @TreatmentType,
@@ -297,10 +314,13 @@ namespace HMS.DAL.Migrations
                             DoctorID = @DoctorID,
                             Remarks = @Remarks,
                             IsAdmissionRequired = @IsAdmissionRequired
-                        WHERE OutdoorID = @OutdoorID
+                        WHERE OutdoorID = @OutdoorID;
+
+                        COMMIT TRANSACTION;
                     END TRY
                     BEGIN CATCH
-                        PRINT 'An error occurred: ' + ERROR_MESSAGE()
+                        ROLLBACK TRANSACTION;
+                        PRINT 'An error occurred: ' + ERROR_MESSAGE();
                     END CATCH
                 END
                 GO
@@ -322,9 +342,6 @@ namespace HMS.DAL.Migrations
                             --OutdoorID is not found
                             THROW 50000, 'Outdoor ID not found', 1
                         END
-
-                        -- Delete the outdoor record since it exists  --- error?
-                        --DELETE FROM Outdoors WHERE OutdoorID = @OutdoorID
 
 		                -- Prevent delete outdoor
 		                IF @OutdoorID is not null
