@@ -21,13 +21,13 @@ namespace Hospital_Management_System.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Drawer>>> GetDrawers()
         {
-            var drawers = await _context.Drawers.Include(d => d.DrawerID).ToListAsync();
+            var drawers = await _context.Drawers.Include(d => d.Morgue).ToListAsync();
             return Ok(drawers);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Drawer>> GetDrawer(int id)
         {
-            var drawer = await _context.Drawers.Include(d => d.DrawerID).FirstOrDefaultAsync(d => d.DrawerID == id);
+            var drawer = await _context.Drawers.Include(d => d.Morgue).FirstOrDefaultAsync(d => d.DrawerID == id);
 
             if (drawer == null)
             {
