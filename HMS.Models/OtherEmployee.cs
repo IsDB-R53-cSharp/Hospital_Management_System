@@ -70,7 +70,7 @@ namespace HMS.Models
         [Display(Name = "Maintenance")]
         Maintenance,
 
-        [Display(Name = "Driver")]
+        [Display(Name = "Ambulance Driver")]
         Driver,
 
         others

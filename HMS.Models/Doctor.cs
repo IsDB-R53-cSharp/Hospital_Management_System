@@ -70,7 +70,16 @@ namespace HMS.Models
         surgeon,
 
         [Display(Name = "Anesthesiologist")]
-        anesthesiologist
+        anesthesiologist,
+
+        [Display(Name = "Dentist")]
+        dentist,
+
+        [Display(Name = "Consaltent")]
+        Consaltent,
+
+        [Display(Name = "Pathologist")]
+        Pathologist,
     }
 
 }

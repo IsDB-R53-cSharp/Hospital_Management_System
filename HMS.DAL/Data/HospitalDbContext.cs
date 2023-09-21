@@ -77,51 +77,144 @@ namespace HMS.DAL.Data
                     BedCabinNumber = 40,
                     DepartmentID = 2,
                 },
-                new WardCabin
-                {
-                    WardID = 3,
-                    WardName = "Nerve Care",
-                    BedCabinNumber = 12,
-                    DepartmentID = 1,
-                }
-                );
-
 
             modelBuilder.Entity<PatientRegister>().HasData(
-                  new PatientRegister
-                  {
-                      PatientID = 1,
-                      PatientName = "amina begum",
-                      Gender = Gender.Female,
-                      AdmissionDate = new DateTime(2023, 9, 5),
-                      DateOfBirth = new DateTime(1999, 2, 12),
-                      Address = "dhaka",
-                      EmergencyContact = "123456789",
-                      Email = "am@gmail.com",
-                      BloodType = BloodType.ABNegative,
-                      IsTransferred = false,
-                      PhoneNumber = "12345678",
-                      WardID = 1
+                new PatientRegister
+                {
+                    PatientID = 1,
+                    PatientName = "Sultana begum",
+                    Gender = Gender.Female,
+                    AdmissionDate = new DateTime(2023, 9, 5),
+                    DateOfBirth = new DateTime(1999, 2, 12),
+                    Address = "dhaka",
+                    EmergencyContact = "123456789",
+                    Email = "am@gmail.com",
+                    BloodType = BloodType.ABNegative,
+                    IsTransferred = true,
+                    PhoneNumber = "12345678",
+                    WardID = 1
 
-                  },
-                   new PatientRegister
-                   {
-                       PatientID = 2,
-                       PatientName = "Azman Mollah",
-                       Gender = Gender.Male,
-                       AdmissionDate = new DateTime(2023, 9, 2),
-                       DateOfBirth = new DateTime(1971, 12, 16),
-                       Address = "Pabna",
-                       EmergencyContact = "123456789",
-                       Email = "az@gmail.com",
-                       BloodType = BloodType.ONegative,
-                       IsTransferred = false,
-                       PhoneNumber = "1233454",
-                       WardID = 3
+                },
+                new PatientRegister
+                {
+                    PatientID = 2,
+                    PatientName = "Azman Mollah",
+                    Gender = Gender.Male,
+                    AdmissionDate = new DateTime(2023, 9, 2),
+                    DateOfBirth = new DateTime(1971, 12, 16),
+                    Address = "Sirajgonj",
+                    EmergencyContact = "123456789",
+                    Email = "az@gmail.com",
+                    BloodType = BloodType.ONegative,
+                    IsTransferred = false,
+                    PhoneNumber = "1233454",
+                    WardID = null
 
-                   }
+                }
+            ));
 
-                  );
+            modelBuilder.Entity<Doctor>().HasData(
+               new Doctor
+               {
+                   DoctorID = 1,
+                   DoctorName = "Pipul Rahman",
+                   DepartmentID = 1,
+                   Specialization = "Cardiologist",
+                   Doctortype = (doctortype)1,
+                   JoinDate = DateTime.Parse("2023-01-15"),
+                   ResignDate = null,
+                   employeeStatus = (EmployeeStatus)1,
+                   Education_Info = "MD in Cardiology from DMC University",
+                   Image = "doctor1.jpg"
+               },
+               new Doctor
+               {
+                   DoctorID = 2,
+                   DoctorName = "Ass Pina",
+                   DepartmentID = 2,
+                   Specialization = "Orthopedic Surgeon",
+                   Doctortype = (doctortype)4,
+                   JoinDate = DateTime.Parse("2023-02-20"),
+                   ResignDate = null,
+                   employeeStatus = (EmployeeStatus)1,
+                   Education_Info = "MD in Orthopedics from ABC University",
+                   Image = "doctor2.jpg"
+               });
+
+            modelBuilder.Entity<Nurse>().HasData(
+                new Nurse
+                {
+                    NurseID = 1,
+                    NurseName = "Sharmin Jahan",
+                    DepartmentID = 1,
+                    NurseType = (NurseType)1,
+                    JoinDate = DateTime.Parse("2023-03-10"),
+                    ResignDate = null,
+                    employeeStatus = (EmployeeStatus)1,
+                    Education_Info = "Bachelor of Science in Nursing",
+                    Image = "nurse1.jpg"
+                },
+                new Nurse
+                {
+                    NurseID = 2,
+                    NurseName = "Hafsa khatun",
+                    DepartmentID = 2,
+                    NurseType = (NurseType)2,
+                    JoinDate = DateTime.Parse("2023-04-05"),
+                    ResignDate = null,
+                    employeeStatus = (EmployeeStatus)2,
+                    Education_Info = "Licensed Practical Nurse Certification",
+                    Image = "nurse2.jpg"
+                });
+            modelBuilder.Entity<LabTechnician>().HasData(
+                new LabTechnician
+                {
+                    TechnicianID = 1,
+                    TechnicianName = "valsun choudhury",
+                    DepartmentID = 1,
+                    TechnicianType = (TechnicianType)1,
+                    JoinDate = DateTime.Parse("2023-05-15"),
+                    ResignDate = null,
+                    employeeStatus = (EmployeeStatus)1,
+                    Education_Info = "Bachelor of Science in Medical Technology",
+                    Image = "labtech1.jpg"
+                },
+                new LabTechnician
+                {
+                    TechnicianID = 2,
+                    TechnicianName = "Robin mia",
+                    DepartmentID = 2,
+                    TechnicianType = (TechnicianType)2,
+                    JoinDate = DateTime.Parse("2023-06-10"),
+                    ResignDate = null,
+                    employeeStatus = (EmployeeStatus)2,
+                    Education_Info = "Certified Laboratory Technician",
+                    Image = "labtech2.jpg"
+                });
+
+            modelBuilder.Entity<OtherEmployee>().HasData(
+                new OtherEmployee
+                {
+                    EmployeeID = 1,
+                    OtherEmployeeName = "abul mia",
+                    OtherEmployeeType = (OtherEmployeeType)2,
+                    JoinDate = DateTime.Parse("2023-07-20"),
+                    ResignDate = null,
+                    employeeStatus = (EmployeeStatus)1,
+                    Education_Info = "JSC",
+                    Image = "wordboy1.jpg"
+                },
+                new OtherEmployee
+                {
+                    EmployeeID = 2,
+                    OtherEmployeeName = "ataur",
+                    OtherEmployeeType = (OtherEmployeeType)6,
+                    JoinDate = DateTime.Parse("2023-08-05"),
+                    ResignDate = null,
+                    employeeStatus = (EmployeeStatus)2,
+                    Education_Info = "SSC",
+                    Image = "driver1.jpg"
+                });
 
             modelBuilder.Entity<PatientRegister>()
              .HasMany(p => p.Prescriptions)

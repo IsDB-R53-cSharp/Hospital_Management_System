@@ -61,15 +61,6 @@ namespace HMS.Models
         [Display(Name = "Physical Therapy")]
         PhysicalTherapy,
 
-        [Display(Name = "Blood Pressure Check")]
-        BloodPressureCheck,
-
-        //[Display(Name = "X-ray")]
-        //XRay,
-
-        //[Display(Name = "Laboratory Tests")]
-        //LaboratoryTests,
-
         [Display(Name = "Consultation")]
         Consultation,
 
