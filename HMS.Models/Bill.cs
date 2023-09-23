@@ -95,38 +95,41 @@ namespace HMS.Models
     }
     public enum PaymentMethod
     {
+        [Display(Name = "Processing")]
+        Processing=0,
+
         [Display(Name = "Cash")]
-        Cash = 0,
+        Cash,
 
         [Display(Name = "Bank Card")]
-        BankCard = 1,
+        BankCard,
 
         [Display(Name = "Bank Check")]
-        BankCheck = 2,
+        BankCheck,
 
         [Display(Name = "BKash")]
-        BKash = 3,
+        BKash,
 
         [Display(Name = "Rocket")]
-        Rocket = 4,
+        Rocket,
 
         [Display(Name = "Nagad")]
-        Nagad = 5,
+        Nagad,
 
         [Display(Name = "Foreign Currency")]
-        ForeignCurrency = 6
+        ForeignCurrency
     }
 
     public enum PaymentStatus
     {
-        [Display(Name = "Paid")]
-        Paid = 0,
-
         [Display(Name = "Due")]
-        Due = 1,
+        Due = 0,
+
+        [Display(Name = "Paid")]
+        Paid,
 
         [Display(Name = "Waived")]
-        Waived = 2
+        Waived
     }
     //hyhuh
 }

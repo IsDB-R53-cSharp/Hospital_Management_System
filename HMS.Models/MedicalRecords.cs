@@ -24,5 +24,7 @@ namespace HMS.Models
 
         //controller not done
 
+        //ei table muloto sob prescription er info add hobe. 
+
     }
 }

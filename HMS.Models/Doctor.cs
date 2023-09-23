@@ -44,6 +44,10 @@ namespace HMS.Models
         [StringLength(200)]
         public string Education_Info { get; set; } = default!;
 
+        [Required, RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be 11 digits.")]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; } = default!;
+
         public string Image { get; set; } = default!;
 
         [NotMapped]
@@ -70,7 +74,16 @@ namespace HMS.Models
         surgeon,
 
         [Display(Name = "Anesthesiologist")]
-        anesthesiologist
+        anesthesiologist,
+
+        [Display(Name = "Dentist")]
+        dentist,
+
+        [Display(Name = "Consaltent")]
+        Consaltent,
+
+        [Display(Name = "Pathologist")]
+        Pathologist,
     }
 
 }
