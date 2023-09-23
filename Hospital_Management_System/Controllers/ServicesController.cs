@@ -1,8 +1,9 @@
-﻿using HMS.DAL.Data;
-using HMS.Models;
+﻿using HMS.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using HMS.Models;
+using System;
+using System.Linq;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -10,76 +11,127 @@ namespace Hospital_Management_System.Controllers
     [ApiController]
     public class ServicesController : ControllerBase
     {
-        private readonly HospitalDbContext _context;
+        private readonly IServiceRepo _serviceRepo;
 
-        public ServicesController(HospitalDbContext context)
+        public ServicesController(IServiceRepo serviceRepo)
         {
-            _context = context;
+            _serviceRepo = serviceRepo;
         }
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Service>>> GetServices()
+        [Route("GetServices")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetServices()
         {
-            if (_context.Services == null)
+            try
             {
-                return NotFound();
+                var services = _serviceRepo.GetServices().ToList();
+                return Ok(services);
             }
-            return await _context.Services.ToListAsync();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        //id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Service>> GetService(int id)
+        [HttpGet]
+        [Route("GetServiceById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetServiceById(int id)
         {
-            var service = await _context.Services.FindAsync(id);
-
-            if (service == null)
+            try
             {
-                return NotFound();
-            }
+                Service service = _serviceRepo.GetServiceById(id);
 
-            return service;
+                if (service == null)
+                {
+                    return NotFound($"Service with ID {id} not found.");
+                }
+
+                return Ok(service);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        //Post
         [HttpPost]
-        public async Task<ActionResult<Service>> CreateService(Service service)
+        [Route("CreateService")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CreateService([FromBody] Service service)
         {
+            try
+            {
+                if (service == null)
+                {
+                    return BadRequest("Service data is null.");
+                }
 
-            _context.Services.Add(service);
-            await _context.SaveChangesAsync();
+                _serviceRepo.SaveService(service);
 
-            return CreatedAtAction(nameof(GetService), new { id = service.ServiceID }, service);
+                return CreatedAtAction(nameof(GetServiceById), new { id = service.ServiceID }, service);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        [HttpPut]
+        [Route("UpdateService/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult UpdateService(int id, [FromBody] Service service)
+        {
+            try
+            {
+                if (service == null || id != service.ServiceID)
+                {
+                    return BadRequest("Invalid data provided.");
+                }
 
-        //// PUT: api/Services/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutService(int id, Service service)
-        //{
-        //    if (id != service.ServiceID)
-        //    {
-        //        return BadRequest();
-        //    }
+                var existingService = _serviceRepo.GetServiceById(id);
+                if (existingService == null)
+                {
+                    return NotFound($"Service with ID {id} not found.");
+                }
 
-        //    _context.Entry(service).State = EntityState.Modified;
+                _serviceRepo.SaveService(service);
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ServiceExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //    return NoContent();
-        //}
+        [HttpDelete]
+        [Route("DeleteService/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteService(int id)
+        {
+            try
+            {
+                var existingService = _serviceRepo.GetServiceById(id);
+                if (existingService == null)
+                {
+                    return NotFound($"Service with ID {id} not found.");
+                }
+
+                _serviceRepo.DeleteService(id);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
