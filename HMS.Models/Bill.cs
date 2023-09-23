@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HMS.Models.Attributes;
 
 namespace HMS.Models
 {
@@ -29,11 +30,13 @@ namespace HMS.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Discount { get; set; }
 
+        [PaidAmountValidation]
         [Required, Range(0, Double.MaxValue, ErrorMessage = "Paid Amount must be greater than 0")]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal PaidAmount { get; set; }
 
+        [DueAmountValidation]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Due { get; set; }
@@ -77,21 +80,21 @@ namespace HMS.Models
         public virtual Service? Service { get; set; } = default!;
 
         // Custom validation methods
-        public IEnumerable<ValidationResult> ValidatePaidAmount(ValidationContext validationContext)
-        {
-            if (PaidAmount > BillAmount)
-            {
-                yield return new ValidationResult("Paid Amount cannot be greater than Bill Amount", new[] { nameof(PaidAmount) });
-            }
-        }
+        //public IEnumerable<ValidationResult> ValidatePaidAmount(ValidationContext validationContext)
+        //{
+        //    if (PaidAmount > BillAmount)
+        //    {
+        //        yield return new ValidationResult("Paid Amount cannot be greater than Bill Amount", new[] { nameof(PaidAmount) });
+        //    }
+        //}
 
-        public IEnumerable<ValidationResult> ValidateDueAmount(ValidationContext validationContext)
-        {
-            if (Due.HasValue && Due > 0.6m * BillAmount)
-            {
-                yield return new ValidationResult("Due Amount cannot exceed 60% of Bill Amount", new[] { nameof(Due) });
-            }
-        }
+        //public IEnumerable<ValidationResult> ValidateDueAmount(ValidationContext validationContext)
+        //{
+        //    if (Due.HasValue && Due > 0.6m * BillAmount)
+        //    {
+        //        yield return new ValidationResult("Due Amount cannot exceed 60% of Bill Amount", new[] { nameof(Due) });
+        //    }
+        //}
     }
     public enum PaymentMethod
     {

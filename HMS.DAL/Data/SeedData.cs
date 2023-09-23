@@ -99,6 +99,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)1,
                     Education_Info = "MD in Cardiology from DMC University",
+                    PhoneNumber = "01917123456",
                     Image = "doctor1.jpg"
                 },
                 new Doctor
@@ -112,6 +113,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)1,
                     Education_Info = "MD in Orthopedics from ABC University",
+                    PhoneNumber = "01517123456",
                     Image = "doctor2.jpg"
                 }
             );
@@ -130,6 +132,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)1,
                     Education_Info = "Bachelor of Science in Nursing",
+                    PhoneNumber = "01317123456",
                     Image = "nurse1.jpg"
                 },
                 new Nurse
@@ -142,6 +145,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)2,
                     Education_Info = "Licensed Practical Nurse Certification",
+                    PhoneNumber = "01817123456",
                     Image = "nurse2.jpg"
                 }
             );
@@ -160,6 +164,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)1,
                     Education_Info = "Bachelor of Science in Medical Technology",
+                    PhoneNumber = "01617123456",
                     Image = "labtech1.jpg"
                 },
                 new LabTechnician
@@ -172,6 +177,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)2,
                     Education_Info = "Certified Laboratory Technician",
+                    PhoneNumber = "01917123456",
                     Image = "labtech2.jpg"
                 }
             );
@@ -189,6 +195,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)1,
                     Education_Info = "JSC",
+                    PhoneNumber = "01917123456",
                     Image = "wordboy1.jpg"
                 },
                 new OtherEmployee
@@ -200,6 +207,7 @@ namespace HMS.DAL.Data
                     ResignDate = null,
                     employeeStatus = (EmployeeStatus)2,
                     Education_Info = "SSC",
+                    PhoneNumber = "01517123456",
                     Image = "driver1.jpg"
                 }
             );
