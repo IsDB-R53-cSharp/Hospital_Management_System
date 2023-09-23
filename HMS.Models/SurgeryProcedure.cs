@@ -57,8 +57,8 @@ namespace HMS.Models.SurgeryWard
         //nev
         [NotMapped]
         public virtual PatientRegister? PatientRegister { get; set; } = default!;
-        public virtual Doctor Doctor { get; set; } = default!;
-        public virtual LabTest LabTest { get; set; } = default!;
-        public virtual Prescriptions Prescription { get; set; } = default!;
+        public virtual Doctor? Doctor { get; set; } = default!;
+        public virtual LabTest? LabTest { get; set; } = default!;
+        public virtual Prescriptions? Prescription { get; set; } = default!;
     }
 }
