@@ -62,7 +62,7 @@ namespace Hospital_Management_System.Controllers
         {
             var ID = _context.WasteManagements.FirstOrDefault(x => x.WasteID == id);
 
-            _context.Database.ExecuteSqlRaw("EXEC DeleteWasteManagement @WasteID={0}", ID);
+            _context.Database.ExecuteSqlRaw("EXEC DeleteWasteManagement @WasteID={0}", id);
             if (ID != null)
             {
                 return Ok("WasteManagement Delete Successfully");
