@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20230918050447_Ataur_Store_Procedure")]
-    partial class Ataur_Store_Procedure
+    [Migration("20230923045005_ModifyAmbulance")]
+    partial class ModifyAmbulance
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,21 +39,7 @@ namespace HMS.DAL.Migrations
                     b.Property<bool>("Availability")
                         .HasColumnType("bit");
 
-                    b.Property<string>("DriverName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("DrivingLiense")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastLocation")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -737,6 +723,9 @@ namespace HMS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeID"), 1L, 1);
 
+                    b.Property<int?>("AmbulanceID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Education_Info")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -764,6 +753,8 @@ namespace HMS.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeID");
+
+                    b.HasIndex("AmbulanceID");
 
                     b.ToTable("OtherEmployees");
                 });
@@ -1141,9 +1132,8 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("WasteType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WasteType")
+                        .HasColumnType("int");
 
                     b.HasKey("WasteID");
 
@@ -1360,6 +1350,13 @@ namespace HMS.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HMS.Models.OtherEmployee", b =>
+                {
+                    b.HasOne("HMS.Models.Ambulance", null)
+                        .WithMany("OtherEmployees")
+                        .HasForeignKey("AmbulanceID");
+                });
+
             modelBuilder.Entity("HMS.Models.Outdoor", b =>
                 {
                     b.HasOne("HMS.Models.Bill", "Bill")
@@ -1498,6 +1495,11 @@ namespace HMS.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HMS.Models.Ambulance", b =>
+                {
+                    b.Navigation("OtherEmployees");
                 });
 
             modelBuilder.Entity("HMS.Models.Bill", b =>

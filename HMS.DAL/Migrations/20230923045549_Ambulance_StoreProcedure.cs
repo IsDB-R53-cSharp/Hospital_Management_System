@@ -4,7 +4,7 @@
 
 namespace HMS.DAL.Migrations
 {
-    public partial class Ataur_Store_Procedure : Migration
+    public partial class Ambulance_StoreProcedure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,32 +21,25 @@ namespace HMS.DAL.Migrations
             string InsertAmbulance = @"
             CREATE PROCEDURE InsertAmbulance
                 @AmbulanceNumber NVARCHAR(10),
-                @PhoneNumber NVARCHAR(20),
-                @DrivingLiense NVARCHAR(20),
-                @DriverName NVARCHAR(50),
+              
                 @LastLocation NVARCHAR(200),
                 @Availability BIT
             AS
             BEGIN
-                INSERT INTO Ambulances (AmbulanceNumber, PhoneNumber, DrivingLiense, DriverName, LastLocation, Availability)
-                VALUES (@AmbulanceNumber, @PhoneNumber, @DrivingLiense, @DriverName, @LastLocation, @Availability);
+                INSERT INTO Ambulances (AmbulanceNumber,LastLocation, Availability)
+                VALUES (@AmbulanceNumber, @LastLocation, @Availability);
             END";
             string UpdateAmbulance = @"
             CREATE PROCEDURE UpdateAmbulance
                 @AmbulanceID INT,
                 @AmbulanceNumber NVARCHAR(10),
-                @PhoneNumber NVARCHAR(20),
-                @DrivingLiense NVARCHAR(20),
-                @DriverName NVARCHAR(50),
+            
                 @LastLocation NVARCHAR(200),
                 @Availability BIT
             AS
             BEGIN
                 UPDATE Ambulances
                 SET AmbulanceNumber = @AmbulanceNumber,
-                    PhoneNumber = @PhoneNumber,
-                    DrivingLiense = @DrivingLiense,
-                    DriverName = @DriverName,
                     LastLocation = @LastLocation,
                     Availability = @Availability
                 WHERE AmbulanceID = @AmbulanceID;
