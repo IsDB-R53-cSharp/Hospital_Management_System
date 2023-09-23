@@ -4,6 +4,7 @@ using HMS.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230923035611_AdviceAndSymptom")]
+    partial class AdviceAndSymptom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,6 +89,7 @@ namespace HMS.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JsonData")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -434,32 +437,6 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("Doctors");
-
-                    b.HasData(
-                        new
-                        {
-                            DoctorID = 1,
-                            DepartmentID = 1,
-                            DoctorName = "Pipul Rahman",
-                            Doctortype = 1,
-                            Education_Info = "MD in Cardiology from DMC University",
-                            Image = "doctor1.jpg",
-                            JoinDate = new DateTime(2023, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Specialization = "Cardiologist",
-                            employeeStatus = 1
-                        },
-                        new
-                        {
-                            DoctorID = 2,
-                            DepartmentID = 2,
-                            DoctorName = "Ass Pina",
-                            Doctortype = 4,
-                            Education_Info = "MD in Orthopedics from ABC University",
-                            Image = "doctor2.jpg",
-                            JoinDate = new DateTime(2023, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Specialization = "Orthopedic Surgeon",
-                            employeeStatus = 1
-                        });
                 });
 
             modelBuilder.Entity("HMS.Models.Drawer", b =>
@@ -558,30 +535,6 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("LabTechnicians");
-
-                    b.HasData(
-                        new
-                        {
-                            TechnicianID = 1,
-                            DepartmentID = 1,
-                            Education_Info = "Bachelor of Science in Medical Technology",
-                            Image = "labtech1.jpg",
-                            JoinDate = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TechnicianName = "valsun choudhury",
-                            TechnicianType = 1,
-                            employeeStatus = 1
-                        },
-                        new
-                        {
-                            TechnicianID = 2,
-                            DepartmentID = 2,
-                            Education_Info = "Certified Laboratory Technician",
-                            Image = "labtech2.jpg",
-                            JoinDate = new DateTime(2023, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TechnicianName = "Robin mia",
-                            TechnicianType = 2,
-                            employeeStatus = 2
-                        });
                 });
 
             modelBuilder.Entity("HMS.Models.LabTest", b =>
@@ -791,32 +744,6 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("Nurses");
-
-                    b.HasData(
-                        new
-                        {
-                            NurseID = 1,
-                            DepartmentID = 1,
-                            Education_Info = "Bachelor of Science in Nursing",
-                            Image = "nurse1.jpg",
-                            JoinDate = new DateTime(2023, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NurseLevel = 0,
-                            NurseName = "Sharmin Jahan",
-                            NurseType = 1,
-                            employeeStatus = 1
-                        },
-                        new
-                        {
-                            NurseID = 2,
-                            DepartmentID = 2,
-                            Education_Info = "Licensed Practical Nurse Certification",
-                            Image = "nurse2.jpg",
-                            JoinDate = new DateTime(2023, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NurseLevel = 0,
-                            NurseName = "Hafsa khatun",
-                            NurseType = 2,
-                            employeeStatus = 2
-                        });
                 });
 
             modelBuilder.Entity("HMS.Models.OtherEmployee", b =>
@@ -856,28 +783,6 @@ namespace HMS.DAL.Migrations
                     b.HasKey("EmployeeID");
 
                     b.ToTable("OtherEmployees");
-
-                    b.HasData(
-                        new
-                        {
-                            EmployeeID = 1,
-                            Education_Info = "JSC",
-                            Image = "wordboy1.jpg",
-                            JoinDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OtherEmployeeName = "abul mia",
-                            OtherEmployeeType = 2,
-                            employeeStatus = 1
-                        },
-                        new
-                        {
-                            EmployeeID = 2,
-                            Education_Info = "SSC",
-                            Image = "driver1.jpg",
-                            JoinDate = new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OtherEmployeeName = "ataur",
-                            OtherEmployeeType = 6,
-                            employeeStatus = 2
-                        });
                 });
 
             modelBuilder.Entity("HMS.Models.Outdoor", b =>
@@ -984,15 +889,15 @@ namespace HMS.DAL.Migrations
                             Email = "am@gmail.com",
                             EmergencyContact = "123456789",
                             Gender = 2,
-                            IsTransferred = true,
-                            PatientName = "Sultana begum",
+                            IsTransferred = false,
+                            PatientName = "amina begum",
                             PhoneNumber = "12345678",
                             WardID = 1
                         },
                         new
                         {
                             PatientID = 2,
-                            Address = "Sirajgonj",
+                            Address = "Pabna",
                             AdmissionDate = new DateTime(2023, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BloodType = 8,
                             DateOfBirth = new DateTime(1971, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1002,7 +907,7 @@ namespace HMS.DAL.Migrations
                             IsTransferred = false,
                             PatientName = "Azman Mollah",
                             PhoneNumber = "1233454",
-                            WardID = 2
+                            WardID = 3
                         });
                 });
 
@@ -1063,6 +968,9 @@ namespace HMS.DAL.Migrations
                     b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PatientRegisterPatientID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PrescriptionDate")
                         .HasColumnType("date");
 
@@ -1096,6 +1004,9 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("NurseID");
 
+                    b.HasIndex("PatientRegisterPatientID");
+
+                    b.HasIndex("SymptomId");
 
                     b.HasIndex("TestID");
 
@@ -1156,6 +1067,9 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("PrescriptionID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PrescriptionsPrescriptionID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("SurgeryDate")
                         .HasColumnType("date");
 
@@ -1172,6 +1086,8 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("NurseID");
 
                     b.HasIndex("PrescriptionID");
+
+                    b.HasIndex("PrescriptionsPrescriptionID");
 
                     b.HasIndex("TestID");
 
@@ -1217,6 +1133,13 @@ namespace HMS.DAL.Migrations
                             BedCabinNumber = 40,
                             DepartmentID = 2,
                             WardName = "Child Care"
+                        },
+                        new
+                        {
+                            WardID = 3,
+                            BedCabinNumber = 12,
+                            DepartmentID = 1,
+                            WardName = "Nerve Care"
                         });
                 });
 
@@ -1513,6 +1436,14 @@ namespace HMS.DAL.Migrations
                         .WithMany("Prescriptions")
                         .HasForeignKey("NurseID");
 
+                    b.HasOne("HMS.Models.PatientRegister", null)
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("PatientRegisterPatientID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HMS.Models.Symptom", null)
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("SymptomId");
 
                     b.HasOne("HMS.Models.LabTest", "LabTest")
                         .WithMany("Prescriptions")
@@ -1538,10 +1469,14 @@ namespace HMS.DAL.Migrations
                         .HasForeignKey("NurseID");
 
                     b.HasOne("HMS.Models.Prescriptions", "Prescription")
-                        .WithMany("SurgeryProcedures")
+                        .WithMany()
                         .HasForeignKey("PrescriptionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("HMS.Models.Prescriptions", null)
+                        .WithMany("SurgeryProcedures")
+                        .HasForeignKey("PrescriptionsPrescriptionID");
 
                     b.HasOne("HMS.Models.LabTest", "LabTest")
                         .WithMany("SurgeryProcedures")
@@ -1661,6 +1596,11 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Prescriptions");
 
                     b.Navigation("SurgeryProcedures");
+                });
+
+            modelBuilder.Entity("HMS.Models.PatientRegister", b =>
+                {
+                    b.Navigation("Prescriptions");
                 });
 
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>

@@ -250,7 +250,7 @@ namespace Hospital_Management_System.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from database");
             }
         }
-        [HttpPost("DeleteRole")]
+        [HttpDelete("DeleteRole")]
         public async Task<object> DeleteRole([FromForm] UserRolesVM model)
         {
             try
