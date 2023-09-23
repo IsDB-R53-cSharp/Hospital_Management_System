@@ -71,7 +71,7 @@ namespace HMS.Models.ViewModels
         public string RoleId { get; set; }
 
         public string RoleName { get; set; }
-        public string JsonData { get; set; }
+        public string? JsonData { get; set; }
         public bool Selected { get; set; }
         public List<string> Users { get; set; }
     }

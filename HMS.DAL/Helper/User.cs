@@ -25,7 +25,7 @@ namespace HMS.Models
         public string RoleId { get; set; }
 
         public string RoleName { get; set; }
-        public string JsonData { get; set; }
+        public string? JsonData { get; set; }
     }
     public class ApplicationRole : IdentityRole
     {
@@ -41,7 +41,7 @@ namespace HMS.Models
         }
 
         [Display(Name = "JsonData")]
-        public string JsonData { get; set; }
+        public string? JsonData { get; set; }
     }
     public class ApplicationUser : IdentityUser
     {
