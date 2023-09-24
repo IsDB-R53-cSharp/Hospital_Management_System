@@ -48,20 +48,6 @@ namespace HMS.DAL.Data
         public DbSet<Advice> Advices { get; set; }
 
 
-
-
-        //modelBuilder.Entity<PatientRegister>()
-        // .HasMany(p => p.Prescriptions)
-        //.WithOne()
-        // .OnDelete(DeleteBehavior.Restrict);
-
-        //modelBuilder.Entity<SurgeryProcedure>()
-        //.HasOne(sp => sp.Prescription)
-        //.WithMany()
-        //.OnDelete(DeleteBehavior.Restrict);
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //SeedData.SeedDepartments(modelBuilder);
@@ -78,6 +64,16 @@ namespace HMS.DAL.Data
             //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
             //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
             // or for auth
+
+            modelBuilder.Entity<PatientRegister>()
+                 .HasMany(p => p.Prescriptions)
+                .WithOne()
+                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SurgeryProcedure>()
+                .HasOne(sp => sp.Prescription)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }
