@@ -66,6 +66,9 @@ namespace HMS.DAL.Migrations
                 table: "Drawers",
                 type: "int",
                 nullable: true);
+
+            //Store Procedure
+
             string getall = @"create proc SpGetAllMorgues
               as
               BEGIN
@@ -155,6 +158,8 @@ namespace HMS.DAL.Migrations
                 name: "DrawerCondition",
                 table: "Drawers",
                 newName: "DrawerCount");
+
+            //Store Procedure
 
             string getall = @"Drop proc SpGetAllMorgues";
             string getbyid = @"Drop proc SpMorguesgetById";
