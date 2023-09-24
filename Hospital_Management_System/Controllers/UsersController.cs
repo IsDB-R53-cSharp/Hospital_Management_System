@@ -277,8 +277,49 @@ namespace Hospital_Management_System.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from database");
             }
         }
+        //[HttpGet("UserRoles")]
+        //public async Task<object> UserRoles(string id)
+        //{
+        //    try
+        //    {
+        //        var viewModel = new List<UserRolesVM>();
+        //        var user = await _userManager.FindByIdAsync(id);
+        //        if (user == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        foreach (var role in _roleManager.Roles)
+        //        {
+        //            var userRolesViewModel = new UserRolesVM
+        //            {
+        //                RoleName = role.Name
+        //            };
+        //            if (await _userManager.IsInRoleAsync(user, role.Name))
+        //            {
+        //                userRolesViewModel.Selected = true;
+        //            }
+        //            else
+        //            {
+        //                userRolesViewModel.Selected = false;
+        //            }
+        //            viewModel.Add(userRolesViewModel);
+        //        }
+        //        var model = new ManageUserRolesVM()
+        //        {
+        //            UserId = id,
+        //            UserRoles = viewModel
+        //        };
+        //        return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", model));
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from database");
+        //    }
+
+        //}
+        //Zinish
         [HttpGet("UserRoles")]
-        public async Task<object> UserRoles(string id)
+        public async Task<IActionResult> UserRoles(string id)
         {
             try
             {
@@ -288,66 +329,143 @@ namespace Hospital_Management_System.Controllers
                 {
                     return NotFound();
                 }
+
+                var userRoles = await _userManager.GetRolesAsync(user);
+
                 foreach (var role in _roleManager.Roles)
                 {
                     var userRolesViewModel = new UserRolesVM
                     {
-                        RoleName = role.Name
+                        RoleName = role.Name,
+                        Selected = userRoles.Contains(role.Name) // Check if the user is in the role
                     };
-                    if (await _userManager.IsInRoleAsync(user, role.Name))
-                    {
-                        userRolesViewModel.Selected = true;
-                    }
-                    else
-                    {
-                        userRolesViewModel.Selected = false;
-                    }
                     viewModel.Add(userRolesViewModel);
                 }
+
                 var model = new ManageUserRolesVM()
                 {
                     UserId = id,
                     UserRoles = viewModel
                 };
-                return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", model));
+
+                return Ok(new ResponseModel(ResponseCode.OK, "User roles retrieved successfully", model));
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from database");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
             }
-
         }
 
+        //Zinish
+
+        [HttpGet("SpecificUserRoles")]
+        public async Task<IActionResult> SpecificUserRoles(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                var model = new UserRolesResponseModel
+                {
+                    UserId = userId,
+                    UserRoles = userRoles.ToList()
+                };
+
+                return Ok(new ResponseModel(ResponseCode.OK, "User roles retrieved successfully", model));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving user roles");
+            }
+        }
+
+        //[HttpPut("UpdateUserRoles")]
+        //public async Task<object> UpdateUserRoles(string userId, ManageUserRolesVM model)
+        //{
+        //    try
+        //    {
+        //        var user = await _userManager.FindByIdAsync(userId);
+        //        if (user == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        var roles = await _userManager.GetRolesAsync(user);
+        //        if (user == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        var result = await _userManager.RemoveFromRolesAsync(user, roles);
+        //        if (result.Succeeded)
+        //        {
+        //            result = await _userManager.AddToRolesAsync(user, model.UserRoles.Where(x => x.Selected).Select(y => y.RoleName));
+        //            var currentUser = await _userManager.GetUserAsync(User);
+        //            await _signInManager.RefreshSignInAsync(currentUser);
+        //            UserAndRoleDataInitializer.SeedData(_userManager, _roleManager);
+        //            return await Task.FromResult(new ResponseModel(ResponseCode.OK, "Users roles updated succfully", null));
+        //        }
+        //        return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Something went wrong please try again later", null));
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from database");
+        //    }
+        //}
+
+        //
+        //Zinish
         [HttpPut("UpdateUserRoles")]
-        public async Task<object> UpdateUserRoles(string userId, ManageUserRolesVM model)
+        public async Task<IActionResult> UpdateUserRoles(string userId, ManageUserRolesVM model)
         {
             try
             {
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user == null)
                 {
-                    return NotFound();
+                    return NotFound("User not found");
                 }
-                var roles = await _userManager.GetRolesAsync(user);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                var result = await _userManager.RemoveFromRolesAsync(user, roles);
-                if (result.Succeeded)
-                {
-                    result = await _userManager.AddToRolesAsync(user, model.UserRoles.Where(x => x.Selected).Select(y => y.RoleName));
-                    var currentUser = await _userManager.GetUserAsync(User);
-                    await _signInManager.RefreshSignInAsync(currentUser);
-                    UserAndRoleDataInitializer.SeedData(_userManager, _roleManager);
-                    return await Task.FromResult(new ResponseModel(ResponseCode.OK, "Users roles updated succfully", null));
-                }
-                return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Something went wrong please try again later", null));
 
+                // Remove all existing roles
+                var rolesToRemove = await _userManager.GetRolesAsync(user);
+                var removeResult = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
+
+                if (!removeResult.Succeeded)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Failed to remove user roles");
+                }
+
+                // Add the selected roles
+                var selectedRoles = model.UserRoles.Where(x => x.Selected).Select(y => y.RoleName);
+                var addResult = await _userManager.AddToRolesAsync(user, selectedRoles);
+
+                if (addResult.Succeeded)
+                {
+                    // Refresh the user's authentication token
+                    await _signInManager.RefreshSignInAsync(user);
+
+                    // Optionally, reseed data if needed
+                    UserAndRoleDataInitializer.SeedData(_userManager, _roleManager);
+
+                    return Ok(new ResponseModel(ResponseCode.OK, "User roles updated successfully", null));
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add user roles");
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from database");
+                // Log the exception for debugging purposes
+                Console.WriteLine(ex);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating user roles");
             }
         }
         private string GenerateToken(ApplicationUser user, List<string> roles)

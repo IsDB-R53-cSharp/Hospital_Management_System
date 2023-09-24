@@ -115,4 +115,9 @@ namespace HMS.Models.ViewModels
         [Display(Name = "Email Address")]
         public string Email { get; set; }
     }
+    public class UserRolesResponseModel
+    {
+        public string UserId { get; set; }
+        public List<string> UserRoles { get; set; }
+    }
 }
