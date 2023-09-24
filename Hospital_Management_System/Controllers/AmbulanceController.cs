@@ -43,7 +43,7 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public async Task<ActionResult<Ambulance>> CreateAmbulance(Ambulance ambulance)
         {
-            await db.Database.ExecuteSqlRawAsync("EXEC InsertAmbulance @AmbulanceNumber={0}, @PhoneNumber={1}, @DrivingLiense={2}, @DriverName={3}, @LastLocation={4},@Availability={5}", ambulance.AmbulanceNumber, ambulance.PhoneNumber, ambulance.DrivingLiense, ambulance.DriverName, ambulance.LastLocation, ambulance.Availability);
+            await db.Database.ExecuteSqlRawAsync("EXEC InsertAmbulance @AmbulanceNumber={0}, @Availability={1},@LastLocation={2}", ambulance.AmbulanceNumber, ambulance.Availability, ambulance.Availability);
             return Ok("Ambulance inserted successfully.");
         }
 
@@ -51,14 +51,14 @@ namespace Hospital_Management_System.Controllers
         public async Task<IActionResult> UpdateAmbulance(int id, Ambulance ambulance)
         {
 
-          await  db.Database.ExecuteSqlRawAsync("EXEC UpdateAmbulance  @AmbulanceID={0}, @AmbulanceNumber={1}, @PhoneNumber={2}, @DrivingLiense={3}, @DriverName={4}, @LastLocation={5},@Availability={6}", ambulance.AmbulanceID,ambulance.AmbulanceNumber, ambulance.PhoneNumber, ambulance.DrivingLiense, ambulance.DriverName, ambulance.LastLocation, ambulance.Availability);
+            await db.Database.ExecuteSqlRawAsync("EXEC UpdateAmbulance  @AmbulanceID={0}, @AmbulanceNumber={1},@Availability={2},@LastLocation={3}", ambulance.AmbulanceID, ambulance.AmbulanceNumber, ambulance.Availability, ambulance.LastLocation);
             return Ok("Ambulance Update successfully.");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmbulance(int id)
         {
-            var ID =await db.Ambulances.FirstOrDefaultAsync(x => x.AmbulanceID == id);
+            var ID = await db.Ambulances.FirstOrDefaultAsync(x => x.AmbulanceID == id);
             await db.Database.ExecuteSqlRawAsync("EXEC DeleteAmbulance @AmbulanceID={0}", ID);
             if (ID == null)
             {

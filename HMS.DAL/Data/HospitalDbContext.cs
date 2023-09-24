@@ -64,13 +64,13 @@ namespace HMS.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            SeedData.SeedDepartments(modelBuilder);
-            SeedData.SeedWardCabins(modelBuilder);
-            SeedData.SeedPatients(modelBuilder);
-            SeedData.SeedDoctors(modelBuilder);
-            SeedData.SeedNurses(modelBuilder);
-            SeedData.SeedLabTechnicians(modelBuilder);
-            SeedData.SeedOtherEmployees(modelBuilder);
+            //SeedData.SeedDepartments(modelBuilder);
+            //SeedData.SeedWardCabins(modelBuilder);
+            //SeedData.SeedPatients(modelBuilder);
+            //SeedData.SeedDoctors(modelBuilder);
+            //SeedData.SeedNurses(modelBuilder);
+            //SeedData.SeedLabTechnicians(modelBuilder);
+            //SeedData.SeedOtherEmployees(modelBuilder);
 
 
             //for auth
