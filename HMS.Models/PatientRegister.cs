@@ -1,5 +1,4 @@
-﻿using HMS.Models.Attributes;
-using HMS.Models.SurgeryWard;
+﻿using HMS.Models.SurgeryWard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,7 +40,7 @@ namespace HMS.Models
         public string? Address { get; set; }
 
         [StringLength(200)]
-        public string? EmergencyContact { get; set; } //Emergency person details. not only phone number. so string better. 
+        public string? EmergencyContact { get; set; } //Emargency person details. not only phone number. so string better. 
 
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
@@ -77,7 +76,7 @@ namespace HMS.Models
     public enum BloodType
     {
         [Description("A+")]
-        APositive = 1,
+        APositive=1,
 
         [Description("A-")]
         ANegative,
@@ -104,7 +103,7 @@ namespace HMS.Models
     public enum Gender
     {
         [Description("Male")]
-        Male = 1,
+        Male=1,
 
         [Description("Female")]
         Female,
@@ -115,4 +114,53 @@ namespace HMS.Models
         [Description("Prefer Not to Say")]
         PreferNotToSay
     }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class AdmissionDateMustBeOnOrAfterBirthDateAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var admissionDate = (DateTime?)value; //nullable DateTime cast korlam
+            var birthDateProperty = validationContext.ObjectType.GetProperty("DateOfBirth");
+            var birthDate = (DateTime?)birthDateProperty.GetValue(validationContext.ObjectInstance, null);
+
+            if (admissionDate.HasValue && birthDate.HasValue && admissionDate.Value < birthDate.Value)
+            {
+                return new ValidationResult("Admission date must be on or after the birth date.");
+            }
+
+            return ValidationResult.Success;
+        }
+    }
+
+
+
+
+    //old db model
+    //public class PatientRegister
+    //{
+    //    [Key]
+    //    public int PatientID { get; set; }
+    //    public string PatientName { get; set; } = default!;
+    //    public Gender Gender { get; set; }
+    //    public DateTime DateOfBirth { get; set; }
+    //    public string Address { get; set; } = default!;
+    //    public string PhoneNumber { get; set; } = default!;
+    //    public string Email { get; set; } = default!;
+    //    public string EmergencyContact { get; set; } = default!;
+    //    public DateTime AdmissionDate { get; set; }
+    //    public string BloodType { get; set; } = default!;
+    //    public bool IsTransferred { get; set; }
+    //    [ForeignKey("WardCabin")]
+    //    public int WardID { get; set; }
+    //    // add navigation properties
+    //    public virtual WardCabin WardCabin { get; set; } = default!;
+    //    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+    //    public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
+    //    public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
+    //    public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
+    //    public virtual ICollection<DischargeTransfer> DischargeTransfers { get; set; } = new List<DischargeTransfer>();
+    //}
+
+
 }
