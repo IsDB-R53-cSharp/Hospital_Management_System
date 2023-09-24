@@ -1,5 +1,7 @@
 ﻿using HMS.DAL.Data;
 using HMS.Models;
+using HMS.Repository.Interface;
+using Hospital_Management_System.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -12,84 +14,107 @@ namespace Hospital_Management_System.Controllers
     [ApiController]
     public class DrawersController : ControllerBase
     {
-        private readonly HospitalDbContext _context;
+        private readonly IDrawerRepo _drawerRepo;
 
-        public DrawersController(HospitalDbContext context)
+        public DrawersController(IDrawerRepo _drawerRepo)
         {
-            _context = context;
+            _drawerRepo = _drawerRepo;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Drawer>>> GetDrawers()
+        [Route("GetDrawer")]
+        public IActionResult GetDrawer()
         {
-            var drawers = await _context.Drawers.Include(d => d.Morgue).ToListAsync();
-            return Ok(drawers);
-        }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Drawer>> GetDrawer(int id)
-        {
-            var drawer = await _context.Drawers.Include(d => d.Morgue).FirstOrDefaultAsync(d => d.DrawerID == id);
-
-            if (drawer == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(drawer);
-        }
-        [HttpPost]
-        public async Task<ActionResult<Drawer>> CreateDrawer(Drawer drawer)
-        {
-            _context.Drawers.Add(drawer);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetDrawer", new { id = drawer.DrawerID }, drawer);
-        }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDrawer(int id, Drawer drawer)
-        {
-            if (id != drawer.DrawerID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(drawer).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var drawers = _drawerRepo.GetDrawers().ToList();
+                return Ok(drawers);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!DrawerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ex.Message);
             }
-
-            return NoContent();
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDrawer(int id)
+        [HttpGet]
+        [Route("GetDrawerById/{id}")]
+        public IActionResult GetDrawerById(int id)
         {
-            var drawer = await _context.Drawers.FindAsync(id);
-            if (drawer == null)
+            try
             {
-                return NotFound();
+                Drawer drawer = _drawerRepo.GetDrawerById(id);
+                if (drawer == null)
+                {
+                    return NotFound($"Drawer with ID {id} not found.");
+                }
+                return Ok(drawer);
             }
-
-            _context.Drawers.Remove(drawer);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
-        private bool DrawerExists(int id)
+        [HttpPost]
+        [Route("Insert")]
+        public async Task<IActionResult> PostDoctor([FromForm] DrawerHelper drawerHelper)
         {
-            return _context.Drawers.Any(e => e.DrawerID == id);
+            try
+            {
+                Drawer drawerToSave = drawerHelper.GetDrawer();
+                _drawerRepo.SaveDrawer(drawerToSave);
+                return Ok(drawerToSave);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut]
+        [Route("Update/{}")]
+        public async Task<IActionResult> PutDoctor(int id, [FromForm] DrawerHelper drawerHelper)
+        {
+            try
+            {
+                Drawer existingDrawer = _drawerRepo.GetDrawerById(id);
+                if (existingDrawer == null)
+                {
+                    return NotFound($"Drawer with ID {id} not found.");
+                }
+
+                existingDrawer.DrawerID = drawerHelper.DrawerID;
+                existingDrawer.DrawerNo = drawerHelper.DrawerNo;
+                existingDrawer.DrawerCondition = drawerHelper.DrawerCondition;
+                existingDrawer.IsOccupied = drawerHelper.IsOccupied;
+                existingDrawer.DeceasedName = drawerHelper.DeceasedName;
+                existingDrawer.IsPatient = drawerHelper.IsPatient;
+                existingDrawer.PatientID = drawerHelper.PatientID;
+                existingDrawer.DateOfDeath = drawerHelper.DateOfDeath;
+                existingDrawer.MorgueID = drawerHelper.MorgueID;
+
+                _drawerRepo.SaveDrawer(existingDrawer);
+                return Ok(existingDrawer);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public IActionResult DeleteDoctor(int id)
+        {
+            try
+            {
+                Drawer existingDrawer = _drawerRepo.GetDrawerById(id);
+                if (existingDrawer == null)
+                {
+                    return NotFound($"Drawer with ID {id} not found.");
+                }
+
+                return BadRequest("Drawer can't be deleted. Change drawer status instead.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
