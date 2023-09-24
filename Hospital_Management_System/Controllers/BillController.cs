@@ -2,6 +2,7 @@
 using HMS.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_Management_System.Controllers
@@ -12,73 +13,59 @@ namespace Hospital_Management_System.Controllers
     {
         private readonly HospitalDbContext _context;
 
-
         public BillController(HospitalDbContext context)
         {
             _context = context;
         }
 
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bill>>> GetBill()
+        public IActionResult GetAllBills()
         {
-            return await _context.Bills.ToListAsync();
+            IQueryable<Bill> bills = _context.Bills.FromSqlRaw("GetAllBills").AsQueryable();
+            if (bills == null)
+            {
+                return NotFound();
+            }
+            return Ok(bills);
         }
 
-        //id
         [HttpGet("{id}")]
-        public async Task<ActionResult<Bill>> GetBill(int id)
+        public ActionResult GetBillById(int id)
         {
-            var bill = await _context.Bills.FindAsync(id);
+            var idParameter = new SqlParameter("@id", id);
 
-            if (bill == null)
+            IQueryable<Bill> bills = _context.Bills
+                .FromSqlRaw("EXEC GetBillById @id", idParameter)
+                .AsQueryable();
+
+            if (bills == null)
             {
                 return NotFound();
             }
 
-            return bill;
+            return Ok(bills);
         }
-        //Post
+
         [HttpPost]
-        public async Task<ActionResult<Bill>> CreateBill(Bill bill)
+        public IActionResult InsertBill([FromForm] Bill bill)
         {
-            _context.Bills.Add(bill);
-            await _context.SaveChangesAsync();
-            return Ok(bill);
-        }
-
-        // PUT: api/Bill/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBill(int id, Bill bill)
-        {
-            if (id != bill.BillID)
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                return BadRequest();
-            }
-
-            _context.Entry(bill).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BillExists(id))
+                try
                 {
-                    return NotFound();
+                    _context.Database.ExecuteSqlRaw("EXEC AddBills @PatientID={0}, @TransactionInfo={1}, @BillAmount={2}, @Discount={3}, @PaidAmount={4}, @Due={5},@PaymentMethod={6},@PaymentStatus={7}, @BillDate={8}, @isInsurance={9}, @InsuranceInfo={10}, @BillingAddress={11}, @BillingNotes={12}, @PreparedBy={13},@ServiceID={14} ",
+                        bill.PatientID, bill.TransactionInfo, bill.BillAmount, bill.Discount, bill.PaidAmount, bill.Due, bill.PaymentMethod, bill.PaymentStatus, bill.BillDate, bill.isInsurance, bill.InsuranceInfo, bill.BillingAddress, bill.BillingNotes, bill.PreparedBy, bill.ServiceID);
+
+                    transaction.Commit();
+                    return Ok("Bill inserted successfully.");
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw;
+                    transaction.Rollback();
+                    return BadRequest($"Failed to insert bill. Error: {ex.Message}");
                 }
             }
-
-            return Ok(bill);
-        }
-
-        private bool BillExists(int id)
-        {
-            return _context.Bills.Any(e => e.BillID == id);
         }
     }
 }
