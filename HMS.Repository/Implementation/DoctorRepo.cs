@@ -13,17 +13,17 @@ namespace HMS.Repository.Implementation
 {
     public class DoctorRepo : IDoctorRepo
     {
-        private readonly IGenericRepo<Doctor> _doctorRepo;
+        private readonly IGenericRepo<Doctor> _docRepo;
 
-        public DoctorRepo(IGenericRepo<Doctor> doctorRepo)
+        public DoctorRepo(IGenericRepo<Doctor> docRepo)
         {
-            this._doctorRepo = doctorRepo;
+            this._docRepo = docRepo;
         }
         public IEnumerable<Doctor> GetDoctors()
         {
             try
             {
-                return _doctorRepo.FindAll();
+                return _docRepo.FindAll();
             }
             catch (Exception ex)
             {
@@ -34,7 +34,7 @@ namespace HMS.Repository.Implementation
         {
             try
             {
-                return _doctorRepo.FindByCondition(x => x.DoctorID == id).FirstOrDefault();
+                return _docRepo.FindByCondition(x => x.DoctorID == id).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -49,16 +49,16 @@ namespace HMS.Repository.Implementation
                 {
                     if (doctor.Image == null)
                     {
-                        Doctor existingDoctor = _doctorRepo.FindByCondition(x => x.DoctorID == doctor.DoctorID).FirstOrDefault();
+                        Doctor existingDoctor = _docRepo.FindByCondition(x => x.DoctorID == doctor.DoctorID).FirstOrDefault();
                         doctor.Image = existingDoctor.Image;
                     }
-                    _doctorRepo.Update(doctor);
+                    _docRepo.Update(doctor);
                 }
                 else
                 {
-                    _doctorRepo.Create(doctor);
+                    _docRepo.Create(doctor);
                 }
-                _doctorRepo.Commit();
+                _docRepo.Commit();
             }
             catch (Exception)
             {
@@ -67,8 +67,8 @@ namespace HMS.Repository.Implementation
         }
         public void DeleteDoctor(int id)
         {
-            _doctorRepo.Delete(id);
-            _doctorRepo.Commit();
+            _docRepo.Delete(id);
+            _docRepo.Commit();
         }
     }
 }

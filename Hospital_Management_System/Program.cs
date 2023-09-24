@@ -114,6 +114,7 @@ namespace Hospital_Management_System
             builder.Services.AddScoped<INurseRepo, NurseRepo>();
             builder.Services.AddScoped<ILabTechnicianRepo, LabTechnicianRepo>();
             builder.Services.AddScoped<IOtherEmployeeRepo, OtherEmployeeRepo>();
+            builder.Services.AddScoped<IServiceRepo, ServiceRepo>();
 
 
             builder.Services.AddScoped<ImageHelper>();

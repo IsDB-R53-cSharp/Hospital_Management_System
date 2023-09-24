@@ -13,12 +13,12 @@ namespace Hospital_Management_System.Controllers
     [ApiController]
     public class DoctorsController : ControllerBase
     {
-        private readonly IDoctorRepo _doctorRepo;
+        private readonly IDoctorRepo _docRepo;
         private readonly ImageHelper _imageHelper;
 
-        public DoctorsController(IDoctorRepo doctorRepo, ImageHelper imageHelper)
+        public DoctorsController(IDoctorRepo docRepo, ImageHelper imageHelper)
         {
-            _doctorRepo = doctorRepo;
+            _docRepo = docRepo;
             _imageHelper = imageHelper;
         }
 
@@ -30,7 +30,7 @@ namespace Hospital_Management_System.Controllers
         {
             try
             {
-                var doctors = _doctorRepo.GetDoctors().ToList();
+                var doctors = _docRepo.GetDoctors().ToList();
                 return Ok(doctors);
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace Hospital_Management_System.Controllers
         {
             try
             {
-                Doctor doctor = _doctorRepo.GetDoctorById(id);
+                Doctor doctor = _docRepo.GetDoctorById(id);
 
                 if (doctor == null)
                 {
@@ -80,7 +80,7 @@ namespace Hospital_Management_System.Controllers
                 Doctor doctorToSave = doctorHelper.GetDoctor();
                 doctorToSave.Image = imagePath;
 
-                _doctorRepo.SaveDoctor(doctorToSave);
+                _docRepo.SaveDoctor(doctorToSave);
 
                 return Ok(doctorToSave);
             }
@@ -99,7 +99,7 @@ namespace Hospital_Management_System.Controllers
                 // Handle image upload
                 string imagePath = await _imageHelper.SaveImageAsync(doctorHelper.Image);
 
-                Doctor existingDoctor = _doctorRepo.GetDoctorById(id);
+                Doctor existingDoctor = _docRepo.GetDoctorById(id);
 
                 if (existingDoctor == null)
                 {
@@ -119,7 +119,7 @@ namespace Hospital_Management_System.Controllers
                 //existingDoctor.Appointments = doctorHelper.Appointments;
                 //existingDoctor.SurgeryProcedures = doctorHelper.SurgeryProcedures;
 
-                _doctorRepo.SaveDoctor(existingDoctor);
+                _docRepo.SaveDoctor(existingDoctor);
 
                 return Ok(existingDoctor);
             }
@@ -129,13 +129,35 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
+        //[HttpDelete]
+        //[Route("Delete/{id}")]
+        //public IActionResult DeleteDoctor(int id)
+        //{
+        //    try
+        //    {
+        //        Doctor existingDoctor = _docRepo.GetDoctorById(id);
+        //        if (existingDoctor == null)
+        //        {
+        //            return NotFound($"Doctor with ID {id} not found.");
+        //        }
+
+        //        _docRepo.DeleteDoctor(id);
+
+        //        return Ok($"Doctor with ID {id} has been deleted.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
         [HttpDelete]
         [Route("Delete/{id}")]
         public IActionResult DeleteDoctor(int id)
         {
             try
             {
-                Doctor existingDoctor = _doctorRepo.GetDoctorById(id);
+                Doctor existingDoctor = _docRepo.GetDoctorById(id);
                 if (existingDoctor == null)
                 {
                     return NotFound($"Doctor with ID {id} not found.");

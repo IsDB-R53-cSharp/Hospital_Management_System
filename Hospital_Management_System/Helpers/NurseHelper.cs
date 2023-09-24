@@ -26,7 +26,6 @@ namespace Hospital_Management_System.Helpers
             this.ResignDate = nurse.ResignDate;
             this.employeeStatus = nurse.employeeStatus;
             this.Education_Info = nurse.Education_Info;
-            this.PhoneNumber = nurse.PhoneNumber;
             //this.Department = nurse.Department;
             //this.WardCabins = nurse.WardCabins.ToList();
         }
@@ -39,8 +38,6 @@ namespace Hospital_Management_System.Helpers
         public DateTime JoinDate { get; set; }
         public DateTime? ResignDate { get; set; }
         public EmployeeStatus employeeStatus { get; set; }
-
-        public string PhoneNumber { get; set; } = default!;
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
         //public Department? Department { get; set; }
@@ -58,14 +55,13 @@ namespace Hospital_Management_System.Helpers
             nurse.ResignDate = this.ResignDate;
             nurse.employeeStatus = this.employeeStatus;
             nurse.Education_Info = this.Education_Info;
-            nurse.PhoneNumber = this.PhoneNumber;
             //nurse.Department = this.Department;
             //nurse.WardCabins = this.WardCabins;
             return nurse;
         }
 
+        
 
-
-
+        
     }
 }
