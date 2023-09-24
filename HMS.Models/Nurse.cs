@@ -44,6 +44,10 @@ namespace HMS.Models
 
         public string Image { get; set; } = default!;
 
+        [Required, RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be 11 digits.")]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; } = default!;
+
         [NotMapped]
         public virtual Department? Department { get; set; } = default!;
 

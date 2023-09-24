@@ -16,6 +16,7 @@ namespace Hospital_Management_System.Helpers
             ResignDate = otherEmployee.ResignDate;
             EmployeeStatus = otherEmployee.employeeStatus;
             Education_Info = otherEmployee.Education_Info;
+            PhoneNumber = otherEmployee.PhoneNumber;
         }
 
         public int EmployeeID { get; set; }
@@ -26,6 +27,7 @@ namespace Hospital_Management_System.Helpers
         public EmployeeStatus EmployeeStatus { get; set; }
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
+        public string PhoneNumber { get; set; } = default!;
 
         public OtherEmployee GetOtherEmployee()
         {
@@ -36,6 +38,7 @@ namespace Hospital_Management_System.Helpers
             otherEmployee.ResignDate = ResignDate;
             otherEmployee.employeeStatus = EmployeeStatus;
             otherEmployee.Education_Info = Education_Info;
+            otherEmployee.PhoneNumber = PhoneNumber;
 
             return otherEmployee;
         }
