@@ -9,14 +9,22 @@ namespace HMS.Models
 {
     public class Morgue
     {
-        //tray/or drawer Count
-        //
         [Key]
         public int MorgueID { get; set; }
-        [Required(ErrorMessage = "Enter Morgue Name")]
+
+        [Required(ErrorMessage = "Morgue Name")]
         [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
         public string MorgueName { get; set; } = default!;
-        //
+
+        public int Capacity { get; set; }
+
+        //if the morgue can handle infectious cases (Ex: corona dead body)
+        public bool IsolationCapability { get; set; }
+
         public ICollection<Drawer> Drawers { get; set; } = new List<Drawer>();
     }
+
+    ///concept
+    //morgue id 1, Capacity = 50 Drawer
+    //morgue id 2, Capacity = 100 Drawer
 }
