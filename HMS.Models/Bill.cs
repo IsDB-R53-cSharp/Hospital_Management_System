@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HMS.Models.Attributes;
 
 namespace HMS.Models
 {
@@ -30,13 +29,11 @@ namespace HMS.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Discount { get; set; }
 
-        [PaidAmountValidation]
         [Required, Range(0, Double.MaxValue, ErrorMessage = "Paid Amount must be greater than 0")]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal PaidAmount { get; set; }
 
-        [DueAmountValidation]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Due { get; set; }
@@ -49,7 +46,7 @@ namespace HMS.Models
         [EnumDataType(typeof(PaymentStatus))]
         public PaymentStatus PaymentStatus { get; set; } = default!;
 
-        [Required, Column(TypeName = "date")]
+        [Required,Column(TypeName = "date")]
         [Display(Name = "Treatment Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BillDate { get; set; }
@@ -65,7 +62,7 @@ namespace HMS.Models
         [StringLength(500)]
         public string? BillingNotes { get; set; } = default!;
 
-        [Required, StringLength(100)]
+        [Required,StringLength(100)]
         public string PreparedBy { get; set; } = default!;
 
         // Navigation properties
@@ -80,58 +77,56 @@ namespace HMS.Models
         public virtual Service? Service { get; set; } = default!;
 
         // Custom validation methods
-        //public IEnumerable<ValidationResult> ValidatePaidAmount(ValidationContext validationContext)
-        //{
-        //    if (PaidAmount > BillAmount)
-        //    {
-        //        yield return new ValidationResult("Paid Amount cannot be greater than Bill Amount", new[] { nameof(PaidAmount) });
-        //    }
-        //}
+        public IEnumerable<ValidationResult> ValidatePaidAmount(ValidationContext validationContext)
+        {
+            if (PaidAmount > BillAmount)
+            {
+                yield return new ValidationResult("Paid Amount cannot be greater than Bill Amount", new[] { nameof(PaidAmount) });
+            }
+        }
 
-        //public IEnumerable<ValidationResult> ValidateDueAmount(ValidationContext validationContext)
-        //{
-        //    if (Due.HasValue && Due > 0.6m * BillAmount)
-        //    {
-        //        yield return new ValidationResult("Due Amount cannot exceed 60% of Bill Amount", new[] { nameof(Due) });
-        //    }
-        //}
+        public IEnumerable<ValidationResult> ValidateDueAmount(ValidationContext validationContext)
+        {
+            if (Due.HasValue && Due > 0.6m * BillAmount)
+            {
+                yield return new ValidationResult("Due Amount cannot exceed 60% of Bill Amount", new[] { nameof(Due) });
+            }
+        }
     }
     public enum PaymentMethod
     {
-        [Display(Name = "Processing")]
-        Processing = 0,
-
         [Display(Name = "Cash")]
-        Cash,
+        Cash = 0,
 
         [Display(Name = "Bank Card")]
-        BankCard,
+        BankCard = 1,
 
         [Display(Name = "Bank Check")]
-        BankCheck,
+        BankCheck = 2,
 
         [Display(Name = "BKash")]
-        BKash,
+        BKash = 3,
 
         [Display(Name = "Rocket")]
-        Rocket,
+        Rocket = 4,
 
         [Display(Name = "Nagad")]
-        Nagad,
+        Nagad = 5,
 
         [Display(Name = "Foreign Currency")]
-        ForeignCurrency
+        ForeignCurrency = 6
     }
 
     public enum PaymentStatus
     {
-        [Display(Name = "Due")]
-        Due = 0,
-
         [Display(Name = "Paid")]
-        Paid,
+        Paid = 0,
+
+        [Display(Name = "Due")]
+        Due = 1,
 
         [Display(Name = "Waived")]
-        Waived
+        Waived = 2
     }
+    //hyhuh
 }
