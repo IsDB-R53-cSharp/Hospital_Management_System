@@ -21,8 +21,6 @@ namespace Hospital_Management_System.Helpers
             this.ResignDate = doctor.ResignDate;
             this.Education_Info = doctor.Education_Info;
             this.employeeStatus = doctor.employeeStatus;
-            this.PhoneNumber = doctor.PhoneNumber;
-
             //this.Department = doctor.Department;
             //this.Prescriptions = doctor.Prescriptions.ToList();
             //this.Appointments = doctor.Appointments.ToList();
@@ -38,7 +36,6 @@ namespace Hospital_Management_System.Helpers
         public DateTime? ResignDate { get; set; }
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
-        public string PhoneNumber { get; set; } = default!;
         public EmployeeStatus employeeStatus { get; set; }
         //public Department? Department { get; set; }
         //public List<Prescriptions>? Prescriptions { get; set; }
@@ -56,7 +53,6 @@ namespace Hospital_Management_System.Helpers
             doctor.JoinDate = this.JoinDate;
             doctor.employeeStatus = this.employeeStatus;
             doctor.Education_Info = this.Education_Info;
-            doctor.PhoneNumber = this.PhoneNumber;
             //doctor.Department = this.Department;
             //doctor.Prescriptions = this.Prescriptions;
             //doctor.Appointments = this.Appointments;
@@ -64,6 +60,6 @@ namespace Hospital_Management_System.Helpers
             return doctor;
         }
 
-
+        
     }
 }

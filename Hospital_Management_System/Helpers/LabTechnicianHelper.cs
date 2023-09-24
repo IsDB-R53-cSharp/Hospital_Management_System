@@ -16,7 +16,6 @@ namespace Hospital_Management_System.Helpers
             this.DepartmentID = labTechnician.DepartmentID;
             this.TechnicianName = labTechnician.TechnicianName;
             this.TechnicianType = labTechnician.TechnicianType;
-            this.PhoneNumber = labTechnician.PhoneNumber;
 
             //// parse TechnicianType from string to enum
             //if (Enum.TryParse(labTechnician.TechnicianType.ToString(), out TechnicianType technicianType))
@@ -42,7 +41,6 @@ namespace Hospital_Management_System.Helpers
         public EmployeeStatus employeeStatus { get; set; }
         public IFormFile Image { get; set; }
         public string Education_Info { get; set; }
-        public string PhoneNumber { get; set; } = default!;
         //public Department? Departments { get; set; }
         //public List<LabTest>? Labtest { get; set; }
 
@@ -57,7 +55,6 @@ namespace Hospital_Management_System.Helpers
             labTechnician.ResignDate = this.ResignDate;
             labTechnician.employeeStatus = this.employeeStatus;
             labTechnician.Education_Info = this.Education_Info;
-            labTechnician.PhoneNumber = this.PhoneNumber;
             //labTechnician.Departments = this.Departments;
             //labTechnician.Labtest = this.Labtest;
             return labTechnician;

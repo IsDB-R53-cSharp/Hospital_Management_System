@@ -38,10 +38,6 @@ namespace HMS.Models
         [EnumDataType(typeof(EmployeeStatus))]
         public EmployeeStatus employeeStatus { get; set; }
 
-        [Required, RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be 11 digits.")]
-        [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; } = default!;
-
         public string Image { get; set; } = default!;
 
         [StringLength(200)]

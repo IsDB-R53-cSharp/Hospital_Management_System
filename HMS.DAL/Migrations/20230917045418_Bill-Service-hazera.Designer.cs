@@ -422,7 +422,30 @@ namespace HMS.DAL.Migrations
                     b.ToTable("Doctors");
                 });
 
+            modelBuilder.Entity("HMS.Models.Drawer", b =>
+                {
+                    b.Property<int>("DrawerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrawerID"), 1L, 1);
+
+                    b.Property<int>("DrawerCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DrawerNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MorgueID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DrawerID");
+
+                    b.HasIndex("MorgueID");
+
+                    b.ToTable("Drawers");
+                });
 
             modelBuilder.Entity("HMS.Models.LabEquipment", b =>
                 {
@@ -1258,7 +1281,16 @@ namespace HMS.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HMS.Models.Drawer", b =>
+                {
+                    b.HasOne("HMS.Models.Morgue", "Morgue")
+                        .WithMany("Drawers")
+                        .HasForeignKey("MorgueID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.Navigation("Morgue");
+                });
 
             modelBuilder.Entity("HMS.Models.LabEquipment", b =>
                 {
@@ -1496,7 +1528,10 @@ namespace HMS.DAL.Migrations
                     b.Navigation("SurgeryProcedures");
                 });
 
-
+            modelBuilder.Entity("HMS.Models.Morgue", b =>
+                {
+                    b.Navigation("Drawers");
+                });
 
             modelBuilder.Entity("HMS.Models.Nurse", b =>
                 {
