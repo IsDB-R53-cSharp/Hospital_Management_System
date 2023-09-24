@@ -37,6 +37,10 @@ namespace HMS.Models
         [StringLength(200)]
         [Display(Name = "Education Info")]
         public string Education_Info { get; set; } = default!;
+
+        [Required, RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be 11 digits.")]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; } = default!;
     }
     public enum EmployeeStatus
     {
@@ -70,7 +74,7 @@ namespace HMS.Models
         [Display(Name = "Maintenance")]
         Maintenance,
 
-        [Display(Name = "Driver")]
+        [Display(Name = "Ambulance Driver")]
         Driver,
 
         others

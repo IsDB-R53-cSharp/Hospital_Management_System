@@ -22,23 +22,6 @@ namespace HMS.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HMS.Models.Advice", b =>
-                {
-                    b.Property<int>("AdviceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdviceId"), 1L, 1);
-
-                    b.Property<string>("AdviceName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AdviceId");
-
-                    b.ToTable("Advices");
-                });
-
             modelBuilder.Entity("HMS.Models.Ambulance", b =>
                 {
                     b.Property<int>("AmbulanceID")
@@ -74,7 +57,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("AmbulanceID");
 
-                    b.ToTable("Ambulances");
+                    b.ToTable("Ambulances", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.ApplicationRole", b =>
@@ -232,7 +215,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("NurseID");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Bill", b =>
@@ -298,7 +281,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("ServiceID");
 
-                    b.ToTable("Bills");
+                    b.ToTable("Bills", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.BloodBank", b =>
@@ -325,7 +308,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("BloodBankID");
 
-                    b.ToTable("BloodBanks");
+                    b.ToTable("BloodBanks", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Department", b =>
@@ -347,7 +330,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
 
                     b.HasData(
                         new
@@ -384,7 +367,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("DT_ID");
 
-                    b.ToTable("DischargeTransfers");
+                    b.ToTable("DischargeTransfers", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Doctor", b =>
@@ -433,7 +416,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Drawer", b =>
@@ -458,7 +441,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("MorgueID");
 
-                    b.ToTable("Drawers");
+                    b.ToTable("Drawers", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.LabEquipment", b =>
@@ -487,7 +470,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("LabEquipments");
+                    b.ToTable("LabEquipments", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.LabTechnician", b =>
@@ -531,7 +514,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("LabTechnicians");
+                    b.ToTable("LabTechnicians", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.LabTest", b =>
@@ -566,7 +549,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("LabTechnicianTechnicianID");
 
-                    b.ToTable("LabTests");
+                    b.ToTable("LabTests", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Manufacturer", b =>
@@ -583,7 +566,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("ManufacturerID");
 
-                    b.ToTable("Manufacturer");
+                    b.ToTable("Manufacturer", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.MedicalRecords", b =>
@@ -619,7 +602,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("PrescriptionsPrescriptionID");
 
-                    b.ToTable("MedicalRecords");
+                    b.ToTable("MedicalRecords", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Medicine", b =>
@@ -658,7 +641,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("MedicineGenericID");
 
-                    b.ToTable("Medicines");
+                    b.ToTable("Medicines", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.MedicineGeneric", b =>
@@ -675,7 +658,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("MedicineGenericID");
 
-                    b.ToTable("MedicineGeneric");
+                    b.ToTable("MedicineGeneric", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Morgue", b =>
@@ -693,7 +676,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("MorgueID");
 
-                    b.ToTable("Morgues");
+                    b.ToTable("Morgues", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Nurse", b =>
@@ -740,7 +723,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("Nurses");
+                    b.ToTable("Nurses", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.OtherEmployee", b =>
@@ -779,7 +762,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("EmployeeID");
 
-                    b.ToTable("OtherEmployees");
+                    b.ToTable("OtherEmployees", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Outdoor", b =>
@@ -822,7 +805,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("PatientID");
 
-                    b.ToTable("Outdoors");
+                    b.ToTable("Outdoors", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.PatientRegister", b =>
@@ -873,7 +856,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("PatientID");
 
-                    b.ToTable("PatientRegisters");
+                    b.ToTable("PatientRegisters", (string)null);
 
                     b.HasData(
                         new
@@ -923,9 +906,6 @@ namespace HMS.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<int?>("AdviceId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("DiagnosisDate")
                         .HasColumnType("date");
@@ -979,9 +959,6 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("Severity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SymptomId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("SymptomStartDate")
                         .HasColumnType("date");
 
@@ -995,19 +972,15 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("PrescriptionID");
 
-                    b.HasIndex("AdviceId");
-
                     b.HasIndex("DoctorID");
 
                     b.HasIndex("NurseID");
 
                     b.HasIndex("PatientRegisterPatientID");
 
-                    b.HasIndex("SymptomId");
-
                     b.HasIndex("TestID");
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("Prescriptions", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.Service", b =>
@@ -1028,7 +1001,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("ServiceID");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.SurgeryWard.SurgeryProcedure", b =>
@@ -1088,7 +1061,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("TestID");
 
-                    b.ToTable("SurgeryProcedures");
+                    b.ToTable("SurgeryProcedures", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.SurgeryWard.WardCabin", b =>
@@ -1114,7 +1087,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("WardCabins");
+                    b.ToTable("WardCabins", (string)null);
 
                     b.HasData(
                         new
@@ -1138,23 +1111,6 @@ namespace HMS.DAL.Migrations
                             DepartmentID = 1,
                             WardName = "Nerve Care"
                         });
-                });
-
-            modelBuilder.Entity("HMS.Models.Symptom", b =>
-                {
-                    b.Property<int>("SymptomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
-
-                    b.Property<string>("SymptomName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SymptomId");
-
-                    b.ToTable("Symptoms");
                 });
 
             modelBuilder.Entity("HMS.Models.WasteManagement", b =>
@@ -1187,7 +1143,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("WasteID");
 
-                    b.ToTable("WasteManagements");
+                    b.ToTable("WasteManagements", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1419,10 +1375,6 @@ namespace HMS.DAL.Migrations
 
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>
                 {
-                    b.HasOne("HMS.Models.Advice", null)
-                        .WithMany("Prescriptions")
-                        .HasForeignKey("AdviceId");
-
                     b.HasOne("HMS.Models.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorID")
@@ -1437,10 +1389,6 @@ namespace HMS.DAL.Migrations
                         .WithMany("Prescriptions")
                         .HasForeignKey("PatientRegisterPatientID")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("HMS.Models.Symptom", null)
-                        .WithMany("Prescriptions")
-                        .HasForeignKey("SymptomId");
 
                     b.HasOne("HMS.Models.LabTest", "LabTest")
                         .WithMany("Prescriptions")
@@ -1548,11 +1496,6 @@ namespace HMS.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HMS.Models.Advice", b =>
-                {
-                    b.Navigation("Prescriptions");
-                });
-
             modelBuilder.Entity("HMS.Models.Bill", b =>
                 {
                     b.Navigation("Outdoors");
@@ -1610,11 +1553,6 @@ namespace HMS.DAL.Migrations
             modelBuilder.Entity("HMS.Models.Service", b =>
                 {
                     b.Navigation("Bills");
-                });
-
-            modelBuilder.Entity("HMS.Models.Symptom", b =>
-                {
-                    b.Navigation("Prescriptions");
                 });
 #pragma warning restore 612, 618
         }
