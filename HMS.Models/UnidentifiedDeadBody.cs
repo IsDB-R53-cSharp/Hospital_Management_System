@@ -5,13 +5,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace HMS.Models
 {
     public class UnidentifiedDeadBody
     {
+        [Key]
         public int UnIdenfiedDeadBodyID { get; set; }
 
+        [Display(Name = "Tag Number")]
         public int TagNumber { get; set; }
 
         [Display(Name = "Name of dead person")]

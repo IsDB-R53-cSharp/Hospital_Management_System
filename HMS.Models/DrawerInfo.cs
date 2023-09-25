@@ -14,9 +14,17 @@ namespace HMS.Models
 
     public class DrawerInfo
     {
-        [Key]
         public int DrawerInfoID { get; set; }
 
+        [Column(TypeName = "date")]
+        [Display(Name = "Received Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime ReceivedDate { get; set; }
+
+        [Column(TypeName = "date")]
+        [Display(Name = "Release Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime ReleaseDate { get; set; }
         // Deadbody info
         public bool IsPatient { get; set; }
 
