@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HMS.Repository.Interface
 {
-    public interface IOutdoorRepository
+    public interface IOutdoorRepo
     {
         Task<Outdoor> GetByIdAsync(int id); //retrieves an `Outdoor` entity by OutdoorID
 
