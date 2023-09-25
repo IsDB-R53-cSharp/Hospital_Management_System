@@ -28,10 +28,10 @@ namespace HMS.Models
         public string TicketNumber { get; set; } = default!;
 
         [ForeignKey("Bill")]
-        public int BillID { get; set; }
+        public int BillID { get; set; } //remove
 
         [ForeignKey("Doctor")]
-        public int DoctorID { get; set; }
+        public int DoctorID { get; set; } 
 
         public string Remarks { get; set; } = default!;
 
