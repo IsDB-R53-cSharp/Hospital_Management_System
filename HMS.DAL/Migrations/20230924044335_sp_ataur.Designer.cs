@@ -4,6 +4,7 @@ using HMS.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230924044335_sp_ataur")]
+    partial class sp_ataur
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -563,7 +565,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("ManufacturerID");
 
-                    b.ToTable("Manufacturers");
+                    b.ToTable("Manufacturer");
                 });
 
             modelBuilder.Entity("HMS.Models.MedicalRecords", b =>
@@ -626,17 +628,11 @@ namespace HMS.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MedicineType")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<decimal>("SellPrice")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Strength")
-                        .HasColumnType("int");
 
                     b.HasKey("MedicineID");
 
@@ -661,7 +657,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("MedicineGenericID");
 
-                    b.ToTable("MedicineGenerics");
+                    b.ToTable("MedicineGeneric");
                 });
 
             modelBuilder.Entity("HMS.Models.Morgue", b =>
@@ -932,9 +928,6 @@ namespace HMS.DAL.Migrations
                     b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PatientRegisterPatientID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PrescriptionDate")
                         .HasColumnType("date");
 
@@ -967,8 +960,6 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DoctorID");
 
                     b.HasIndex("NurseID");
-
-                    b.HasIndex("PatientRegisterPatientID");
 
                     b.HasIndex("SymptomId");
 
@@ -1031,9 +1022,6 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("PrescriptionID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PrescriptionsPrescriptionID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("SurgeryDate")
                         .HasColumnType("date");
 
@@ -1050,8 +1038,6 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("NurseID");
 
                     b.HasIndex("PrescriptionID");
-
-                    b.HasIndex("PrescriptionsPrescriptionID");
 
                     b.HasIndex("TestID");
 
@@ -1082,23 +1068,6 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("WardCabins");
-                });
-
-            modelBuilder.Entity("HMS.Models.Symptom", b =>
-                {
-                    b.Property<int>("SymptomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
-
-                    b.Property<string>("SymptomName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SymptomId");
-
-                    b.ToTable("Symptoms");
                 });
 
             modelBuilder.Entity("HMS.Models.Symptom", b =>
@@ -1401,11 +1370,6 @@ namespace HMS.DAL.Migrations
                         .WithMany("Prescriptions")
                         .HasForeignKey("NurseID");
 
-                    b.HasOne("HMS.Models.PatientRegister", null)
-                        .WithMany("Prescriptions")
-                        .HasForeignKey("PatientRegisterPatientID")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("HMS.Models.Symptom", null)
                         .WithMany("Prescriptions")
                         .HasForeignKey("SymptomId");
@@ -1434,14 +1398,10 @@ namespace HMS.DAL.Migrations
                         .HasForeignKey("NurseID");
 
                     b.HasOne("HMS.Models.Prescriptions", "Prescription")
-                        .WithMany()
-                        .HasForeignKey("PrescriptionID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HMS.Models.Prescriptions", null)
                         .WithMany("SurgeryProcedures")
-                        .HasForeignKey("PrescriptionsPrescriptionID");
+                        .HasForeignKey("PrescriptionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HMS.Models.LabTest", "LabTest")
                         .WithMany("SurgeryProcedures")
@@ -1521,6 +1481,10 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Prescriptions");
                 });
 
+            modelBuilder.Entity("HMS.Models.Ambulance", b =>
+                {
+                    b.Navigation("OtherEmployees");
+                });
 
             modelBuilder.Entity("HMS.Models.Bill", b =>
                 {
@@ -1562,11 +1526,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Prescriptions");
 
                     b.Navigation("SurgeryProcedures");
-                });
-
-            modelBuilder.Entity("HMS.Models.PatientRegister", b =>
-                {
-                    b.Navigation("Prescriptions");
                 });
 
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>

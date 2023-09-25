@@ -1,9 +1,7 @@
 ﻿using HMS.DAL.Data;
-
 using HMS.DAL.Helper;
-using HMS.Models.ViewModels;
+using HMS.Models;
 using HMS.Repository.Interface;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,22 +9,21 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentsController : ControllerBase
+    public class MedicineGenericsController : ControllerBase
     {
         private readonly HospitalDbContext _db;
-        private readonly IDepartmentRepo _iDepartment;
-        public DepartmentsController(IDepartmentRepo iDepartment, HospitalDbContext db)
+        private readonly IMedicineGenericRepo _iMedicineGeneric;
+        public MedicineGenericsController(IMedicineGenericRepo iMedicineGeneric, HospitalDbContext db)
         {
             _db = db;
-            _iDepartment = iDepartment;
+            _iMedicineGeneric = iMedicineGeneric;
         }
-        [Authorize(Roles = "IT")]
         [HttpGet("GetAll")]
         public async Task<ActionResult> GetAll()
         {
             try
             {
-                var testList = await _iDepartment.GetAll();
+                var testList = await _iMedicineGeneric.GetAll();
                 return Ok(testList);
             }
             catch (Exception ex)
@@ -34,13 +31,12 @@ namespace Hospital_Management_System.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        [Authorize(Roles = "ABC")]
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<DepartmentVM>> GetById(int id)
+        public async Task<ActionResult<MedicineGeneric>> GetById(int id)
         {
             try
             {
-                var result = await _iDepartment.GetById(id);
+                var result = await _iMedicineGeneric.GetById(id);
                 if (result == null)
                 {
                     return NotFound();
@@ -53,7 +49,7 @@ namespace Hospital_Management_System.Controllers
             }
         }
         [HttpPost("Insert")]
-        public async Task<object> Insert([FromBody] DepartmentVM obj)
+        public async Task<object> Insert([FromBody] MedicineGeneric obj)
         {
             try
             {
@@ -62,34 +58,34 @@ namespace Hospital_Management_System.Controllers
                     return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Data Missing", null));
                 }
 
-                // Check if the DepartmentName is empty or null
-                if (string.IsNullOrWhiteSpace(obj.DepartmentName))
+                // Check if the MedicineGenericNames is empty or null
+                if (string.IsNullOrWhiteSpace(obj.MedicineGenericNames))
                 {
-                    return await Task.FromResult(new ResponseModel(ResponseCode.Error, "DepartmentName is required", null));
+                    return await Task.FromResult(new ResponseModel(ResponseCode.Error, "MedicineGenericNames is required", null));
                 }
 
-                // Check if a department with the same DepartmentId already exists
-                var dep = await _iDepartment.GetById(obj.DepartmentId);
+                // Check if a MedicineGeneric with the same MedicineGenericID already exists
+                var dep = await _iMedicineGeneric.GetById(obj.MedicineGenericID);
                 if (dep != null)
                 {
                     return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Data Already Exists", dep));
                 }
 
-                // Check if a department with the same name already exists
-                var existingDepartment = await _iDepartment.GetByNameAsync(obj.DepartmentName);
+                // Check if a MedicineGeneric with the same name already exists
+                var existingDepartment = await _iMedicineGeneric.GetByNameAsync(obj.MedicineGenericNames);
                 if (existingDepartment != null)
                 {
-                    return await Task.FromResult(new ResponseModel(ResponseCode.Error, "DepartmentName already exists", existingDepartment));
+                    return await Task.FromResult(new ResponseModel(ResponseCode.Error, "MedicineGenericNames already exists", existingDepartment));
                 }
 
 
-                // Additional validation checks for DepartmentName
-                if (!IsValidDepartmentName(obj.DepartmentName))
+                // Additional validation checks for MedicineGenericNames
+                if (!IsValidMedicineGenericNames(obj.MedicineGenericNames))
                 {
-                    return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Invalid DepartmentName format", null));
+                    return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Invalid MedicineGenericNames format", null));
                 }
 
-                var returnObj = await _iDepartment.Insert(obj);
+                var returnObj = await _iMedicineGeneric.Insert(obj);
                 return await Task.FromResult(new ResponseModel(ResponseCode.OK, "Data Inserted Successfully", returnObj));
             }
             catch (Exception ex)
@@ -97,33 +93,26 @@ namespace Hospital_Management_System.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
-        // Custom method to validate DepartmentName
-        private bool IsValidDepartmentName(string departmentName)
+        private bool IsValidMedicineGenericNames(string medicineGenericNames)
         {
-            // Add your custom validation logic here
-            // Example: Check for length, special characters, or specific naming conventions
-            // Return true if valid, false if not
-            // Replace this example with your actual validation criteria
-            if (departmentName.Length > 100 || departmentName.Contains("!"))
+            if (medicineGenericNames.Length > 100 || medicineGenericNames.Contains("!"))
             {
                 return false;
             }
 
             return true;
         }
-
         [HttpPut("Update")]
-        public async Task<object> Update([FromBody] DepartmentVM obj)
+        public async Task<object> Update([FromBody] MedicineGeneric obj)
         {
             try
             {
-                var test = await _iDepartment.GetById(obj.DepartmentId);
+                var test = await _iMedicineGeneric.GetById(obj.MedicineGenericID);
                 if (test == null)
                 {
                     return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Data Object Missing", null));
                 }
-                var returnObj = await _iDepartment.Update(obj);
+                var returnObj = await _iMedicineGeneric.Update(obj);
                 return await Task.FromResult(new ResponseModel(ResponseCode.OK, "Data updated successfully", returnObj));
             }
             catch (Exception ex)
@@ -136,18 +125,20 @@ namespace Hospital_Management_System.Controllers
         {
             try
             {
-                var test = await _iDepartment.GetById(id);
+                var test = await _iMedicineGeneric.GetById(id);
                 if (test == null)
                 {
                     return NotFound();
                 }
-                await _iDepartment.Delete(id);
-                return Ok();
+                await _iMedicineGeneric.Delete(id);
+                return Ok("Data Delete Successfully!!");
+
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from database");
             }
         }
+
     }
 }

@@ -4,6 +4,7 @@ using HMS.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230924040551_medicineEmran")]
+    partial class medicineEmran
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +56,21 @@ namespace HMS.DAL.Migrations
                     b.Property<bool>("Availability")
                         .HasColumnType("bit");
 
+                    b.Property<string>("DriverName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DrivingLiense")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastLocation")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -334,6 +350,20 @@ namespace HMS.DAL.Migrations
                     b.HasKey("DepartmentId");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            DepartmentId = 1,
+                            DepartmentDescription = "It is concerned with disorders and diseases of the nervous system",
+                            DepartmentName = "Neurology"
+                        },
+                        new
+                        {
+                            DepartmentId = 2,
+                            DepartmentDescription = "The branch of medicine dealing with children and their diseases.",
+                            DepartmentName = "Paediatrics"
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.DischargeTransfer", b =>
@@ -389,10 +419,6 @@ namespace HMS.DAL.Migrations
 
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("date");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResignDate")
                         .HasColumnType("date");
@@ -488,10 +514,6 @@ namespace HMS.DAL.Migrations
 
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("date");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResignDate")
                         .HasColumnType("date");
@@ -716,10 +738,6 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("NurseType")
                         .HasColumnType("int");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ResignDate")
                         .HasColumnType("date");
 
@@ -741,9 +759,6 @@ namespace HMS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeID"), 1L, 1);
 
-                    b.Property<int?>("AmbulanceID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Education_Info")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -764,10 +779,6 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("OtherEmployeeType")
                         .HasColumnType("int");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ResignDate")
                         .HasColumnType("date");
 
@@ -775,8 +786,6 @@ namespace HMS.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeID");
-
-                    b.HasIndex("AmbulanceID");
 
                     b.ToTable("OtherEmployees");
                 });
@@ -873,6 +882,38 @@ namespace HMS.DAL.Migrations
                     b.HasKey("PatientID");
 
                     b.ToTable("PatientRegisters");
+
+                    b.HasData(
+                        new
+                        {
+                            PatientID = 1,
+                            Address = "dhaka",
+                            AdmissionDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = 6,
+                            DateOfBirth = new DateTime(1999, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "am@gmail.com",
+                            EmergencyContact = "123456789",
+                            Gender = 2,
+                            IsTransferred = false,
+                            PatientName = "amina begum",
+                            PhoneNumber = "12345678",
+                            WardID = 1
+                        },
+                        new
+                        {
+                            PatientID = 2,
+                            Address = "Pabna",
+                            AdmissionDate = new DateTime(2023, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = 8,
+                            DateOfBirth = new DateTime(1971, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "az@gmail.com",
+                            EmergencyContact = "123456789",
+                            Gender = 1,
+                            IsTransferred = false,
+                            PatientName = "Azman Mollah",
+                            PhoneNumber = "1233454",
+                            WardID = 3
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>
@@ -1082,23 +1123,29 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("WardCabins");
-                });
 
-            modelBuilder.Entity("HMS.Models.Symptom", b =>
-                {
-                    b.Property<int>("SymptomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
-
-                    b.Property<string>("SymptomName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SymptomId");
-
-                    b.ToTable("Symptoms");
+                    b.HasData(
+                        new
+                        {
+                            WardID = 1,
+                            BedCabinNumber = 23,
+                            DepartmentID = 1,
+                            WardName = "Neuro Care"
+                        },
+                        new
+                        {
+                            WardID = 2,
+                            BedCabinNumber = 40,
+                            DepartmentID = 2,
+                            WardName = "Child Care"
+                        },
+                        new
+                        {
+                            WardID = 3,
+                            BedCabinNumber = 12,
+                            DepartmentID = 1,
+                            WardName = "Nerve Care"
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.Symptom", b =>
@@ -1361,13 +1408,6 @@ namespace HMS.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HMS.Models.OtherEmployee", b =>
-                {
-                    b.HasOne("HMS.Models.Ambulance", null)
-                        .WithMany("OtherEmployees")
-                        .HasForeignKey("AmbulanceID");
-                });
-
             modelBuilder.Entity("HMS.Models.Outdoor", b =>
                 {
                     b.HasOne("HMS.Models.Bill", "Bill")
@@ -1520,7 +1560,6 @@ namespace HMS.DAL.Migrations
                 {
                     b.Navigation("Prescriptions");
                 });
-
 
             modelBuilder.Entity("HMS.Models.Bill", b =>
                 {

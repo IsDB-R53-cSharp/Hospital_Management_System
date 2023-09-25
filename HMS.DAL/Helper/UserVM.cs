@@ -71,7 +71,7 @@ namespace HMS.Models.ViewModels
         public string RoleId { get; set; }
 
         public string RoleName { get; set; }
-        public string JsonData { get; set; }
+        public string? JsonData { get; set; }
         public bool Selected { get; set; }
         public List<string> Users { get; set; }
     }
@@ -114,5 +114,10 @@ namespace HMS.Models.ViewModels
 
         [Display(Name = "Email Address")]
         public string Email { get; set; }
+    }
+    public class UserRolesResponseModel
+    {
+        public string UserId { get; set; }
+        public List<string> UserRoles { get; set; }
     }
 }

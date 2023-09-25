@@ -8,13 +8,24 @@ using System.Threading.Tasks;
 
 namespace HMS.Models
 {
-    
+
+    public enum MedicineType
+    {
+        Liquid = 1, Tablet, Capsules, Cream, Suppositories, Drops, Inhalers, Injection
+    }
+    public enum Strength
+    {
+        mg = 1, ml
+    }
     public class Medicine
     {
         [Key]
         public int MedicineID { get; set; }
         public string MedicineName { get; set; } = default!;
-
+        [EnumDataType(typeof(Strength))]
+        public Strength Strength { get; set; }
+        [EnumDataType(typeof(MedicineType))]
+        public MedicineType MedicineType { get; set; }
 
         public DateTime ExpireDate { get; set; }
         public int Quantity { get; set; }
@@ -28,24 +39,11 @@ namespace HMS.Models
         public decimal Discount { get; set; }
         [ForeignKey("MedicineGeneric")]
         public int MedicineGenericID { get; set; } // Foreign key
-        public virtual MedicineGeneric MedicineGeneric { get; set; }
+        public virtual MedicineGeneric? MedicineGeneric { get; set; }
         [ForeignKey("Manufacturer")]
         public int ManufacturerID { get; set; } // Foreign key
-        public virtual Manufacturer Manufacturer { get; set; }
+        public virtual Manufacturer? Manufacturer { get; set; }
+        [NotMapped]
+        public virtual ICollection<Prescriptions>? Prescriptions { get; set; } = new List<Prescriptions?>();
     }
-
-    public class MedicineGeneric
-    {
-        [Key]
-        public int MedicineGenericID { get; set; }
-        public string MedicineGenericNames { get; set; } = default!;       
-    }
-
-    public class Manufacturer
-    {
-        [Key]
-        public int ManufacturerID { get; set; }
-        public string ManufacturerName { get; set; } = default!;
-    }
-    //check edit
 }

@@ -20,6 +20,8 @@ namespace HMS.DAL.Data
         }
 
         public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<MedicineGeneric> MedicineGenerics { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<BloodBank> BloodBanks { get; set; }
         public DbSet<Drawer> Drawers { get; set; }
         public DbSet<Morgue> Morgues { get; set; }
@@ -48,93 +50,29 @@ namespace HMS.DAL.Data
         public DbSet<Advice> Advices { get; set; }
 
 
+
+
+        //modelBuilder.Entity<PatientRegister>()
+        // .HasMany(p => p.Prescriptions)
+        //.WithOne()
+        // .OnDelete(DeleteBehavior.Restrict);
+
+        //modelBuilder.Entity<SurgeryProcedure>()
+        //.HasOne(sp => sp.Prescription)
+        //.WithMany()
+        //.OnDelete(DeleteBehavior.Restrict);
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Department>().HasData(
-              new Department
-              {
-                  DepartmentId = 1,
-                  DepartmentName = "Neurology",
-                  DepartmentDescription = "It is concerned with disorders and diseases of the nervous system"
-              },
-              new Department
-              {
-                  DepartmentId = 2,
-                  DepartmentName = "Paediatrics",
-                  DepartmentDescription = "The branch of medicine dealing with children and their diseases."
-              }
-              );
-            modelBuilder.Entity<WardCabin>().HasData(
-                new WardCabin
-                {
-                    WardID = 1,
-                    WardName = "Neuro Care",
-                    BedCabinNumber = 23,
-                    DepartmentID = 1,
-                },
-                new WardCabin
-                {
-                    WardID = 2,
-                    WardName = "Child Care",
-                    BedCabinNumber = 40,
-                    DepartmentID = 2,
-                },
-                new WardCabin
-                {
-                    WardID = 3,
-                    WardName = "Nerve Care",
-                    BedCabinNumber = 12,
-                    DepartmentID = 1,
-                }
-                );
-
-
-            modelBuilder.Entity<PatientRegister>().HasData(
-                  new PatientRegister
-                  {
-                      PatientID = 1,
-                      PatientName = "amina begum",
-                      Gender = Gender.Female,
-                      AdmissionDate = new DateTime(2023, 9, 5),
-                      DateOfBirth = new DateTime(1999, 2, 12),
-                      Address = "dhaka",
-                      EmergencyContact = "123456789",
-                      Email = "am@gmail.com",
-                      BloodType = BloodType.ABNegative,
-                      IsTransferred = false,
-                      PhoneNumber = "12345678",
-                      WardID = 1
-
-                  },
-                   new PatientRegister
-                   {
-                       PatientID = 2,
-                       PatientName = "Azman Mollah",
-                       Gender = Gender.Male,
-                       AdmissionDate = new DateTime(2023, 9, 2),
-                       DateOfBirth = new DateTime(1971, 12, 16),
-                       Address = "Pabna",
-                       EmergencyContact = "123456789",
-                       Email = "az@gmail.com",
-                       BloodType = BloodType.ONegative,
-                       IsTransferred = false,
-                       PhoneNumber = "1233454",
-                       WardID = 3
-
-                   }
-
-                  );
-
-            modelBuilder.Entity<PatientRegister>()
-             .HasMany(p => p.Prescriptions)
-            .WithOne()
-             .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<SurgeryProcedure>()
-            .HasOne(sp => sp.Prescription)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
+            //SeedData.SeedDepartments(modelBuilder);
+            //SeedData.SeedWardCabins(modelBuilder);
+            //SeedData.SeedPatients(modelBuilder);
+            //SeedData.SeedDoctors(modelBuilder);
+            //SeedData.SeedNurses(modelBuilder);
+            //SeedData.SeedLabTechnicians(modelBuilder);
+            //SeedData.SeedOtherEmployees(modelBuilder);
 
 
             //for auth
@@ -142,8 +80,8 @@ namespace HMS.DAL.Data
             //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
             //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
             // or for auth
-            base.OnModelCreating(modelBuilder);
 
+            base.OnModelCreating(modelBuilder);
         }
 
     }

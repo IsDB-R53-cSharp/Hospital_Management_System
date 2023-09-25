@@ -15,19 +15,10 @@ namespace HMS.Models
         [Required(ErrorMessage = "Please enter Ambulance Number")]
         [Display(Name = "Ambulance Number")]
         public string AmbulanceNumber { get; set; } = default!;
-        //Driver Phone Number{Required}
-        [Required(ErrorMessage = "Please enter phone number")]
-        [Display(Name = "Driver Phone Number")]
-        public string PhoneNumber { get; set; } = default!;
-        [Required(ErrorMessage = "Please enter Driving Liense")]
-        [Display(Name = "Driving Liense")]
-        public string DrivingLiense { get; set; } = default!;
-        [Required(ErrorMessage = "Please enter Driver Name"),StringLength(50)]
-        [Display(Name = "Driver Name")]
-        public string DriverName { get; set; } = default!;
-        [Required(ErrorMessage = "Please enter Last Location"), StringLength(200)]
-        [Display(Name = "Last Location")]
+        [Required(ErrorMessage = "Please enter Last Location")]
+        [Display(Name = "Las tLocation")]
         public string LastLocation { get; set; } = default!;
         public bool Availability { get; set; }
+        public virtual ICollection<OtherEmployee> OtherEmployees { get; set; } = new List<OtherEmployee>();
     }
 }

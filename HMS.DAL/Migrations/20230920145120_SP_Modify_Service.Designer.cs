@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20230918050447_Ataur_Store_Procedure")]
-    partial class Ataur_Store_Procedure
+    [Migration("20230920145120_SP_Modify_Service")]
+    partial class SP_Modify_Service
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1141,9 +1141,8 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("WasteType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WasteType")
+                        .HasColumnType("int");
 
                     b.HasKey("WasteID");
 

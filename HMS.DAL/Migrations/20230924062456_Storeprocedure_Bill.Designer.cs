@@ -4,6 +4,7 @@ using HMS.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230924062456_Storeprocedure_Bill")]
+    partial class Storeprocedure_Bill
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1101,23 +1103,6 @@ namespace HMS.DAL.Migrations
                     b.ToTable("Symptoms");
                 });
 
-            modelBuilder.Entity("HMS.Models.Symptom", b =>
-                {
-                    b.Property<int>("SymptomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
-
-                    b.Property<string>("SymptomName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SymptomId");
-
-                    b.ToTable("Symptoms");
-                });
-
             modelBuilder.Entity("HMS.Models.WasteManagement", b =>
                 {
                     b.Property<int>("WasteID")
@@ -1521,6 +1506,10 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Prescriptions");
                 });
 
+            modelBuilder.Entity("HMS.Models.Ambulance", b =>
+                {
+                    b.Navigation("OtherEmployees");
+                });
 
             modelBuilder.Entity("HMS.Models.Bill", b =>
                 {
