@@ -44,6 +44,8 @@ namespace HMS.DAL.Data
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<WardCabin>? WardCabins { get; set; } = null;
+        public DbSet<Symptom> Symptoms { get; set; }
+        public DbSet<Advice> Advices { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
