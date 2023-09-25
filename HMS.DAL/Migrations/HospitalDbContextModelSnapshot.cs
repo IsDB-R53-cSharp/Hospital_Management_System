@@ -1101,6 +1101,23 @@ namespace HMS.DAL.Migrations
                     b.ToTable("Symptoms");
                 });
 
+            modelBuilder.Entity("HMS.Models.Symptom", b =>
+                {
+                    b.Property<int>("SymptomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
+
+                    b.Property<string>("SymptomName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SymptomId");
+
+                    b.ToTable("Symptoms");
+                });
+
             modelBuilder.Entity("HMS.Models.WasteManagement", b =>
                 {
                     b.Property<int>("WasteID")
@@ -1504,10 +1521,6 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Prescriptions");
                 });
 
-            modelBuilder.Entity("HMS.Models.Ambulance", b =>
-                {
-                    b.Navigation("OtherEmployees");
-                });
 
             modelBuilder.Entity("HMS.Models.Bill", b =>
                 {
