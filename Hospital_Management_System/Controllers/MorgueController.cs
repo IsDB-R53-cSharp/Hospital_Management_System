@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HMS.Models;
 using HMS.DAL.Data;
-
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -17,85 +17,51 @@ namespace Hospital_Management_System.Controllers
 
         public MorgueController(HospitalDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
-
         [HttpGet]
-        public async Task<ActionResult> GetMorgueEntries()
+        public async Task<ActionResult<IEnumerable<Morgue>>> GetMorgues()
         {
-            var morgueEntries = await _context.Morgues.ToListAsync();
-            return Ok(morgueEntries);
+            return await _context.Morgues.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetMorgueEntry(int id)
+        public async Task<ActionResult<Morgue>> GetMorgue(int id)
         {
-            var morgueEntry = await _context.Morgues.FindAsync(id);
-            if (morgueEntry == null)
+            var morgue = await _context.Morgues.FindAsync(id);
+
+            if (morgue == null)
             {
                 return NotFound();
             }
-            return Ok(morgueEntry);
-        }
 
+            return morgue;
+        }
         [HttpPost]
-        public async Task<ActionResult> CreateMorgueEntry(Morgue morgueEntry)
+        public async Task<ActionResult<Morgue>> CreateMorgue(Morgue morgue)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Morgues.Add(morgueEntry);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetMorgueEntry), new { id = morgueEntry.MorgueID }, morgueEntry);
-            }
-            return BadRequest(ModelState);
+            await _context.Database.ExecuteSqlRawAsync("EXEC  @MorgueName={0}, @Capacity={1},@IsolationCapability={2}", morgue.MorgueName, morgue.Capacity, morgue.IsolationCapability);
+            return Ok("Morgue inserted successfully.");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMorgueEntry(int id, Morgue updatedMorgueEntry)
+        public async Task<IActionResult> UpdateMorgue(int id, Morgue morgue)
         {
-            if (id != updatedMorgueEntry.MorgueID)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(updatedMorgueEntry).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MorgueEntryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _context.Database.ExecuteSqlRawAsync("EXEC UpdateMorgue  @MorgueID={0}, @MorgueName={1},@Capacity={2},@IsolationCapability={3}", morgue.MorgueID, morgue.MorgueName, morgue.Capacity, morgue.IsolationCapability);
+            return Ok("Morgue Update successfully.");
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteMorgueEntry(int id)
+        public async Task<IActionResult> DeleteMorgue(int id)
         {
-            var morgueEntry = await _context.Morgues.FindAsync(id);
-            if (morgueEntry == null)
+            var ID = await _context.Morgues.FirstOrDefaultAsync(x => x.MorgueID == id);
+            await _context.Database.ExecuteSqlRawAsync("EXEC DeleteMorgue @MorgueID={0}", ID);
+            if (ID == null)
             {
-                return NotFound();
+                return BadRequest(" Morgue Data Not Found!!!");
             }
-
-            _context.Morgues.Remove(morgueEntry);
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        private bool MorgueEntryExists(int id)
-        {
-            return _context.Morgues.Any(e => e.MorgueID == id);
+            return Ok("Morgue deleted successfully.");
         }
     }
 }

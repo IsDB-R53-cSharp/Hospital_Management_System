@@ -4,6 +4,7 @@ using HMS.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.DAL.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230924073700_Morgue_Modify")]
+    partial class Morgue_Modify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -420,6 +422,16 @@ namespace HMS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrawerID"), 1L, 1);
 
+                    b.Property<string>("CauseOfDeath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("DateOfDeath")
+                        .HasColumnType("date");
+
+                    b.Property<string>("DeceasedName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DrawerCondition")
                         .HasColumnType("int");
 
@@ -428,6 +440,9 @@ namespace HMS.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsOccupied")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPatient")
                         .HasColumnType("bit");
 
                     b.Property<int>("MorgueID")
@@ -443,41 +458,33 @@ namespace HMS.DAL.Migrations
                     b.ToTable("Drawers");
                 });
 
-            modelBuilder.Entity("HMS.Models.DrawerInfo", b =>
+            modelBuilder.Entity("HMS.Models.LabEquipment", b =>
                 {
-                    b.Property<int>("DrawerInfoID")
+                    b.Property<int>("EquipmentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrawerInfoID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EquipmentID"), 1L, 1);
 
-                    b.Property<int>("DrawerID")
+                    b.Property<int>("DepartmentID")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsPatient")
-                        .HasColumnType("bit");
+                    b.Property<string>("EquipmentDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PatientID")
+                    b.Property<string>("EquipmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ReceivedDate")
-                        .HasColumnType("date");
+                    b.HasKey("EquipmentID");
 
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("date");
+                    b.HasIndex("DepartmentID");
 
-                    b.Property<int?>("UnidentifiedDeadBodyID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DrawerInfoID");
-
-                    b.HasIndex("DrawerID");
-
-                    b.HasIndex("PatientID");
-
-                    b.HasIndex("UnidentifiedDeadBodyID");
-
-                    b.ToTable("DrawersInfo");
+                    b.ToTable("LabEquipments");
                 });
 
             modelBuilder.Entity("HMS.Models.LabTechnician", b =>
@@ -952,6 +959,9 @@ namespace HMS.DAL.Migrations
                     b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PatientRegisterPatientID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PrescriptionDate")
                         .HasColumnType("date");
 
@@ -984,6 +994,8 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("DoctorID");
 
                     b.HasIndex("NurseID");
+
+                    b.HasIndex("PatientRegisterPatientID");
 
                     b.HasIndex("SymptomId");
 
@@ -1046,6 +1058,9 @@ namespace HMS.DAL.Migrations
                     b.Property<int>("PrescriptionID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PrescriptionsPrescriptionID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("SurgeryDate")
                         .HasColumnType("date");
 
@@ -1062,6 +1077,8 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("NurseID");
 
                     b.HasIndex("PrescriptionID");
+
+                    b.HasIndex("PrescriptionsPrescriptionID");
 
                     b.HasIndex("TestID");
 
@@ -1109,32 +1126,6 @@ namespace HMS.DAL.Migrations
                     b.HasKey("SymptomId");
 
                     b.ToTable("Symptoms");
-                });
-
-            modelBuilder.Entity("HMS.Models.UnidentifiedDeadBody", b =>
-                {
-                    b.Property<int>("UnIdenfiedDeadBodyID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UnIdenfiedDeadBodyID"), 1L, 1);
-
-                    b.Property<string>("CauseOfDeath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime?>("DateOfDeath")
-                        .HasColumnType("date");
-
-                    b.Property<string>("DeceasedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TagNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("UnIdenfiedDeadBodyID");
-
-                    b.ToTable("unidentifiedDeadBodies");
                 });
 
             modelBuilder.Entity("HMS.Models.WasteManagement", b =>
@@ -1312,27 +1303,15 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Morgue");
                 });
 
-            modelBuilder.Entity("HMS.Models.DrawerInfo", b =>
+            modelBuilder.Entity("HMS.Models.LabEquipment", b =>
                 {
-                    b.HasOne("HMS.Models.Drawer", "Drawer")
+                    b.HasOne("HMS.Models.Department", "Departments")
                         .WithMany()
-                        .HasForeignKey("DrawerID")
+                        .HasForeignKey("DepartmentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HMS.Models.PatientRegister", "PatientRegister")
-                        .WithMany()
-                        .HasForeignKey("PatientID");
-
-                    b.HasOne("HMS.Models.UnidentifiedDeadBody", "UnidentifiedDeadBody")
-                        .WithMany()
-                        .HasForeignKey("UnidentifiedDeadBodyID");
-
-                    b.Navigation("Drawer");
-
-                    b.Navigation("PatientRegister");
-
-                    b.Navigation("UnidentifiedDeadBody");
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("HMS.Models.LabTechnician", b =>
@@ -1432,6 +1411,11 @@ namespace HMS.DAL.Migrations
                         .WithMany("Prescriptions")
                         .HasForeignKey("NurseID");
 
+                    b.HasOne("HMS.Models.PatientRegister", null)
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("PatientRegisterPatientID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("HMS.Models.Symptom", null)
                         .WithMany("Prescriptions")
                         .HasForeignKey("SymptomId");
@@ -1460,10 +1444,14 @@ namespace HMS.DAL.Migrations
                         .HasForeignKey("NurseID");
 
                     b.HasOne("HMS.Models.Prescriptions", "Prescription")
-                        .WithMany("SurgeryProcedures")
+                        .WithMany()
                         .HasForeignKey("PrescriptionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("HMS.Models.Prescriptions", null)
+                        .WithMany("SurgeryProcedures")
+                        .HasForeignKey("PrescriptionsPrescriptionID");
 
                     b.HasOne("HMS.Models.LabTest", "LabTest")
                         .WithMany("SurgeryProcedures")
@@ -1588,6 +1576,11 @@ namespace HMS.DAL.Migrations
                     b.Navigation("Prescriptions");
 
                     b.Navigation("SurgeryProcedures");
+                });
+
+            modelBuilder.Entity("HMS.Models.PatientRegister", b =>
+                {
+                    b.Navigation("Prescriptions");
                 });
 
             modelBuilder.Entity("HMS.Models.Prescriptions", b =>

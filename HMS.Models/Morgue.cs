@@ -9,11 +9,10 @@ namespace HMS.Models
 {
     public class Morgue
     {
-        //tray/or drawer Count
-        //
         [Key]
         public int MorgueID { get; set; }
-        [Required(ErrorMessage = "Enter Morgue Name")]
+
+        [Required(ErrorMessage = "Morgue Name")]
         [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
         public string MorgueName { get; set; } = default!;
 
