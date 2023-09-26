@@ -27,19 +27,19 @@ namespace HMS.Models
         [Display(Name = "Outdoor Ticket Number")]
         public string TicketNumber { get; set; } = default!;
 
-        [ForeignKey("Bill")]
-        public int BillID { get; set; }
+        //[ForeignKey("Bill")]
+        //public int BillID { get; set; }
 
-        [ForeignKey("Doctor")]
-        public int DoctorID { get; set; }
+        //[ForeignKey("Doctor")]
+        //public int DoctorID { get; set; }
 
-        public string Remarks { get; set; } = default!;
+        public string? Remarks { get; set; } = default!;
 
         public bool IsAdmissionRequired { get; set; }
 
         public virtual PatientRegister? PatientRegister { get; set; }
 
-        public virtual Bill? Bill { get; set; }
+        //public virtual Bill? Bill { get; set; }
     }
     public enum TreatmentType
     {

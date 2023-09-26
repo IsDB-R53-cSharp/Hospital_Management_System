@@ -16,7 +16,7 @@ namespace HMS.Models
         [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
         public string MorgueName { get; set; } = default!;
 
-        public int Capacity { get; set; }
+        public int Capacity { get; set; } //drawer can't be exceed max capacity
 
         //if the morgue can handle infectious cases (Ex: corona dead body)
         public bool IsolationCapability { get; set; }

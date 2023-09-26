@@ -24,6 +24,8 @@ namespace HMS.DAL.Data
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<BloodBank> BloodBanks { get; set; }
         public DbSet<Drawer> Drawers { get; set; }
+        public DbSet<DrawerInfo> DrawersInfo { get; set; }
+        public DbSet<UnidentifiedDeadBody> unidentifiedDeadBodies { get; set; }
         public DbSet<Morgue> Morgues { get; set; }
         public DbSet<Ambulance> Ambulances { get; set; }
         public DbSet<WasteManagement> WasteManagements { get; set; }
@@ -34,7 +36,7 @@ namespace HMS.DAL.Data
         public DbSet<OtherEmployee> OtherEmployees { get; set; }
         public DbSet<Nurse> Nurses { get; set; }
         public DbSet<LabTechnician> LabTechnicians { get; set; }
-        public DbSet<LabEquipment> LabEquipments { get; set; }
+        //public DbSet<LabEquipment> LabEquipments { get; set; }
         public DbSet<LabTest> LabTests { get; set; }
         public DbSet<Prescriptions> Prescriptions { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
@@ -48,6 +50,20 @@ namespace HMS.DAL.Data
         public DbSet<WardCabin>? WardCabins { get; set; } = null;
         public DbSet<Symptom> Symptoms { get; set; }
         public DbSet<Advice> Advices { get; set; }
+
+
+
+
+        //modelBuilder.Entity<PatientRegister>()
+        // .HasMany(p => p.Prescriptions)
+        //.WithOne()
+        // .OnDelete(DeleteBehavior.Restrict);
+
+        //modelBuilder.Entity<SurgeryProcedure>()
+        //.HasOne(sp => sp.Prescription)
+        //.WithMany()
+        //.OnDelete(DeleteBehavior.Restrict);
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,16 +82,6 @@ namespace HMS.DAL.Data
             //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
             //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
             // or for auth
-
-            modelBuilder.Entity<PatientRegister>()
-                 .HasMany(p => p.Prescriptions)
-                .WithOne()
-                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<SurgeryProcedure>()
-                .HasOne(sp => sp.Prescription)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }

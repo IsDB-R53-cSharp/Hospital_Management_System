@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HMS.Repository.Interface
 {
-    public interface IOutdoorRepository
+    public interface IOutdoorRepo
     {
         Task<Outdoor> GetByIdAsync(int id); //retrieves an `Outdoor` entity by OutdoorID
 
@@ -20,8 +20,7 @@ namespace HMS.Repository.Interface
 
         Task<IEnumerable<Outdoor>> GetByTreatmentDateAsync(DateTime treatmentDate);//Retrieves Outdoor entities based on the treatment date.
 
-
-        Task<IEnumerable<Outdoor>> GetByDoctorIdAsync(int doctorId);//Retrieves Outdoor entities associated with a specific doctor
+        //Task<IEnumerable<Outdoor>> GetByDoctorIdAsync(int doctorId);//Retrieves Outdoor entities associated with a specific doctor
          
         //Task<IEnumerable<Outdoor>> GetByInvoiceIdAsync(int invoiceId); //
 
