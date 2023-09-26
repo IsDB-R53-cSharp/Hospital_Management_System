@@ -19,6 +19,9 @@ using HMS.DAL.Seeds;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 
+using Microsoft.Extensions.Logging;
+using Serilog;
+
 namespace Hospital_Management_System
 {
     public class Program
@@ -26,14 +29,21 @@ namespace Hospital_Management_System
         private const string _loginOrigin = "_localorigin"; // Define the _loginOrigin constant
         public static void Main(string[] args)
         {
+
+            // Configure Serilog here
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             //add newtonsoft.json support
-            
+
             builder.Services.AddControllers().AddNewtonsoftJson();
 
             //add cors policy
@@ -125,7 +135,6 @@ namespace Hospital_Management_System
             builder.Services.AddScoped<ImageHelper>();
 
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
-
 
             var app = builder.Build();
 
