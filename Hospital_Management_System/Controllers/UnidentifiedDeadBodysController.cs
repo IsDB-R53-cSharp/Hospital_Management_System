@@ -1,5 +1,5 @@
 ﻿using HMS.DAL.Data;
-using HMS.DAL.Migrations;
+//using HMS.DAL.Migrations;
 using HMS.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

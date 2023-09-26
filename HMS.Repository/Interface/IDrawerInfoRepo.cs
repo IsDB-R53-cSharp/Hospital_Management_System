@@ -10,7 +10,7 @@ namespace HMS.Repository.Interface
     public interface IDrawerInfoRepo
     {
         IEnumerable<DrawerInfo> GetDrawerInfo();
-        Drawer GetDrawerInfoById(int id);
+        DrawerInfo GetDrawerInfoById(int id);
         void SaveDrawerInfo(DrawerInfo drawerInfo);
         void DeleteDrawerInfo(int id);
     }

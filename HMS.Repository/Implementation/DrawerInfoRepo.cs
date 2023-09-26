@@ -29,7 +29,7 @@ namespace HMS.Repository.Implementation
             }
         }
 
-        public Drawer GetDrawerInfoById(int id)
+        public DrawerInfo GetDrawerInfoById(int id)
         {
             try
             {
@@ -37,10 +37,8 @@ namespace HMS.Repository.Implementation
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-            
         }
 
         public void SaveDrawerInfo(DrawerInfo drawerInfo)
@@ -49,12 +47,15 @@ namespace HMS.Repository.Implementation
             {
                 if (drawerInfo.DrawerInfoID > 0)
                 {
-                    if (drawerInfo == null)
+                    DrawerInfo existingDrawerInfo = _drawerInforepo.FindByCondition(x => x.DrawerInfoID == drawerInfo.DrawerInfoID).FirstOrDefault();
+
+                    if (existingDrawerInfo != null)
                     {
-                        Drawer existingDrawer = _drawerInforepo.FindByCondition(x => x.DrawerInfoID == drawerInfo.DrawerInfoID).FirstOrDefault();
-                        drawerInfo = existingDrawerInfo;
+                        existingDrawerInfo.ReceivedDate = drawerInfo.ReceivedDate;
+                        existingDrawerInfo.ReleaseDate = drawerInfo.ReleaseDate;
+                  
+                        _drawerInforepo.Update(existingDrawerInfo);
                     }
-                    _drawerInforepo.Update(drawerInfo);
                 }
                 else
                 {
@@ -64,10 +65,10 @@ namespace HMS.Repository.Implementation
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+
         public void DeleteDrawerInfo(int id)
         {
             _drawerInforepo.Delete(id);
