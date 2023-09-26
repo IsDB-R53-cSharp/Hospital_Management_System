@@ -83,10 +83,10 @@ namespace Hospital_Management_System.Controllers
                 existingDrawer.DrawerNo = drawerHelper.DrawerNo;
                 existingDrawer.DrawerCondition = drawerHelper.DrawerCondition;
                 existingDrawer.IsOccupied = drawerHelper.IsOccupied;
-                existingDrawer.DeceasedName = drawerHelper.DeceasedName;
-                existingDrawer.IsPatient = drawerHelper.IsPatient;
-                existingDrawer.PatientID = drawerHelper.PatientID;
-                existingDrawer.DateOfDeath = drawerHelper.DateOfDeath;
+                //existingDrawer.DeceasedName = drawerHelper.DeceasedName;
+                //existingDrawer.IsPatient = drawerHelper.IsPatient;
+                //existingDrawer.PatientID = drawerHelper.PatientID;
+                //existingDrawer.DateOfDeath = drawerHelper.DateOfDeath;
                 existingDrawer.MorgueID = drawerHelper.MorgueID;
 
                 _drawerRepo.SaveDrawer(existingDrawer);

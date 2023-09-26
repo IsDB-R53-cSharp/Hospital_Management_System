@@ -9,18 +9,18 @@ using HMS.Models.SurgeryWard;
 
 namespace HMS.Models
 {
-    public class LabEquipment
-    {
-        [Key]
-        public int EquipmentID { get; set; }
-        public string EquipmentName { get; set; } = default!;
-        public string EquipmentDetails { get; set; } = default!;
-        public int StockQuantity { get; set; }
-        //public decimal PurchasePrice { get; set; }
-        public int DepartmentID { get; set; }
-        public Department Departments { get; set; } = default!;
+    //public class LabEquipment
+    //{
+    //    [Key]
+    //    public int EquipmentID { get; set; }
+    //    public string EquipmentName { get; set; } = default!;
+    //    public string EquipmentDetails { get; set; } = default!;
+    //    public int StockQuantity { get; set; }
+    //    //public decimal PurchasePrice { get; set; }
+    //    public int DepartmentID { get; set; }
+    //    public Department Departments { get; set; } = default!;
 
-    }
+    //}
 
     public class Appointment
     {

@@ -20,22 +20,6 @@ namespace HMS.Models
 
         public bool IsOccupied { get; set; }
 
-        //Dead body info
-        [Display(Name = "Name of Dead Person")]
-        public string? DeceasedName { get; set; } = default!;
-
-        public bool IsPatient { get; set; }
-
-        public int? PatientID { get; set; }
-
-        [Column(TypeName = "date"),
-        Display(Name = "Date Of Death"),
-        DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
-        public DateTime? DateOfDeath { get; set; }
-
-        [StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
-        public string? CauseOfDeath { get; set; } = default!;
-
         [ForeignKey("Morgue")]
         public int MorgueID { get; set; }
 
@@ -44,6 +28,7 @@ namespace HMS.Models
 
     public enum DrawerCondition
     {
+
         [Display(Name = "Clean")]
         Clean = 1,
 
