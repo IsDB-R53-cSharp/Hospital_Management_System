@@ -79,22 +79,12 @@ namespace HMS.Models
 
         public virtual Service? Service { get; set; } = default!;
 
-        // Custom validation methods
-        //public IEnumerable<ValidationResult> ValidatePaidAmount(ValidationContext validationContext)
-        //{
-        //    if (PaidAmount > BillAmount)
-        //    {
-        //        yield return new ValidationResult("Paid Amount cannot be greater than Bill Amount", new[] { nameof(PaidAmount) });
-        //    }
-        //}
+        public decimal TotalAmount { get; set; }
 
-        //public IEnumerable<ValidationResult> ValidateDueAmount(ValidationContext validationContext)
-        //{
-        //    if (Due.HasValue && Due > 0.6m * BillAmount)
-        //    {
-        //        yield return new ValidationResult("Due Amount cannot exceed 60% of Bill Amount", new[] { nameof(Due) });
-        //    }
-        //}
+        // Navigation properties for PrescriptionBill, ServiceBill, and TestBill
+        public virtual ICollection<PrescriptionBill> PrescriptionBills { get; set; } = new List<PrescriptionBill>();
+        public virtual ICollection<ServiceBill> ServiceBills { get; set; } = new List<ServiceBill>();
+        public virtual ICollection<TestBill> TestBills { get; set; } = new List<TestBill>();
     }
     public enum PaymentMethod
     {
