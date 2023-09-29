@@ -54,7 +54,7 @@ namespace Hospital_Management_System.Controllers
         }
         [HttpPost]
         [Route("Insert")]
-        public async Task<IActionResult> PostDoctor([FromForm] DrawerHelper drawerHelper)
+        public async Task<IActionResult> PostDrawer([FromForm] DrawerHelper drawerHelper)
         {
             try
             {
@@ -68,8 +68,8 @@ namespace Hospital_Management_System.Controllers
             }
         }
         [HttpPut]
-        [Route("Update/{}")]
-        public async Task<IActionResult> PutDoctor(int id, [FromForm] DrawerHelper drawerHelper)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> PutDrawer(int id, [FromForm] DrawerHelper drawerHelper)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Hospital_Management_System.Controllers
         }
         [HttpDelete]
         [Route("Delete/{id}")]
-        public IActionResult DeleteDoctor(int id)
+        public IActionResult DeleteDrawer(int id)
         {
             try
             {
