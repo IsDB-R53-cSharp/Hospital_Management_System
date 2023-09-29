@@ -16,7 +16,7 @@ namespace HMS.Models.SurgeryWard
     }
     public enum SurgeryType
     {
-        Appendectomy = 1, Cholecystectomy, Hysterectomy, Mastectomy
+        Appendectomy = 1, Cholecystectomy, Hysterectomy, Mastectomy, GeneralSurgery
     }
     public class SurgeryProcedure
     {
@@ -59,6 +59,6 @@ namespace HMS.Models.SurgeryWard
         public virtual PatientRegister? PatientRegister { get; set; } = default!;
         public virtual Doctor? Doctor { get; set; } = default!;
         public virtual LabTest? LabTest { get; set; } = default!;
-        public virtual Prescriptions? Prescription { get; set; } = default!;
+        public virtual Prescription? Prescriptions { get; set; } = default!;
     }
 }
