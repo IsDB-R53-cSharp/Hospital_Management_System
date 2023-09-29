@@ -38,10 +38,9 @@ namespace HMS.DAL.Data
         public DbSet<LabTechnician> LabTechnicians { get; set; }
         //public DbSet<LabEquipment> LabEquipments { get; set; }
         public DbSet<LabTest> LabTests { get; set; }
-        public DbSet<Prescriptions> Prescriptions { get; set; }
+        public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Outdoor> Outdoors { get; set; }
-        //public DbSet<Diagnoses> Diagnoses { get; set; }
         public DbSet<MedicalRecords> MedicalRecords { get; set; }
         public DbSet<SurgeryProcedure> SurgeryProcedures { get; set; }
         public DbSet<DischargeTransfer> DischargeTransfers { get; set; }
@@ -50,9 +49,11 @@ namespace HMS.DAL.Data
         public DbSet<WardCabin>? WardCabins { get; set; } = null;
         public DbSet<Symptom> Symptoms { get; set; }
         public DbSet<Advice> Advices { get; set; }
-
-
-
+        public DbSet<TestBill> TestBills { get; set; }
+        public DbSet<PrescriptionBill> PrescriptionBills { get; set; }
+        public DbSet<ServiceBill> ServiceBills { get; set; }
+        public DbSet<AdmissionBill> AdmissionBills { get; set; }
+        public DbSet<IndoorPatient> IndoorPatients { get; set; }
 
         //modelBuilder.Entity<PatientRegister>()
         // .HasMany(p => p.Prescriptions)

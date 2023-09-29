@@ -9,7 +9,7 @@ using HMS.Models.SurgeryWard;
 
 namespace HMS.Models
 {
-    //public class LabEquipment
+    //public class LabEquipment     //table canceled
     //{
     //    [Key]
     //    public int EquipmentID { get; set; }

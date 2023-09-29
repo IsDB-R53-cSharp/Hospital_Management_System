@@ -33,7 +33,7 @@ namespace HMS.Models
         [NotMapped]
         public virtual PatientRegister? PatientRegister { get; set; } = default!;
         //public virtual Department Departments { get; set; } = default!;
-        public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
+        public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
         public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
         public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
     }

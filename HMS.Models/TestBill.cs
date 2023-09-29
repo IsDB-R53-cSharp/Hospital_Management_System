@@ -9,18 +9,18 @@ namespace HMS.Models
         [Key]
         public int TestBillID { get; set; }
 
-
-        public int TestID { get; set; }
-        public int PatientID { get; set; }
+        [ForeignKey("Patient")]
+        public int PatientID { get; set; }  //only test korte asa lokder PrescriptionID nai, tai PatientID nilam. but ekta patient er old-new onek prescription thakbe. PatientID dile sob chole asbe na? 
 
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal TestPrice { get; set; }
+        public decimal TB_Subtotal { get; set; }
 
-        [ForeignKey("Bill")]
-        public int BillID { get; set; }
+        // Navigation properties
 
-        // Navigation property for Bill
-        public virtual Bill Bill { get; set; }
+        public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+        public virtual PatientRegister PatientRegisters { get; set; } // only need PatientID, then why virtual?
     }
 }
+
+//test id, name prescription theke jabe? naki TestID add hobe?

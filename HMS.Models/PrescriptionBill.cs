@@ -4,27 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HMS.Models
 {
-    public class PrescriptionBill
+    public class PrescriptionBill    
     {
         [Key]
         public int PrescriptionBillID { get; set; }
 
-        // Other prescription-related bill properties
+        [ForeignKey("Prescriptions")]
         public int PrescriptionID { get; set; }
+
+        [ForeignKey("PatientRegister")]
         public int PatientID { get; set; }
 
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal DoctorFee { get; set; }
+        public decimal PB_Subtotal { get; set; }
 
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal MedicinePrice { get; set; }
-
-        [ForeignKey("Bill")]
-        public int BillID { get; set; }
-
-        // Navigation property for Bill
-        public virtual Bill Bill { get; set; }
+        // Navigation properties
+        public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+        public virtual PatientRegister PatientRegisters { get; set; } // only need PatientID, then why virtual?
     }
 }
