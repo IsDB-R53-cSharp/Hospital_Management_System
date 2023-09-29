@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HMS.Models.SurgeryWard;
+using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +12,10 @@ namespace HMS.Models
 {
     public class Outdoor
     {
+        public Outdoor()
+        {
+            TreatmentType = TreatmentType.Consultation;
+        }
         [Key]
         public int OutdoorID { get; set; }
 
@@ -40,40 +46,40 @@ namespace HMS.Models
         public virtual PatientRegister? PatientRegister { get; set; }
 
         //public virtual Bill? Bill { get; set; }
+
+        public virtual ICollection<Service> Services { get; set; } = new List<Service>();
+
+        public void InitializeTreatmentType()
+        {
+            if (string.Equals(PatientRegister.PatientName, "Unknown", StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(PatientRegister.PhoneNumber, "Unknown", StringComparison.OrdinalIgnoreCase))
+            {
+                TreatmentType = TreatmentType.Emergency;
+
+                //Surgery surgery = new Surgery
+                //{
+                //    PatientID = this.PatientID
+                      //need to initialize not null surgery property
+                //};
+            }
+        }
+
     }
     public enum TreatmentType
     {
-        [Display(Name = "Emergency")]
-        Emergency = 1,
+        [Display(Name = "Consultation")]
+        Consultation = 1,
 
-        [Display(Name = "Minor Treatment")]
+        [Display(Name = "Emergency")]
+        Emergency,
+
+        [Display(Name = "Minor Treatment")] // Ex: faint patient recovered after getting oxygen
         MinorTreatment,
 
-        [Display(Name = "Vaccination")]
+        [Display(Name = "Vaccination")] //age prescription generate hobe, then medicine add, then PrescriptionBill
         Vaccination,
 
-        [Display(Name = "Wound Dressing")]
-        WoundDressing,
-
-        [Display(Name = "Prescription Renewal")]
-        PrescriptionRenewal,
-
-        [Display(Name = "Physical Therapy")]
-        PhysicalTherapy,
-
-        [Display(Name = "Blood Pressure Check")]
-        BloodPressureCheck,
-
-        //[Display(Name = "X-ray")]
-        //XRay,
-
-        //[Display(Name = "Laboratory Tests")]
-        //LaboratoryTests,
-
-        [Display(Name = "Consultation")]
-        Consultation,
-
-        [Display(Name = "Follow-up")]
+        [Display(Name = "Follow-up")] //follow-up report
         FollowUp,
 
         [Display(Name = "Dental Checkup")]
@@ -81,4 +87,5 @@ namespace HMS.Models
 
         other
     }
+
 }
