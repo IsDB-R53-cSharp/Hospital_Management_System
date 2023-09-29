@@ -130,7 +130,7 @@ namespace Hospital_Management_System
             builder.Services.AddScoped<IManufacturerRepo, ManufacturerRepo>();
             builder.Services.AddScoped<IMedicineGenericRepo, MedicineGenericRepo>();
             builder.Services.AddScoped<IDrawerRepo, DrawerRepo>();
-
+            builder.Services.AddScoped<IDrawerInfoRepo, DrawerInfoRepo>();
 
             builder.Services.AddScoped<ImageHelper>();
 

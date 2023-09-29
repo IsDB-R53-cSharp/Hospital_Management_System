@@ -64,11 +64,8 @@ namespace HMS.Models
     }
     public enum doctortype
     {
-        [Display(Name = "General Practitioner")]
+        [Display(Name = "Outdoor Doctor")] //MBBS Doctor/Intern
         generalpractitioner = 1,
-
-        [Display(Name = "Specialist")]
-        specialist,
 
         [Display(Name = "Surgeon")]
         surgeon,
@@ -79,11 +76,14 @@ namespace HMS.Models
         [Display(Name = "Dentist")]
         dentist,
 
-        [Display(Name = "Consaltent")]
-        Consaltent,
-
         [Display(Name = "Pathologist")]
         Pathologist,
+
+        [Display(Name = "Radiologist")]
+        Radiologists,
+
+        [Display(Name = "Specialist")] //Pediatrician, Cardiologist
+        specialist,
     }
 
 }
