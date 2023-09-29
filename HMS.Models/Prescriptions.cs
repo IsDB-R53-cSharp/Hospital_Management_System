@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HMS.Models
 {
-    public class Prescriptions
+    public class Prescription
     {
         [Key]
         public int PrescriptionID { get; set; }

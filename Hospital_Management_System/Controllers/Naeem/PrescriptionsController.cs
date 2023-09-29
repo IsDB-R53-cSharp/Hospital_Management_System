@@ -19,7 +19,7 @@ namespace Hospital_Management_System.Controllers.Naeem
             this.db = db;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Prescriptions>>> GetPrescriptions()
+        public async Task<ActionResult<IEnumerable<Prescription>>> GetPrescriptions()
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Hospital_Management_System.Controllers.Naeem
                 {
                     if (ModelState.IsValid)
                     {
-                        Prescriptions prescriptions = new Prescriptions
+                        Prescription prescriptions = new Prescription
                         {
                             PatientID = PVM.PatientID,
                             MedicinID = PVM.MedicinID,

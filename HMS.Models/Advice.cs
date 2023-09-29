@@ -11,6 +11,6 @@ namespace HMS.Models
         public int AdviceId { get; set; }
         public string AdviceName { get; set; } = default!;
         //nev
-        public virtual ICollection<Prescriptions> Prescriptions { get; set; } = new List<Prescriptions>();
+        public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
     }
-}
+}   

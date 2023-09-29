@@ -44,6 +44,6 @@ namespace HMS.Models
         public int ManufacturerID { get; set; } // Foreign key
         public virtual Manufacturer? Manufacturer { get; set; }
         [NotMapped]
-        public virtual ICollection<Prescriptions>? Prescriptions { get; set; } = new List<Prescriptions?>();
+        public virtual ICollection<Prescription>? Prescriptions { get; set; } = new List<Prescription?>();
     }
 }

@@ -54,7 +54,7 @@ namespace HMS.Models
         public virtual Department? Department { get; set; } = default!;
 
         [NotMapped]
-        public virtual ICollection<Prescriptions?> Prescriptions { get; set; } = new List<Prescriptions?>();
+        public virtual ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
 
         [NotMapped]
         public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();

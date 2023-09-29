@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Humanizer;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,18 +10,17 @@ namespace HMS.Models
         [Key]
         public int ServiceBillID { get; set; }
 
-        // Other service-related bill properties
-        public int ServiceID { get; set; }
+        public int ServiceCount { get; set; }  //ekta service koybar nise? (ex: doctor visit count)
+
+        [ForeignKey("PatientRegister")]
         public int PatientID { get; set; }
 
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal ServicePrice { get; set; }
+        public decimal SB_Subtotal { get; set; }
 
-        [ForeignKey("Bill")]
-        public int BillID { get; set; }
-
-        // Navigation property for Bill
-        public virtual Bill Bill { get; set; }
+        // Navigation properties
+        public virtual PatientRegister PatientRegister { get; set; } // need virtual?  I only need PatientID, not  ১৪ গুস্টি 🙄
+        public virtual ICollection<Service> Services { get; set; } = new List<Service>();
     }
 }
