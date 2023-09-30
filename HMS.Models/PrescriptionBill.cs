@@ -9,7 +9,7 @@ namespace HMS.Models
         [Key]
         public int PrescriptionBillID { get; set; }
 
-        [ForeignKey("Prescriptions")]
+        [ForeignKey("Prescription")]
         public int PrescriptionID { get; set; }
 
         [ForeignKey("PatientRegister")]

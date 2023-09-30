@@ -12,8 +12,8 @@ namespace HMS.Models.Attributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var bill = (Bill)validationContext.ObjectInstance;
-            if (bill.PaidAmount > bill.BillAmount)
+            var bill = (TotalBill)validationContext.ObjectInstance;
+            if (bill.PaidAmount > bill.TotalAmount)
             {
                 return new ValidationResult("Paid Amount cannot be greater than Bill Amount");
             }
