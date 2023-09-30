@@ -17,19 +17,19 @@ namespace Hospital_Management_System.Controllers
         }
         // Get all Data
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SurgeryProcedure>>> GetSurgeryProcedure()
+        public async Task<ActionResult<IEnumerable<Surgery>>> GetSurgeryProcedure()
         {
-            return await _context.SurgeryProcedures.ToListAsync();
+            return await _context.Surgeries.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<SurgeryProcedure>> GetSurgeryProcedureById(int id)
+        public async Task<ActionResult<Surgery>> GetSurgeryProcedureById(int id)
         {
-            if (_context.SurgeryProcedures == null)
+            if (_context.Surgeries == null)
             {
                 return NotFound();
             }
-            var surgeryProcedure = await _context.SurgeryProcedures.FindAsync(id);
+            var surgeryProcedure = await _context.Surgeries.FindAsync(id);
             if (surgeryProcedure == null)
             {
                 return NotFound();
@@ -38,7 +38,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSurgeryProcedure(int id, SurgeryProcedure surgeryProcedure)
+        public async Task<IActionResult> PutSurgeryProcedure(int id, Surgery surgeryProcedure)
         {
             if (id != surgeryProcedure.SurgeryID)
             {
@@ -65,20 +65,20 @@ namespace Hospital_Management_System.Controllers
 
         [HttpPost]
         [Route("insert")]
-        public async Task<ActionResult<SurgeryProcedure>> PostSurgeryProcedure(SurgeryProcedure surgeryProcedure)
+        public async Task<ActionResult<Surgery>> PostSurgeryProcedure(Surgery surgeryProcedure)
         {
-            if (_context.SurgeryProcedures == null)
+            if (_context.Surgeries == null)
             {
                 return Problem("Entity set 'Surgery' is null");
             }
-            _context.SurgeryProcedures.Add(surgeryProcedure);
+            _context.Surgeries.Add(surgeryProcedure);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetSurgeryProcedure", new { id = surgeryProcedure.SurgeryID });
         }
 
         private bool SurgeryProcedureExists(int id)
         {
-            return (_context.SurgeryProcedures?.Any(e => e.SurgeryID == id)).GetValueOrDefault();
+            return (_context.Surgeries?.Any(e => e.SurgeryID == id)).GetValueOrDefault();
         }
     }
 }

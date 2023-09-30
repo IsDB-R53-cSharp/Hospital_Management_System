@@ -42,7 +42,7 @@ namespace HMS.DAL.Data
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Outdoor> Outdoors { get; set; }
         public DbSet<MedicalRecords> MedicalRecords { get; set; }
-        public DbSet<SurgeryProcedure> SurgeryProcedures { get; set; }
+        public DbSet<Surgery> Surgeries { get; set; }
         public DbSet<DischargeTransfer> DischargeTransfers { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Service> Services { get; set; }
@@ -54,6 +54,9 @@ namespace HMS.DAL.Data
         public DbSet<ServiceBill> ServiceBills { get; set; }
         public DbSet<AdmissionBill> AdmissionBills { get; set; }
         public DbSet<IndoorPatient> IndoorPatients { get; set; }
+        public DbSet<Bed> Beds { get; set; }
+        public DbSet<PreoperativeDiagnosis> PreoperativeDiagnoses { get; set; }
+
 
         //modelBuilder.Entity<PatientRegister>()
         // .HasMany(p => p.Prescriptions)
