@@ -20,7 +20,7 @@ namespace Hospital_Management_System.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Medicine>>> GetAllMedicine()
         {
-            var medicines = await _context.Medicines.FromSqlRaw("EXEC SpAllMedicine").ToListAsync();
+            var medicines = await _context.Medicines.FromSqlRaw("EXEC SpGetAllMedicine").ToListAsync();
             return Ok(medicines);
         }
         [HttpGet("{id}")]
@@ -29,7 +29,7 @@ namespace Hospital_Management_System.Controllers
             var idParameter = new SqlParameter("@id", id);
 
             IQueryable<Medicine> medicine = _context.Medicines
-                .FromSqlRaw("EXEC SpMedicineById @id", idParameter)
+                .FromSqlRaw("EXEC SphMedicineById @id", idParameter)
                 .AsQueryable();
 
             if (medicine == null)
@@ -49,9 +49,9 @@ namespace Hospital_Management_System.Controllers
             {
                 try
                 {
-                    _context.Database.ExecuteSqlRaw("EXEC SpPostMedicine @MedicineName={0}, @Strength={1}, @MedicineType={2}, @ExpireDate={3},@Quantity={4},@SellPrice={5},@Discount={6},@MedicineGenericID={7},@ManufacturerID ={8}"
+                    _context.Database.ExecuteSqlRaw("EXEC SpPtAllMedicine @MedicineName={0},@Weight={1},  @MedicineType={2},@DosageForms={3}, @ExpireDate={4},@Quantity={5},@SellPrice={6},@Discount={7},@MedicineGenericID={8},@ManufacturerID ={9}"
                     ,
-                         medicine.MedicineName, medicine.Strength, medicine.MedicineType, medicine.ExpireDate, medicine.Quantity, medicine.SellPrice, medicine.Discount, medicine.MedicineGenericID, medicine.ManufacturerID);
+                         medicine.MedicineName, medicine.Weight, medicine.MedicineType, medicine.DosageForms, medicine.ExpireDate, medicine.Quantity, medicine.SellPrice, medicine.Discount, medicine.MedicineGenericID, medicine.ManufacturerID);
 
                     transaction.Commit();
                     return Ok("Medicine inserted successfully.");
@@ -70,9 +70,9 @@ namespace Hospital_Management_System.Controllers
             {
                 try
                 {
-                    _context.Database.ExecuteSqlRaw("EXEC SpUpdateMedicine @id={0}, @MedicineName={1}, @Strength={2}, @MedicineType={3}, @ExpireDate={4},@Quantity={5},@SellPrice={6},@Discount={7},@MedicineGenericID={8},@ManufacturerID ={9}"
+                    _context.Database.ExecuteSqlRaw("EXEC SpUdateMedicine @id={0}, @MedicineName={1},@Weight={2},  @MedicineType={3},@DosageForms={4}, @ExpireDate={5},@Quantity={6},@SellPrice={7},@Discount={8},@MedicineGenericID={9},@ManufacturerID ={10}"
                     ,
-                        id, medicine.MedicineName, medicine.Strength, medicine.MedicineType, medicine.ExpireDate, medicine.Quantity, medicine.SellPrice, medicine.Discount, medicine.MedicineGenericID, medicine.ManufacturerID);
+                        id, medicine.MedicineName, medicine.Weight, medicine.MedicineType, medicine.DosageForms, medicine.ExpireDate, medicine.Quantity, medicine.SellPrice, medicine.Discount, medicine.MedicineGenericID, medicine.ManufacturerID);
 
                     transaction.Commit();
                     return Ok("Medicine Update successfully.");
@@ -88,7 +88,7 @@ namespace Hospital_Management_System.Controllers
         public async Task<IActionResult> DeleteMedicine(int id)
         {
             var medicine = await _context.PatientRegisters.FindAsync(id);
-            _context.Database.ExecuteSqlRaw("EXEC SpDeleteMedicine @id={0}", id);
+            _context.Database.ExecuteSqlRaw("EXEC SpDeMedicine @id={0}", id);
             if (medicine == null)
             {
                 return BadRequest("Medicine id is invalid");
