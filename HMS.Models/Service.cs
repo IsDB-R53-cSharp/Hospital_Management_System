@@ -20,6 +20,6 @@ namespace HMS.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal ServiceCharge { get; set; }
         //nav
-        public virtual List<Bill> Bills { get; set; } = new List<Bill>();
+        //public virtual List<Bill> Bills { get; set; } = new List<Bill>();
     }
 }

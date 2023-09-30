@@ -43,6 +43,7 @@ namespace HMS.Models
 
         [ForeignKey("MedicalRecords")]
         public int? MedicalRecordsID { get; set; }
+
         // Navigation property for the patient
         [NotMapped]
         public virtual PatientRegister PatientRegisters { get; set; }
@@ -50,6 +51,8 @@ namespace HMS.Models
         // Navigation property for medical records
         [NotMapped]
         public virtual MedicalRecords MedicalRecords { get; set; }
+
+        //AdmissionBill collection
 
 
 
@@ -63,11 +66,7 @@ namespace HMS.Models
          ApplyFormatInEditMode = true)]
         public DateTime AdmissionDate { get; set; }
 
-        [Column(TypeName = "date"),
-         Display(Name = "Release Date"),
-         DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
-         ApplyFormatInEditMode = true)]
-        public DateTime? ReleaseDate { get; set; }
+
 
         [AdmissionDateMustBeOnOrAfterBirthDateAttribute] // custom validation
         [Column(TypeName = "date"),

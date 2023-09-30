@@ -22,22 +22,7 @@ namespace HMS.Models
 
     //}
 
-    public class Appointment
-    {
-        [Key]
-        public int AppointmentID { get; set; }
-        public string PatientName { get; set; }
-        public string PhoneNumber { get; set; }
-        [ForeignKey("Doctor")]
-        public int DoctorID { get; set; }
-        public DateTime AppointmentDate { get; set; }
-        public string AppointmentType { get; set; }
-        public string TicketNumber { get; set; }
-        public bool AppointmentStatus { get; set; }
 
-        [NotMapped]
-        public virtual Doctor Doctor { get; set; }
-    }
     
     //DisCharge class Cut to outside
     //Medical records class cut to outside  --- controller not done

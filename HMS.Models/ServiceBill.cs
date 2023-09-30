@@ -20,7 +20,7 @@ namespace HMS.Models
         public decimal SB_Subtotal { get; set; }
 
         // Navigation properties
-        public virtual PatientRegister PatientRegister { get; set; } // need virtual?  I only need PatientID, not  ১৪ গুস্টি 🙄
+        public virtual PatientRegister PatientRegister { get; set; }
         public virtual ICollection<Service> Services { get; set; } = new List<Service>();
     }
 }
