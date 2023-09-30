@@ -44,7 +44,7 @@ namespace Hospital_Management_System.Helpers
         public string Education_Info { get; set; }
         public string PhoneNumber { get; set; } = default!;
         //public Department? Departments { get; set; }
-        //public List<LabTest>? Labtest { get; set; }
+        //public List<Test>? Labtest { get; set; }
 
         public LabTechnician GetLabTechnician()
         {

@@ -23,6 +23,6 @@ namespace HMS.Models
         public virtual ICollection<WardCabin>? WardCabins { get; set; } = null;
         
         //= new List<WardCabin>();
-        //public virtual ICollection<LabTest> LabTests { get; set; }=new List<LabTest>();
+        //public virtual ICollection<Test> Tests { get; set; }=new List<Test>();
     }
 }

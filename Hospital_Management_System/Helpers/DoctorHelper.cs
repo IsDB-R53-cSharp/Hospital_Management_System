@@ -26,7 +26,7 @@ namespace Hospital_Management_System.Helpers
             //this.Department = doctor.Department;
             //this.Prescriptions = doctor.Prescriptions.ToList();
             //this.Appointments = doctor.Appointments.ToList();
-            //this.SurgeryProcedures = doctor.SurgeryProcedures.ToList();
+            //this.Surgeries = doctor.Surgeries.ToList();
         }
 
         public int DoctorID { get; set; }
@@ -43,7 +43,7 @@ namespace Hospital_Management_System.Helpers
         //public Department? Department { get; set; }
         //public List<Prescriptions>? Prescriptions { get; set; }
         //public List<Appointment>? Appointments { get; set; }
-        //public List<SurgeryProcedure>? SurgeryProcedures { get; set; }
+        //public List<SurgeryProcedure>? Surgeries { get; set; }
 
         public Doctor GetDoctor()
         {
@@ -60,7 +60,7 @@ namespace Hospital_Management_System.Helpers
             //doctor.Department = this.Department;
             //doctor.Prescriptions = this.Prescriptions;
             //doctor.Appointments = this.Appointments;
-            //doctor.SurgeryProcedures = this.SurgeryProcedures;
+            //doctor.Surgeries = this.Surgeries;
             return doctor;
         }
 

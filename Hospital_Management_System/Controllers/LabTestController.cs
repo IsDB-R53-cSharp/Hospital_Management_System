@@ -18,7 +18,7 @@ namespace Hospital_Management_System.Controllers
         [HttpGet]
         public IActionResult GetallTest()
         {
-            IQueryable<LabTest> labTests = db.LabTests.FromSqlRaw("SpAlltest").AsQueryable();
+            IQueryable<Test> labTests = db.Tests.FromSqlRaw("SpAlltest").AsQueryable();
             if (labTests == null)
             {
                 return NotFound();
@@ -27,7 +27,7 @@ namespace Hospital_Management_System.Controllers
             return Ok(labTests);
         }
         [HttpPost]
-        public IActionResult InsertTest([FromForm] LabTest labTest)
+        public IActionResult InsertTest([FromForm] Test labTest)
         {
             using (var transaction = db.Database.BeginTransaction())
             {
@@ -49,7 +49,7 @@ namespace Hospital_Management_System.Controllers
 
 
         [HttpPut("{id}")]
-        public IActionResult UpdateTest(int id, [FromForm] LabTest labTest)
+        public IActionResult UpdateTest(int id, [FromForm] Test labTest)
         {
             using (var transaction = db.Database.BeginTransaction())
             {
@@ -73,7 +73,7 @@ namespace Hospital_Management_System.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteTest(int id)
         {
-            var ID = db.LabTests.FirstOrDefault(x => x.TestID == id);
+            var ID = db.Tests.FirstOrDefault(x => x.TestID == id);
 
             db.Database.ExecuteSqlRaw("EXEC SpDelete @id={0}", ID);
             if (ID == null)

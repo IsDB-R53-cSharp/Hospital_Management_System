@@ -45,8 +45,6 @@ namespace HMS.Models
 
         public virtual PatientRegister? PatientRegister { get; set; }
 
-        //public virtual Bill? Bill { get; set; }
-
         public virtual ICollection<Service> Services { get; set; } = new List<Service>();
 
         public void InitializeTreatmentType()

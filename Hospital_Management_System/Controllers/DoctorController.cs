@@ -117,7 +117,7 @@ namespace Hospital_Management_System.Controllers
                 //existingDoctor.Department = doctorHelper.Department;
                 //existingDoctor.Prescriptions = doctorHelper.Prescriptions;
                 //existingDoctor.Appointments = doctorHelper.Appointments;
-                //existingDoctor.SurgeryProcedures = doctorHelper.SurgeryProcedures;
+                //existingDoctor.Surgeries = doctorHelper.Surgeries;
 
                 _docRepo.SaveDoctor(existingDoctor);
 
