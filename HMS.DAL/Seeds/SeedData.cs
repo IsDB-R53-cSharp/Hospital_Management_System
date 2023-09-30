@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 
 namespace HMS.DAL.Data
 {
@@ -224,6 +225,121 @@ namespace HMS.DAL.Data
                 new Service { ServiceID = 21, ServiceName = "Rehabilitation fee", ServiceCharge = 400 }
             );
         }
-
+        public static void SeedAdvices(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Advice>().HasData(
+            new Advice { AdviceId = 1, AdviceName = "Eat Healthy" },
+            new Advice { AdviceId = 2, AdviceName = "Exercise Regularly" },
+            new Advice { AdviceId = 3, AdviceName = "Get Enough Sleep" },
+            new Advice { AdviceId = 4, AdviceName = "Stay Hydrated" },
+            new Advice { AdviceId = 5, AdviceName = "Manage Stress" }
+            );
+        }
+        public static void SeedSymptoms(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Symptom>().HasData(
+            new Symptom { SymptomId = 1, SymptomName = "Fever" },
+            new Symptom { SymptomId = 2, SymptomName = "Cough" },
+            new Symptom { SymptomId = 3, SymptomName = "Headache" },
+            new Symptom { SymptomId = 4, SymptomName = "Sore Throat" }
+            );
+        }
+        public static void SeedBeds(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Bed>().HasData(
+            new Bed { BedID = 1, BedNumber = "W101", IsOccupied = true, WardCabinID = 1 },
+            new Bed { BedID = 2, BedNumber = "W102", IsOccupied = true, WardCabinID = 1 },
+            new Bed { BedID = 3, BedNumber = "W103", IsOccupied = true, WardCabinID = 1 },
+            new Bed { BedID = 4, BedNumber = "C101", IsOccupied = true, WardCabinID = 2 },
+            new Bed { BedID = 5, BedNumber = "C102", IsOccupied = true, WardCabinID = 2 }
+            );
+        }
+        public static void SeedPreoperativeDiagnosis(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PreoperativeDiagnosis>().HasData(
+            new PreoperativeDiagnosis { PreoperativeDiagnosisID = 1, PreoperativeDiagnosisName = "Hypertension" },
+            new PreoperativeDiagnosis { PreoperativeDiagnosisID = 2, PreoperativeDiagnosisName = "Diabetes" },
+            new PreoperativeDiagnosis { PreoperativeDiagnosisID = 3, PreoperativeDiagnosisName = "Obesity" },
+            new PreoperativeDiagnosis { PreoperativeDiagnosisID = 4, PreoperativeDiagnosisName = "Heart Disease" },
+            new PreoperativeDiagnosis { PreoperativeDiagnosisID = 5, PreoperativeDiagnosisName = "Kidney Disease" }
+            );
+        }
+        public static void SeedMedicineGeneric(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MedicineGeneric>().HasData(
+            new MedicineGeneric { MedicineGenericID = 1, MedicineGenericNames = "Atorvastatin" },
+            new MedicineGeneric { MedicineGenericID = 2, MedicineGenericNames = "Rosuvastatin" },
+            new MedicineGeneric { MedicineGenericID = 3, MedicineGenericNames = "Metformin Hydrochloride" },
+            new MedicineGeneric { MedicineGenericID = 4, MedicineGenericNames = "linagliptin & Metformin" },
+            new MedicineGeneric { MedicineGenericID = 5, MedicineGenericNames = "Olmisertan " }
+            );
+        }
+        public static void SeedManufacturer(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Manufacturer>().HasData(
+            new Manufacturer { ManufacturerID = 1, ManufacturerName = "Square Pharmaceuticals Ltd " },
+            new Manufacturer { ManufacturerID = 2, ManufacturerName = "Incepta Pharmaceutical Ltd" },
+            new Manufacturer { ManufacturerID = 3, ManufacturerName = "Beximco Pharmaceuticals Ltd" },
+            new Manufacturer { ManufacturerID = 4, ManufacturerName = "Opsonin Pharma Ltd" },
+            new Manufacturer { ManufacturerID = 5, ManufacturerName = "Renata Ltd" },
+            new Manufacturer { ManufacturerID = 6, ManufacturerName = "Healthcare Pharmaceuticals Ltd" },
+            new Manufacturer { ManufacturerID = 7, ManufacturerName = "Radient Pharmaceuticals Ltd" },
+            new Manufacturer { ManufacturerID = 8, ManufacturerName = "Eskayef Pharmaceuticals Ltd" },
+            new Manufacturer { ManufacturerID = 9, ManufacturerName = "ACME Laboratories Ltd" },
+            new Manufacturer { ManufacturerID = 10, ManufacturerName = "Aristopharma Ltd" }
+            );
+        }
+        public static void SeedMedicines(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Medicine>().HasData(
+            new Medicine{
+                MedicineName = "Medicine1",
+                Strength = Strength.mg,
+                MedicineType = MedicineType.Tablet,
+                ExpireDate = DateTime.Now.AddMonths(6),
+                Quantity = 100,
+                SellPrice = 10.99m,
+                Discount = 1.00m,
+                MedicineGenericID = 1,
+                ManufacturerID = 1,
+            },
+            new Medicine
+            {
+                MedicineName = "Medicine2",
+                Strength = Strength.ml,
+                MedicineType = MedicineType.Liquid,
+                ExpireDate = DateTime.Now.AddMonths(12),
+                Quantity = 50,
+                SellPrice = 15.49m,
+                Discount = 0.50m,
+                MedicineGenericID = 2,
+                ManufacturerID = 2,
+            },
+            new Medicine
+            {
+                MedicineName = "Medicine2",
+                Strength = Strength.ml,
+                MedicineType = MedicineType.Liquid,
+                ExpireDate = DateTime.Now.AddMonths(12),
+                Quantity = 50,
+                SellPrice = 15.49m,
+                Discount = 0.50m,
+                MedicineGenericID = 2,
+                ManufacturerID = 2,
+            },
+            new Medicine
+            {
+                MedicineName = "Medicine2",
+                Strength = Strength.ml,
+                MedicineType = MedicineType.Liquid,
+                ExpireDate = DateTime.Now.AddMonths(12),
+                Quantity = 50,
+                SellPrice = 15.49m,
+                Discount = 0.50m,
+                MedicineGenericID = 2,
+                ManufacturerID = 2,
+            }
+            );
+        }
     }
 }
