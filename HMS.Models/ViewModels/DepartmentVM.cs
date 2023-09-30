@@ -19,6 +19,6 @@ namespace HMS.Models.ViewModels
         //public virtual ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
         //public virtual ICollection<WardCabin> WardCabins { get; set; } = new List<WardCabin>();
 
-        //public virtual ICollection<LabTest> LabTests { get; set; }=new List<LabTest>();
+        //public virtual ICollection<Test> Tests { get; set; }=new List<Test>();
     }
 }

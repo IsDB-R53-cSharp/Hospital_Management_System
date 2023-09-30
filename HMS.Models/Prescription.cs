@@ -14,14 +14,20 @@ namespace HMS.Models
     {
         [Key]
         public int PrescriptionID { get; set; }
-        //[ForeignKey("PatientRegister")]
+        [ForeignKey("PatientRegister")]
         public int? PatientID { get; set; }
         [ForeignKey("Medicine")]
         public int MedicinID { get; set; }
         [ForeignKey("Doctor")]
         public int DoctorID { get; set; }
-        [ForeignKey("LabTest")]
+        [ForeignKey("Test")]
         public int TestID { get; set; }
+        [ForeignKey("Symptom")]
+        public int SymptomId { get; set; }
+        [ForeignKey("Advice")]
+        public int AdviceId { get; set; }
+        [ForeignKey("Dosage")]
+        public int DosageID { get; set; }
 
 
         [Required]
@@ -30,16 +36,6 @@ namespace HMS.Models
         DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
         ApplyFormatInEditMode = true)]
         public DateTime PrescriptionDate { get; set; } = DateTime.Now;
-
-
-        [Required(ErrorMessage = "Please enter Dosage")]
-        [StringLength(250, ErrorMessage = "Please do not enter values over 250 characters")]
-        public string Dosage { get; set; } = default!;
-
-        [Required(ErrorMessage = "Please enter Advice")]
-        [StringLength(250, ErrorMessage = "Please do not enter values over 250 characters")]
-        public string Advice { get; set; } = default!;
-
 
         [Required(ErrorMessage = "Please enter Progress Notes")]
         [StringLength(250, ErrorMessage = "Please do not enter values over 250 characters")]
@@ -64,37 +60,35 @@ namespace HMS.Models
             set { _nextVisit = value; }
         }
         // Nullable
-
-
-
         [Display(Name = "Admission Suggested")]
         public bool AdmissionSuggested { get; set; } = default!;
         //public string PrescribedBy { get; set; } //doctor name comes via DoctorID
-        [Column(TypeName = "date"),
-        Display(Name = "Diagnosis Date"),
-        DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
-        ApplyFormatInEditMode = true)]
-        public DateTime? DiagnosisDate { get; set; }//work as prescription date
+        ////[Column(TypeName = "date"),
+        ////Display(Name = "Diagnosis Date"),
+        ////DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
+        ////ApplyFormatInEditMode = true)]
+        ////public DateTime? DiagnosisDate { get; set; }//work as prescription date
 
 
-        [Required(ErrorMessage = "Please enter Symptoms")]
-        [StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
-        public string Symptoms { get; set; } = default!;
-        [Required]
-        [Column(TypeName = "date"),
-         Display(Name = "SymptomStart Date"),
-         DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
-         ApplyFormatInEditMode = true)]
-        public DateTime SymptomStartDate { get; set; }
-        [Required(ErrorMessage = "Please enter severity"), Range(0, 100)]
-        [Display(Name = "Severity")]
-        public int Severity { get; set; }
-        [Required(ErrorMessage = "Please enter duration")]
-        [StringLength(55, ErrorMessage = "Please do not enter values over 55 characters")]
-        public string Duration { get; set; } = default!;
-        [Required(ErrorMessage = "Please enter diagonesNotes")]
-        [StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
-        public string DiagonesNotes { get; set; } = default!;
+        ////[Required(ErrorMessage = "Please enter Symptoms")]
+        ////[StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
+        ////public string Symptoms { get; set; } = default!;
+        ////[Required]
+        ////[Column(TypeName = "date"),
+        //// Display(Name = "SymptomStart Date"),
+        //// DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
+        //// ApplyFormatInEditMode = true)]
+        ////public DateTime SymptomStartDate { get; set; }
+        ////[Required(ErrorMessage = "Please enter severity"), Range(0, 100)]
+        ////[Display(Name = "Severity")]
+        ////public int Severity { get; set; }
+        ////[Required(ErrorMessage = "Please enter duration")]
+        ////[StringLength(55, ErrorMessage = "Please do not enter values over 55 characters")]
+        ////public string Duration { get; set; } = default!;
+        ////[Required(ErrorMessage = "Please enter diagonesNotes")]
+        ////[StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
+        ////public string DiagonesNotes { get; set; } = default!;
+
         [Required(ErrorMessage = "Please enter follow up instructions")]
         [StringLength(200, ErrorMessage = "Please do not enter values over 200 characters")]
         [Display(Name = "Follow Up Instructions")]
@@ -105,8 +99,12 @@ namespace HMS.Models
         [NotMapped]
         public virtual PatientRegister? PatientRegister { get; set; } = default!;
         public virtual Doctor? Doctor { get; set; } = default!;
-        public virtual LabTest? LabTest { get; set; } = default!;
+        public virtual Test? Test { get; set; } = default!;
+        public virtual Symptom? Symptom { get; set; } = default!;
+        public virtual Advice? Advice { get; set; } = default!;
+        public virtual Dosage? Dosages { get; set; } = default!;
         public virtual ICollection<MedicalRecords>? MedicalRecords { get; set; } = new List<MedicalRecords>();
-        public virtual ICollection<SurgeryProcedure>? SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
+        public virtual ICollection<Surgery>? Surgeries { get; set; } = new List<Surgery>();
+        public ICollection<TestReport>? TestReports { get; set; } = new List<TestReport>();
     }
 }
