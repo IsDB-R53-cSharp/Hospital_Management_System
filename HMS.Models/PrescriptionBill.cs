@@ -15,6 +15,8 @@ namespace HMS.Models
         [ForeignKey("PatientRegister")]
         public int PatientID { get; set; }
 
+        public int ServiceID { get; set; }//FK
+
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal PB_Subtotal { get; set; }

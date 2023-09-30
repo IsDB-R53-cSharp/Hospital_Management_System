@@ -44,7 +44,8 @@ namespace HMS.Models
 
         [NotMapped]
         public virtual ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
-
+        [NotMapped]
+        public ICollection<IndoorPatient?> IndoorPatients { get; set; } = new List<IndoorPatient?>();
 
         //List<Report Info>        //add this table first
     }

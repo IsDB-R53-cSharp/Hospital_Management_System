@@ -16,11 +16,22 @@ namespace HMS.Models
         [ForeignKey("IndoorPatient")]
         public int IndoorPatientID { get; set; }
 
+        //Admission Date (auto property)
+
+        [Column(TypeName = "date"),
+         Display(Name = "Release Date"),
+         DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
+         ApplyFormatInEditMode = true)]
+        public DateTime? ReleaseDate { get; set; }
+
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal AB_Subtotal { get; set; }
 
         // Navigation properties
-        public virtual IndoorPatient IndoorPatient { get; set; } // need virtual?  I only need IndoorPatientID, not  ১৪ গুস্টি 🙄
+        public IndoorPatient IndoorPatient { get; set; } 
+
+
+        //
     }
 }
