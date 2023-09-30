@@ -37,7 +37,7 @@ namespace HMS.DAL.Data
         public DbSet<Nurse> Nurses { get; set; }
         public DbSet<LabTechnician> LabTechnicians { get; set; }
         //public DbSet<LabEquipment> LabEquipments { get; set; }
-        public DbSet<LabTest> LabTests { get; set; }
+        public DbSet<Test> Tests { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Outdoor> Outdoors { get; set; }
@@ -58,27 +58,17 @@ namespace HMS.DAL.Data
         public DbSet<PreoperativeDiagnosis> PreoperativeDiagnoses { get; set; }
 
 
-        //modelBuilder.Entity<PatientRegister>()
-        // .HasMany(p => p.Prescriptions)
-        //.WithOne()
-        // .OnDelete(DeleteBehavior.Restrict);
-
-        //modelBuilder.Entity<SurgeryProcedure>()
-        //.HasOne(sp => sp.Prescription)
-        //.WithMany()
-        //.OnDelete(DeleteBehavior.Restrict);
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //SeedData.SeedDepartments(modelBuilder);
-            //SeedData.SeedWardCabins(modelBuilder);
-            //SeedData.SeedPatients(modelBuilder);
-            //SeedData.SeedDoctors(modelBuilder);
-            //SeedData.SeedNurses(modelBuilder);
-            //SeedData.SeedLabTechnicians(modelBuilder);
-            //SeedData.SeedOtherEmployees(modelBuilder);
+            SeedData.SeedDepartments(modelBuilder);
+            SeedData.SeedWardCabins(modelBuilder);
+            SeedData.SeedPatients(modelBuilder);
+            SeedData.SeedDoctors(modelBuilder);
+            SeedData.SeedNurses(modelBuilder);
+            SeedData.SeedLabTechnicians(modelBuilder);
+            SeedData.SeedOtherEmployees(modelBuilder);
+            SeedData.SeedServices(modelBuilder);
+
 
 
             //for auth
@@ -92,3 +82,16 @@ namespace HMS.DAL.Data
 
     }
 }
+
+
+
+
+//modelBuilder.Entity<PatientRegister>()
+// .HasMany(p => p.Prescriptions)
+//.WithOne()
+// .OnDelete(DeleteBehavior.Restrict);
+
+//modelBuilder.Entity<SurgeryProcedure>()
+//.HasOne(sp => sp.Prescription)
+//.WithMany()
+//.OnDelete(DeleteBehavior.Restrict);
