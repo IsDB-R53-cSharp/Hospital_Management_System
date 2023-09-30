@@ -35,15 +35,13 @@ namespace HMS.DAL.Data
                 new WardCabin
                 {
                     WardID = 1,
-                    WardName = "Neuro Care",
-                    BedCabinNumber = 23,
+                    WardCabinName = "Neuro Care",
                     DepartmentID = 1,
                 },
                 new WardCabin
                 {
                     WardID = 2,
-                    WardName = "Child Care",
-                    BedCabinNumber = 40,
+                    WardCabinName = "Child Care",
                     DepartmentID = 2,
                 }
             );

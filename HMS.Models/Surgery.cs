@@ -10,21 +10,14 @@ using HMS.Models;
 
 namespace HMS.Models.SurgeryWard
 {
-    public enum Preoperative_Diagnosis
-    {
-        Done = 1, Not_Done
-    }
     public enum SurgeryType
     {
         Appendectomy = 1, Cholecystectomy, Hysterectomy, Mastectomy, GeneralSurgery
     }
-    public class SurgeryProcedure
+    public class Surgery
     {
         [Key]
         public int SurgeryID { get; set; }
-
-        //[ForeignKey("PatientRegister")]
-        public int? PatientID { get; set; }
 
         [EnumDataType(typeof(SurgeryType))]
         public SurgeryType SurgeryType { get; set; } = default!; //enum
@@ -42,23 +35,15 @@ namespace HMS.Models.SurgeryWard
         [StringLength(150, ErrorMessage = "Please do not enter values over 150 characters")]
         public string Observations { get; set; } = default!;
 
-        [EnumDataType(typeof(Preoperative_Diagnosis))]
-        public Preoperative_Diagnosis Preoperative_Diagnosis { get; set; } = default!;
-
         [Required(ErrorMessage = "Please enter medical Postoperative_Diagnosis")]
         [StringLength(150, ErrorMessage = "Please do not enter values over 150 characters")]
         public string Postoperative_Diagnosis { get; set; } = default!;
-
-        [ForeignKey("LabTest")]
-        public int TestID { get; set; }
 
         [ForeignKey("Prescription")]
         public int PrescriptionID { get; set; }
         //nev
         [NotMapped]
-        public virtual PatientRegister? PatientRegister { get; set; } = default!;
-        public virtual Doctor? Doctor { get; set; } = default!;
-        public virtual LabTest? LabTest { get; set; } = default!;
-        public virtual Prescription? Prescriptions { get; set; } = default!;
+        public ICollection<Doctor> Doctors { get; set; }= new List<Doctor>();
+        public virtual ICollection<Prescription> Prescriptions { get; set; } = default!;
     }
 }

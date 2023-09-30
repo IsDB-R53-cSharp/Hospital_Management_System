@@ -53,7 +53,7 @@ namespace HMS.Models
 
         public virtual ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
         public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
-        public virtual ICollection<SurgeryProcedure?> SurgeryProcedures { get; set; } = new List<SurgeryProcedure?>();
+        public virtual ICollection<Surgery?> Surgeries { get; set; } = new List<Surgery?>();
     }
     public enum NurseType
     {

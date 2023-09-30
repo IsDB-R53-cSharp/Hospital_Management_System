@@ -16,25 +16,14 @@ namespace HMS.Models.SurgeryWard
 
         [Required(ErrorMessage = "Please enter medical ward name")]
         [StringLength(50, ErrorMessage = "Please do not enter values over 50 characters")]
-        public string WardName { get; set; } = default!;
-
-        [Required(ErrorMessage = "Please enter Bed Or Cabin number"), Range(0, 100)]
-        [Display(Name = "Bed Number")]
-        public int BedCabinNumber { get; set; }
+        public string WardCabinName { get; set; } = default!;
 
         [ForeignKey("Departments")]
         public int DepartmentID { get; set; }
-        //[ForeignKey("Doctor")]
-        //public int DoctorID { get; set; }
-        //[ForeignKey("Nurse")]
-        //public int NurseID { get; set; }
-        //nev
-        //public Doctor Doctor { get; set; }
-        //public Nurse Nurse { get; set; }
         //nev
         [NotMapped]
-        public virtual Department? Departments { get; set; } = default!;
+        public  Department Departments { get; set; } = default!;
         [NotMapped]
-        public virtual ICollection<PatientRegister?> PatientRegisters { get; set; } = new List<PatientRegister?>();
+        public virtual ICollection<Bed> Beds { get; set; }=new List<Bed>();
     }
 }

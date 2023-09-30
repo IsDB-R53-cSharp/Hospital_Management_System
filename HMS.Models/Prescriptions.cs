@@ -107,6 +107,6 @@ namespace HMS.Models
         public virtual Doctor? Doctor { get; set; } = default!;
         public virtual LabTest? LabTest { get; set; } = default!;
         public virtual ICollection<MedicalRecords>? MedicalRecords { get; set; } = new List<MedicalRecords>();
-        public virtual ICollection<SurgeryProcedure>? SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
+        public virtual ICollection<Surgery>? Surgeries { get; set; } = new List<Surgery>();
     }
 }

@@ -35,6 +35,6 @@ namespace HMS.Models
         //public virtual Department Departments { get; set; } = default!;
         public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
         public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
-        public virtual ICollection<SurgeryProcedure> SurgeryProcedures { get; set; } = new List<SurgeryProcedure>();
+        public virtual ICollection<Surgery> Surgeries { get; set; } = new List<Surgery>();
     }
 }
