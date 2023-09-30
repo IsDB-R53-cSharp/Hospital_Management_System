@@ -60,7 +60,7 @@ namespace HMS.Models
         public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
 
         [NotMapped]
-        public virtual ICollection<SurgeryProcedure?> SurgeryProcedures { get; set; } = new List<SurgeryProcedure?>();
+        public virtual ICollection<Surgery?> Surgerys { get; set; } = new List<Surgery?>();
     }
     public enum doctortype
     {
