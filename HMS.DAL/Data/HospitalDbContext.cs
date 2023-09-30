@@ -44,7 +44,7 @@ namespace HMS.DAL.Data
         public DbSet<MedicalRecords> MedicalRecords { get; set; }
         public DbSet<Surgery> Surgeries { get; set; }
         public DbSet<DischargeTransfer> DischargeTransfers { get; set; }
-        public DbSet<Bill> Bills { get; set; }
+        public DbSet<TotalBill> TotalBills { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<WardCabin>? WardCabins { get; set; } = null;
         public DbSet<Symptom> Symptoms { get; set; }
@@ -53,9 +53,13 @@ namespace HMS.DAL.Data
         public DbSet<PrescriptionBill> PrescriptionBills { get; set; }
         public DbSet<ServiceBill> ServiceBills { get; set; }
         public DbSet<AdmissionBill> AdmissionBills { get; set; }
+        public DbSet<MedicineBill> MedicineBills { get; set; }
         public DbSet<IndoorPatient> IndoorPatients { get; set; }
         public DbSet<Bed> Beds { get; set; }
         public DbSet<PreoperativeDiagnosis> PreoperativeDiagnoses { get; set; }
+        public DbSet<TestReport> TestReports { get; set; }
+        
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -68,7 +72,6 @@ namespace HMS.DAL.Data
             SeedData.SeedLabTechnicians(modelBuilder);
             SeedData.SeedOtherEmployees(modelBuilder);
             SeedData.SeedServices(modelBuilder);
-            SeedData.SeedManufacturer(modelBuilder);
             SeedData.SeedManufacturer(modelBuilder);
             SeedData.SeedMedicines(modelBuilder);
 

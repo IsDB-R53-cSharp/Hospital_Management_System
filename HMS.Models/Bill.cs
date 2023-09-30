@@ -9,21 +9,18 @@ using HMS.Models.Attributes;
 
 namespace HMS.Models
 {
-    public class Bill
+    public class TotalBill
     {
         [Key]
-        public int BillID { get; set; }
+        public int TotalBillID { get; set; }
 
         //[ForeignKey("PatientRegisters")]
         public int? PatientID { get; set; }
 
-        [StringLength(500)]
-        public string? TransactionInfo { get; set; } = default!;
-
         [Required, Range(0, Double.MaxValue, ErrorMessage = "Bill Amount must be greater than 0")]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal BillAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
         [Range(0, 50, ErrorMessage = "Discount cannot be over 50%")]
         [DataType(DataType.Currency)]
@@ -69,22 +66,18 @@ namespace HMS.Models
         public string PreparedBy { get; set; } = default!;
 
         // Navigation properties
-        [ForeignKey("Service")]
-        public int? ServiceID { get; set; }
 
         [NotMapped]
         public PatientRegister? PatientRegisters { get; set; } = default!;
 
         public virtual ICollection<Outdoor?> Outdoors { get; set; } = new List<Outdoor?>();
 
-        public virtual Service? Service { get; set; } = default!;
 
-        public decimal TotalAmount { get; set; }
-
-        // Navigation properties for PrescriptionBill, ServiceBill, and TestBill
         public virtual ICollection<PrescriptionBill> PrescriptionBills { get; set; } = new List<PrescriptionBill>();
         public virtual ICollection<ServiceBill> ServiceBills { get; set; } = new List<ServiceBill>();
         public virtual ICollection<TestBill> TestBills { get; set; } = new List<TestBill>();
+        public virtual ICollection<MedicineBill> MedicineBill { get; set; } = new List<MedicineBill>();
+        public virtual ICollection<AdmissionBill> AdmissionBill { get; set; } = new List<AdmissionBill>();
     }
     public enum PaymentMethod
     {
