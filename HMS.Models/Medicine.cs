@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HMS.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,23 +10,26 @@ using System.Threading.Tasks;
 namespace HMS.Models
 {
 
-    public enum MedicineType
+    public enum DosageForms
     {
         Liquid = 1, Tablet, Capsules, Cream, Suppositories, Drops, Inhalers, Injection
     }
-    public enum Strength
+    public enum MedicineType
     {
-        mg = 1, ml
+        Allopathy = 1, Homeopathy
     }
+
     public class Medicine
     {
         [Key]
         public int MedicineID { get; set; }
         public string MedicineName { get; set; } = default!;
-        [EnumDataType(typeof(Strength))]
-        public Strength Strength { get; set; }
+        public string Weight { get; set; }
+
         [EnumDataType(typeof(MedicineType))]
         public MedicineType MedicineType { get; set; }
+        [EnumDataType(typeof(DosageForms))]
+        public DosageForms DosageForms { get; set; }
 
         public DateTime ExpireDate { get; set; }
         public int Quantity { get; set; }
@@ -39,11 +43,13 @@ namespace HMS.Models
         public decimal Discount { get; set; }
         [ForeignKey("MedicineGeneric")]
         public int MedicineGenericID { get; set; } // Foreign key
-        public virtual MedicineGeneric? MedicineGeneric { get; set; }
+        [NotMapped]
+        public List<MedicineGeneric?> MedicineGeneric { get; set; } = new List<MedicineGeneric?>();
         [ForeignKey("Manufacturer")]
         public int ManufacturerID { get; set; } // Foreign key
-        public virtual Manufacturer? Manufacturer { get; set; }
         [NotMapped]
-        public virtual ICollection<Prescription>? Prescriptions { get; set; } = new List<Prescription?>();
+        public List<Manufacturer?> Manufacturer { get; set; } = new List<Manufacturer?>();
+        [NotMapped]
+        public virtual ICollection<Prescriptions>? Prescriptions { get; set; } = new List<Prescriptions?>();
     }
 }

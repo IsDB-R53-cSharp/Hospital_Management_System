@@ -289,57 +289,53 @@ namespace HMS.DAL.Data
             new Manufacturer { ManufacturerID = 10, ManufacturerName = "Aristopharma Ltd" }
             );
         }
+
         public static void SeedMedicines(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Medicine>().HasData(
             new Medicine{
-                MedicineName = "Medicine1",
-                Strength = Strength.mg,
-                MedicineType = MedicineType.Tablet,
-                ExpireDate = DateTime.Now.AddMonths(6),
-                Quantity = 100,
-                SellPrice = 10.99m,
-                Discount = 1.00m,
+                MedicineID = 1,
+                MedicineName = "Napa",
+                Weight = "500mg",
+                MedicineType = MedicineType.Allopathy,
+                DosageForms = DosageForms.Tablet,
+                ExpireDate = new DateTime(2025, 02, 02),
+                Quantity = 522,
+                SellPrice = 5612.00M,
+                Discount = 50.00M,
                 MedicineGenericID = 1,
                 ManufacturerID = 1,
             },
             new Medicine
             {
-                MedicineName = "Medicine2",
-                Strength = Strength.ml,
-                MedicineType = MedicineType.Liquid,
-                ExpireDate = DateTime.Now.AddMonths(12),
-                Quantity = 50,
-                SellPrice = 15.49m,
-                Discount = 0.50m,
+                MedicineID = 2,
+                MedicineName = "Seclo",
+                Weight = "20mg",
+                MedicineType = MedicineType.Allopathy,
+                DosageForms = DosageForms.Tablet,
+                ExpireDate = new DateTime(2025, 03, 02),
+                Quantity = 522,
+                SellPrice = 5612.00M,
+                Discount = 50.00M,
                 MedicineGenericID = 2,
                 ManufacturerID = 2,
             },
             new Medicine
             {
-                MedicineName = "Medicine2",
-                Strength = Strength.ml,
-                MedicineType = MedicineType.Liquid,
-                ExpireDate = DateTime.Now.AddMonths(12),
-                Quantity = 50,
-                SellPrice = 15.49m,
-                Discount = 0.50m,
+                MedicineID = 3,
+                MedicineName = "Napa Extra",
+                Weight = "20mg",
+                MedicineType = MedicineType.Allopathy,
+                DosageForms = DosageForms.Tablet,
+                ExpireDate = new DateTime(2025, 03, 02),
+                Quantity = 522,
+                SellPrice = 5612.00M,
+                Discount = 50.00M,
                 MedicineGenericID = 2,
                 ManufacturerID = 2,
-            },
-            new Medicine
-            {
-                MedicineName = "Medicine2",
-                Strength = Strength.ml,
-                MedicineType = MedicineType.Liquid,
-                ExpireDate = DateTime.Now.AddMonths(12),
-                Quantity = 50,
-                SellPrice = 15.49m,
-                Discount = 0.50m,
-                MedicineGenericID = 2,
-                ManufacturerID = 2,
-            }
+            }           
             );
+
         }
     }
 }

@@ -68,6 +68,9 @@ namespace HMS.DAL.Data
             SeedData.SeedLabTechnicians(modelBuilder);
             SeedData.SeedOtherEmployees(modelBuilder);
             SeedData.SeedServices(modelBuilder);
+            SeedData.SeedManufacturer(modelBuilder);
+            SeedData.SeedManufacturer(modelBuilder);
+            SeedData.SeedMedicines(modelBuilder);
 
 
 

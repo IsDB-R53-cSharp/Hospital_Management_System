@@ -71,69 +71,72 @@ namespace HMS.DAL.Migrations
                 principalTable: "MedicineGenerics",
                 principalColumn: "MedicineGenericID",
                 onDelete: ReferentialAction.Cascade);
-            string GAllMedicine = @"create proc SpAllMedicine 
-		as
-		BEGIN
+            string GAllMedicines = @"create proc SpGetAllMedicine 
+            as
+            BEGIN
             select * FROM Medicines
-        END";
-            string GMedicineById = @"create proc SpMedicineById(@id int) 
-		        as
-		        BEGIN
-                    select * FROM Medicines where MedicineID= @id
-                END";
-            string PMedicine = @"create proc SpPostMedicine (  
-                @MedicineName NVARCHAR(max),
-                @Strength INT,
-                @MedicineType INT,
-               @ExpireDate DATETIME,
-               @Quantity INT,
-                @SellPrice DECIMAL(10,2),
-	          @Discount DECIMAL(10,2),
-	          @MedicineGenericID INT,
-	          @ManufacturerID INT)
-				as 
-				BEGIN
-					INSERT INTO Medicines
-                        (
-                         MedicineName, Strength, MedicineType, ExpireDate, Quantity, SellPrice, Discount,MedicineGenericID,ManufacturerID)
-                            VALUES     ( 
-                          @MedicineName, @Strength, @MedicineType, @ExpireDate, @Quantity, @SellPrice, @Discount,@MedicineGenericID,@ManufacturerID)
-			END";
-            string UMedicine = @"create proc SpUpdateMedicine (@id int,
-                       @MedicineName NVARCHAR(max),
-                @Strength INT,
-                @MedicineType INT,
-               @ExpireDate DATE,
-               @Quantity INT,
-                @SellPrice DECIMAL(10,2),
-	          @Discount DECIMAL(10,2),
-	          @MedicineGenericID INT,
-	          @ManufacturerID INT)
-										  as 
-										  BEGIN
-                UPDATE Medicines
-                SET    MedicineName=@MedicineName,
-			                  Strength=@Strength,
-			                  MedicineType=@MedicineType,
-			                   ExpireDate=@ExpireDate,
-			                    Quantity=@Quantity,
-			                    SellPrice=@SellPrice,
-			                    Discount=@Discount,
-			                   MedicineGenericID=@MedicineGenericID,
-			                    ManufacturerID=@ManufacturerID
-                WHERE  MedicineID = @id
-                END";
-            string DMedicine = @"create proc SpDeleteMedicine (@id int)
+            END";
+            string GeMedicineById = @"create proc SphMedicineById(@id int) 
                 as
                 BEGIN
-                DELETE FROM Medicines
-                WHERE  MedicineID = @id
-                END";
-            migrationBuilder.Sql(GAllMedicine);
-            migrationBuilder.Sql(GMedicineById);
-            migrationBuilder.Sql(PMedicine);
-            migrationBuilder.Sql(UMedicine);
-            migrationBuilder.Sql(DMedicine);
+            select * FROM Medicines where MedicineID= @id
+            END";
+            string PoMedicine = @"create proc SpPtAllMedicine (  
+        @MedicineName NVARCHAR(max),
+        @Weight NVARCHAR(max),             
+        @MedicineType INT,
+        @DosageForms INT,
+        @ExpireDate DATETIME,
+        @Quantity INT,
+        @SellPrice DECIMAL(10,2),
+        @Discount DECIMAL(10,2),
+        @MedicineGenericID INT,
+        @ManufacturerID INT)
+		as 
+		BEGIN
+			INSERT INTO Medicines
+                (
+                 MedicineName, Weight, MedicineType,DosageForms, ExpireDate, Quantity, SellPrice, Discount,MedicineGenericID,ManufacturerID)
+                    VALUES     ( 
+                  @MedicineName, @Weight, @MedicineType, @DosageForms,@ExpireDate, @Quantity, @SellPrice, @Discount,@MedicineGenericID,@ManufacturerID)
+	END";
+            string UpMedicine = @"create proc SpUdateMedicine (@id int,
+               @MedicineName NVARCHAR(max),
+                @Weight NVARCHAR(max),                     
+        @MedicineType INT,
+         @DosageForms INT,
+       @ExpireDate DATE,
+       @Quantity INT,
+        @SellPrice DECIMAL(10,2),
+      @Discount DECIMAL(10,2),
+      @MedicineGenericID INT,
+      @ManufacturerID INT)
+								  as 
+								  BEGIN
+        UPDATE Medicines
+        SET    MedicineName=@MedicineName,
+                Weight=@Weight,			                  
+	            MedicineType=@MedicineType,
+                DosageForms=@DosageForms,
+	            ExpireDate=@ExpireDate,
+	            Quantity=@Quantity,
+	            SellPrice=@SellPrice,
+	            Discount=@Discount,
+	           MedicineGenericID=@MedicineGenericID,
+	            ManufacturerID=@ManufacturerID
+        WHERE  MedicineID = @id
+        END";
+            string DeMedicine = @"create proc SpDeMedicine (@id int)
+        as
+        BEGIN
+        DELETE FROM Medicines
+        WHERE  MedicineID = @id
+        END";
+            migrationBuilder.Sql(GAllMedicines);
+            migrationBuilder.Sql(GeMedicineById);
+            migrationBuilder.Sql(PoMedicine);
+            migrationBuilder.Sql(UpMedicine);
+            migrationBuilder.Sql(DeMedicine);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -195,17 +198,17 @@ namespace HMS.DAL.Migrations
                 principalTable: "MedicineGeneric",
                 principalColumn: "MedicineGenericID",
                 onDelete: ReferentialAction.Cascade);
-            string GAllMedicine = @"Drop proc SpAllMedicine";
-            string GMedicineById = @"Drop proc SpMedicineById";
-            string PMedicine = @"Drop proc SpPostMedicine";
-            string UMedicine = @"Drop proc SpUpdateMedicine";
-            string DMedicine = @"Drop proc SpDeleteMedicine";
+            string GAllMedicines = @"Drop proc SpGetAllMedicine";
+            string GeMedicineById = @"Drop proc SphMedicineById";
+            string PoMedicine = @"Drop proc SpPtAllMedicine";
+            string UpMedicine = @"Drop proc SpUdateMedicine";
+            string DeMedicine = @"Drop proc SpDeMedicine";
 
-            migrationBuilder.Sql(GAllMedicine);
-            migrationBuilder.Sql(GMedicineById);
-            migrationBuilder.Sql(PMedicine);
-            migrationBuilder.Sql(UMedicine);
-            migrationBuilder.Sql(DMedicine);
+            migrationBuilder.Sql(GAllMedicines);
+            migrationBuilder.Sql(GeMedicineById);
+            migrationBuilder.Sql(PoMedicine);
+            migrationBuilder.Sql(UpMedicine);
+            migrationBuilder.Sql(DeMedicine);
         }
     }
 }
