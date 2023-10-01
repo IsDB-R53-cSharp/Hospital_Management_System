@@ -38,7 +38,7 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult PostUnidentifiedDeadBody([FromBody] UnidentifiedDeadBody unidentifiedDeadBody)
         {
-            _context.Database.ExecuteSqlRaw("EXEC InsertUnidentifiedDeadBody @TagNumber ={1}, @DeceasedName ={2}, @DateOfDeath ={3}, @CauseOfDeath ={4}", unidentifiedDeadBody.TagNumber, unidentifiedDeadBody.DeceasedName, unidentifiedDeadBody.DateOfDeath, unidentifiedDeadBody.CauseOfDeath);
+            _context.Database.ExecuteSqlRaw("EXEC InsertUnidentifiedDeadBody @TagNumber ={0}, @DeceasedName ={1}, @DateOfDeath ={2}, @CauseOfDeath ={3}", unidentifiedDeadBody.TagNumber, unidentifiedDeadBody.DeceasedName, unidentifiedDeadBody.DateOfDeath, unidentifiedDeadBody.CauseOfDeath);
 
             return Ok("unidentifiedDeadBody inserted successfully");
         }
@@ -46,22 +46,22 @@ namespace Hospital_Management_System.Controllers
         [HttpPut("{id}")]
         public IActionResult PutUnidentifiedDeadBody(int id, [FromBody] UnidentifiedDeadBody unidentifiedDeadBody)
         {
-            _context.Database.ExecuteSqlRaw("EXEC UpdateUnidentifiedDeadBody @TagNumber ={1}, @DeceasedName ={2}, @DateOfDeath ={3}, @CauseOfDeath ={4}", unidentifiedDeadBody.TagNumber, unidentifiedDeadBody.DeceasedName, unidentifiedDeadBody.DateOfDeath, unidentifiedDeadBody.CauseOfDeath);
+            _context.Database.ExecuteSqlRaw("EXEC UpdateUnidentifiedDeadBody @TagNumber ={0}, @DeceasedName ={1}, @DateOfDeath ={2}, @CauseOfDeath ={3}", unidentifiedDeadBody.TagNumber, unidentifiedDeadBody.DeceasedName, unidentifiedDeadBody.DateOfDeath, unidentifiedDeadBody.CauseOfDeath);
 
 
             return Ok("unidentifiedDeadBody Updated successfully");
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteUpdateUnidentifiedDeadBody(int id)
+        public IActionResult DeleteUnidentifiedDeadBody(int id)
         {
             var ID = _context.unidentifiedDeadBodies.FirstOrDefault(x => x.UnIdenfiedDeadBodyID == id);
 
-            _context.Database.ExecuteSqlRaw("EXEC DeleteUnidentifiedDeadBody @UnIdenfiedDeadBodyID={0}", id);
             if (ID != null)
             {
                 return Ok("UnidentifiedDeadBody Delete Successfully");
             }
             return BadRequest("UnidentifiedDeadBody Invalid Data");
+
         }
     }
 }
