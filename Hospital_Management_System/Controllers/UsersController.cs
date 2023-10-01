@@ -468,6 +468,32 @@ namespace Hospital_Management_System.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error updating user roles");
             }
         }
+        //private string GenerateToken(ApplicationUser user, List<string> roles)
+        //{
+        //    var claims = new List<Claim>(){
+        //       new Claim(JwtRegisteredClaimNames.NameId,user.Id),
+        //       new Claim(JwtRegisteredClaimNames.Email,user.Email),
+        //       new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+        //   };
+        //    foreach (var role in roles)
+        //    {
+        //        claims.Add(new Claim(ClaimTypes.Role, role));
+        //    }
+
+        //    var jwtTokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(_jWTConfig.Key);
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(claims),
+        //        Expires = DateTime.UtcNow.AddHours(12),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+        //        Audience = _jWTConfig.Audience,
+        //        Issuer = _jWTConfig.Issuer
+        //    };
+        //    var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+        //    return jwtTokenHandler.WriteToken(token);
+        //}
+
         private string GenerateToken(ApplicationUser user, List<string> roles)
         {
             var claims = new List<Claim>(){
@@ -486,9 +512,7 @@ namespace Hospital_Management_System.Controllers
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(12),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Audience = _jWTConfig.Audience,
-                Issuer = _jWTConfig.Issuer
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);
             return jwtTokenHandler.WriteToken(token);
