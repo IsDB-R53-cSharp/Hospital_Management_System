@@ -25,6 +25,8 @@ namespace Hospital_Management_System.Controllers
             return await _context.Morgues.ToListAsync();
         }
 
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Morgue>> GetMorgue(int id)
         {
@@ -43,6 +45,7 @@ namespace Hospital_Management_System.Controllers
             await _context.Database.ExecuteSqlRawAsync("EXEC  @MorgueName={0}, @Capacity={1},@IsolationCapability={2}", morgue.MorgueName, morgue.Capacity, morgue.IsolationCapability);
             return Ok("Morgue inserted successfully.");
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMorgue(int id, Morgue morgue)
