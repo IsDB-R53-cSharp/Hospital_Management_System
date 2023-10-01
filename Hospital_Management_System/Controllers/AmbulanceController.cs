@@ -43,7 +43,7 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public async Task<ActionResult<Ambulance>> CreateAmbulance(Ambulance ambulance)
         {
-            await db.Database.ExecuteSqlRawAsync("EXEC InsertAmbulance @AmbulanceNumber={0}, @Availability={1},@LastLocation={2}", ambulance.AmbulanceNumber, ambulance.Availability, ambulance.Availability);
+            await db.Database.ExecuteSqlRawAsync("EXEC InsertAmbulance @AmbulanceNumber={0}, @Availability={1},@LastLocation={2}", ambulance.AmbulanceNumber, ambulance.Availability, ambulance.LastLocation);
             return Ok("Ambulance inserted successfully.");
         }
 
