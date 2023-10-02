@@ -8,10 +8,10 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SurgeryProceduresController : ControllerBase
+    public class SurgeryController : ControllerBase
     {
         private readonly HospitalDbContext _context;
-        public SurgeryProceduresController(HospitalDbContext context)
+        public SurgeryController(HospitalDbContext context)
         {
             _context = context;
         }
