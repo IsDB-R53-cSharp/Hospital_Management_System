@@ -1,9 +1,11 @@
-﻿using HMS.DAL.Data;
-//using HMS.DAL.Migrations;
-using HMS.Models;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using HMS.DAL.Data;
+using HMS.Models;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -12,56 +14,98 @@ namespace Hospital_Management_System.Controllers
     public class UnidentifiedDeadBodysController : ControllerBase
     {
         private readonly HospitalDbContext _context;
-        private readonly ILogger<UnidentifiedDeadBodysController> _logger;
 
-        public UnidentifiedDeadBodysController(HospitalDbContext context, ILogger<UnidentifiedDeadBodysController> logger)
+        public UnidentifiedDeadBodysController(HospitalDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
+        // GET: api/UnidentifiedDeadBodys
         [HttpGet]
-        public IActionResult GetUnidentifiedDeadBody()
+        public async Task<ActionResult<IEnumerable<UnidentifiedDeadBody>>> GetUnidentifiedDeadBodies()
         {
+            var unidentifiedDeadBodies = await _context.unidentifiedDeadBodies.ToListAsync();
+            return Ok(unidentifiedDeadBodies);
+        }
+
+        // GET: api/UnidentifiedDeadBodys/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UnidentifiedDeadBody>> GetUnidentifiedDeadBody(int id)
+        {
+            var unidentifiedDeadBody = await _context.unidentifiedDeadBodies.FindAsync(id);
+
+            if (unidentifiedDeadBody == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(unidentifiedDeadBody);
+        }
+
+        // POST: api/UnidentifiedDeadBodys
+        [HttpPost]
+        public async Task<ActionResult<UnidentifiedDeadBody>> PostUnidentifiedDeadBody(UnidentifiedDeadBody unidentifiedDeadBody)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.unidentifiedDeadBodies.Add(unidentifiedDeadBody);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUnidentifiedDeadBody", new { id = unidentifiedDeadBody.UnIdenfiedDeadBodyID }, unidentifiedDeadBody);
+        }
+
+        // PUT: api/UnidentifiedDeadBodys/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUnidentifiedDeadBody(int id, UnidentifiedDeadBody unidentifiedDeadBody)
+        {
+            if (id != unidentifiedDeadBody.UnIdenfiedDeadBodyID)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(unidentifiedDeadBody).State = EntityState.Modified;
+
             try
             {
-                var unidentifiedDeadBody = _context.unidentifiedDeadBodies.FromSqlRaw("EXEC SpAllUnidentifiedDeadBody").ToList();
-                return Ok(unidentifiedDeadBody);
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (DbUpdateConcurrencyException)
             {
-                _logger.LogError(ex, "Error retrieving unidentified DeadBody records.");
-                return StatusCode(500, "Internal Server Error");
+                if (!UnidentifiedDeadBodyExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return NoContent();
         }
 
-        [HttpPost]
-        public IActionResult PostUnidentifiedDeadBody([FromBody] UnidentifiedDeadBody unidentifiedDeadBody)
-        {
-            _context.Database.ExecuteSqlRaw("EXEC InsertUnidentifiedDeadBody @TagNumber ={1}, @DeceasedName ={2}, @DateOfDeath ={3}, @CauseOfDeath ={4}", unidentifiedDeadBody.TagNumber, unidentifiedDeadBody.DeceasedName, unidentifiedDeadBody.DateOfDeath, unidentifiedDeadBody.CauseOfDeath);
-
-            return Ok("unidentifiedDeadBody inserted successfully");
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult PutUnidentifiedDeadBody(int id, [FromBody] UnidentifiedDeadBody unidentifiedDeadBody)
-        {
-            _context.Database.ExecuteSqlRaw("EXEC UpdateUnidentifiedDeadBody @TagNumber ={1}, @DeceasedName ={2}, @DateOfDeath ={3}, @CauseOfDeath ={4}", unidentifiedDeadBody.TagNumber, unidentifiedDeadBody.DeceasedName, unidentifiedDeadBody.DateOfDeath, unidentifiedDeadBody.CauseOfDeath);
-
-
-            return Ok("unidentifiedDeadBody Updated successfully");
-        }
+        // DELETE: api/UnidentifiedDeadBodys/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteUpdateUnidentifiedDeadBody(int id)
+        public async Task<ActionResult<UnidentifiedDeadBody>> DeleteUnidentifiedDeadBody(int id)
         {
-            var ID = _context.unidentifiedDeadBodies.FirstOrDefault(x => x.UnIdenfiedDeadBodyID == id);
-
-            _context.Database.ExecuteSqlRaw("EXEC DeleteUnidentifiedDeadBody @UnIdenfiedDeadBodyID={0}", id);
-            if (ID != null)
+            var unidentifiedDeadBody = await _context.unidentifiedDeadBodies.FindAsync(id);
+            if (unidentifiedDeadBody == null)
             {
-                return Ok("UnidentifiedDeadBody Delete Successfully");
+                return NotFound();
             }
-            return BadRequest("UnidentifiedDeadBody Invalid Data");
+
+            _context.unidentifiedDeadBodies.Remove(unidentifiedDeadBody);
+            await _context.SaveChangesAsync();
+
+            return unidentifiedDeadBody;
+        }
+
+        private bool UnidentifiedDeadBodyExists(int id)
+        {
+            return _context.unidentifiedDeadBodies.Any(e => e.UnIdenfiedDeadBodyID == id);
         }
     }
 }
