@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hospital_Management_System.Controllers.Naeem
+namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
