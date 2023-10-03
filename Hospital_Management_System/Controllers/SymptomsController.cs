@@ -1,8 +1,12 @@
 ﻿using HMS.DAL.Data;
 using HMS.Models;
+using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Diagnostics.Metrics;
+using System.Text;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -38,24 +42,26 @@ namespace Hospital_Management_System.Controllers
         public async Task<IActionResult> PutSymptom(int id, Symptom symptom)
         {
             var symptomEdit = await _context.Symptoms.FindAsync(id);
-            if (symptomEdit!=null)
+            if (symptomEdit != null)
             {
-                _context.Entry(symptom).State = EntityState.Modified;
+                symptomEdit.SymptomName = symptom.SymptomName; // Update the properties as needed
+
                 await _context.SaveChangesAsync();
                 return Ok(symptomEdit);
             }
             else
             {
-                return BadRequest("No Id Founded");
+                return BadRequest("No Id Found");
             }
         }
-        [HttpDelete]
+  
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSymptom(int id)
         {
             var symptomDelete = await _context.Symptoms.FindAsync(id);
             _context.Symptoms.Remove(symptomDelete);
             await _context.SaveChangesAsync();
-            return BadRequest("No Id Founded");
+            return Ok("Deleted Successfully!!");
         }
     }
 }
