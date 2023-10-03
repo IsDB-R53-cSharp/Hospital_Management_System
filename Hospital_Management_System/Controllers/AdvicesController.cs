@@ -1,8 +1,12 @@
 ﻿using HMS.DAL.Data;
 using HMS.Models;
+using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.IO;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -26,7 +30,22 @@ namespace Hospital_Management_System.Controllers
 
             return Ok(advices);
         }
-        [HttpPost]
+
+        [HttpGet("{id}")]
+        public IActionResult GetAdviceById(int id)
+        {
+            var advice = db.Advices.FromSqlRaw("SELECT * FROM Advices WHERE AdviceId = {0}", id).FirstOrDefault();
+
+            if (advice == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(advice);
+        }
+
+
+         [HttpPost]
         public IActionResult InsertAdvice([FromForm] Advice advice)
         {
             using (var transaction = db.Database.BeginTransaction())
@@ -47,7 +66,6 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
-
         [HttpPut("{id}")]
         public IActionResult UpdateAdvice(int id, [FromForm] Advice advice)
         {
@@ -55,7 +73,7 @@ namespace Hospital_Management_System.Controllers
             {
                 try
                 {
-                    db.Database.ExecuteSqlRaw("EXEC UpdateAdvice @id={0}, @AdviceName={1}",
+                    db.Database.ExecuteSqlRaw("EXEC UpdateAdvice @AdviceId={0}, @NewAdviceName={1}",
                         id, advice.AdviceName);
 
                     transaction.Commit();
@@ -69,13 +87,12 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
-
         [HttpDelete("{id}")]
         public IActionResult DeleteAdvice(int id)
         {
             var ID = db.Advices.Find(id);
 
-            db.Database.ExecuteSqlRaw("EXEC DeleteAdvice @id={0}", id);
+            db.Database.ExecuteSqlRaw("EXEC DeleteAdvice @AdviceId={0}", id);
             if (ID == null)
             {
                 return BadRequest("No Id Found!!!");

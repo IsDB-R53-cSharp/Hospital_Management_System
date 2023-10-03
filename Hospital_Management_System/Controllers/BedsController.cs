@@ -10,99 +10,65 @@ namespace Hospital_Management_System.Controllers
     [ApiController]
     public class BedsController : ControllerBase
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        public class BedController : ControllerBase
+        private readonly HospitalDbContext _context;
+        public BedsController(HospitalDbContext context)
         {
-            private readonly HospitalDbContext _context;
+            _context = context;
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Bed>>> GetBeds()
+        {
+            var beds = await _context.Beds.ToListAsync();
+            return Ok(beds);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Bed>>> GetBedsById(int id)
+        {
+            var beds= _context.Beds.FirstOrDefault(x=>x.BedID==id);
+            return Ok(beds);
+        }
+        [HttpPost]
+        public async Task<ActionResult<Bed>> PostBed(Bed bed)
+        {
+            _context.Beds.Add(bed);
+            await _context.SaveChangesAsync();
 
-            public BedController(HospitalDbContext context)
+            return CreatedAtAction("GetBed", new { id = bed.BedID }, bed);
+        }
+
+        // PUT: api/beds/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutBed(int id, Bed bed)
+        {
+            if (id != bed.BedID)
             {
-                _context = context;
+                return BadRequest();
             }
 
-            // GET: api/Bed
-            [HttpGet]
-            public async Task<ActionResult<IEnumerable<Bed>>> GetBeds()
+            _context.Entry(bed).State = EntityState.Modified;
+
+            try
             {
-                var beds = await _context.Beds.ToListAsync();
-                return Ok(beds);
+                await _context.SaveChangesAsync();
             }
-
-            // GET: api/Bed/5
-            [HttpGet("{id}")]
-            public async Task<ActionResult<Bed>> GetBed(int id)
+            catch (DbUpdateConcurrencyException)
             {
-                var bed = await _context.Beds.FindAsync(id);
-
-                if (bed == null)
+                if (!BedExists(id))
                 {
                     return NotFound();
                 }
-
-                return Ok(bed);
-            }
-
-            // POST: api/Bed
-            [HttpPost]
-            public async Task<ActionResult<Bed>> PostBed(Bed bed)
-            {
-                _context.Beds.Add(bed);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetBed", new { id = bed.BedID }, bed);
-            }
-
-            // PUT: api/Bed/5
-            [HttpPut("{id}")]
-            public async Task<IActionResult> PutBed(int id, Bed bed)
-            {
-                if (id != bed.BedID)
+                else
                 {
-                    return BadRequest();
+                    throw;
                 }
-
-                _context.Entry(bed).State = EntityState.Modified;
-
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BedExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return NoContent();
             }
 
-            // DELETE: api/Bed/5
-            [HttpDelete("{id}")]
-            public async Task<IActionResult> DeleteBed(int id)
-            {
-                var bed = await _context.Beds.FindAsync(id);
-                if (bed == null)
-                {
-                    return NotFound();
-                }
+            return NoContent();
+        }
 
-                _context.Beds.Remove(bed);
-                await _context.SaveChangesAsync();
-
-                return NoContent();
-            }
-
-            private bool BedExists(int id)
-            {
-                return _context.Beds.Any(e => e.BedID == id);
-            }
+        private bool BedExists(int id)
+        {
+            return _context.Beds.Any(b => b.BedID == id);
         }
     }
 }
