@@ -23,7 +23,7 @@ namespace Hospital_Management_System.Controllers
             return await _context.IndoorPatients.FromSqlRaw("GetAllIndoorPatients").ToListAsync();
         }
 
-        // GET: api/Patient By ID
+        // GET: api/Patient Id
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IndoorPatient>> GetIndoorPatientByID(int id)
