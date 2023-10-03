@@ -49,7 +49,7 @@ namespace HMS.Models
 
         public virtual Department? Departments { get; set; } = default!;
 
-        public virtual ICollection<Test?> Labtest { get; set; } = new List<Test?>();
+        //public virtual ICollection<Test?> Labtest { get; set; } = new List<Test?>();
     }
     public enum TechnicianType
     {
