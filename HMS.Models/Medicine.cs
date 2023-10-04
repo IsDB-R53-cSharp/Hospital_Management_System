@@ -50,6 +50,7 @@ namespace HMS.Models
         [NotMapped]
         public List<Manufacturer?> Manufacturer { get; set; } = new List<Manufacturer?>();
         [NotMapped]
-        public virtual ICollection<Prescription>? Prescriptions { get; set; } = new List<Prescription?>();
+       
+        public virtual ICollection<MasterMedicineEntry> MasterMedicineEntries { get; set; } = new List<MasterMedicineEntry>();
     }
 }

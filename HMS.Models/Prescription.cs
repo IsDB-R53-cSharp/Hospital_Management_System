@@ -16,18 +16,10 @@ namespace HMS.Models
         public int PrescriptionID { get; set; }
         [ForeignKey("PatientRegister")]
         public int? PatientID { get; set; }
-        [ForeignKey("Medicine")]
-        public int MedicinID { get; set; }
+        
         [ForeignKey("Doctor")]
         public int DoctorID { get; set; }
-        [ForeignKey("Test")]
-        public int TestID { get; set; }
-        [ForeignKey("Symptom")]
-        public int SymptomId { get; set; }
-        [ForeignKey("Advice")]
-        public int AdviceId { get; set; }
-        [ForeignKey("Dosage")]
-        public int DosageID { get; set; }
+       
 
 
         [Required]
@@ -99,12 +91,30 @@ namespace HMS.Models
         [NotMapped]
         public virtual PatientRegister? PatientRegister { get; set; } = default!;
         public virtual Doctor? Doctor { get; set; } = default!;
-        public virtual Test? Test { get; set; } = default!;
-        public virtual Symptom? Symptom { get; set; } = default!;
-        public virtual Advice? Advice { get; set; } = default!;
-        public virtual Dosage? Dosages { get; set; } = default!;
+        //public virtual Test? Test { get; set; } = default!;
+        //public virtual Symptom? Symptom { get; set; } = default!;
+        //public virtual Advice? Advice { get; set; } = default!;
+        //public virtual Dosage? Dosages { get; set; } = default!;
         public virtual ICollection<MedicalRecords>? MedicalRecords { get; set; } = new List<MedicalRecords>();
         public virtual ICollection<Surgery>? Surgeries { get; set; } = new List<Surgery>();
         public ICollection<TestReport>? TestReports { get; set; } = new List<TestReport>();
+
+        public virtual ICollection<MasterTestEntry> masterTestEntries { get; set; }=new List<MasterTestEntry>();
+        public virtual ICollection<MasterMedicineEntry> MasterMedicineEntries { get; set; }=new List<MasterMedicineEntry>();    
+        public virtual ICollection<MasterSymptomsEntry> masterSymptomsEntries { get; set; }=new List<MasterSymptomsEntry>();
+        public virtual ICollection<MasterAdviceEntry> MasterAdviceEntries { get; set; } = new List<MasterAdviceEntry>();
+        public virtual ICollection<MasterDosageEntry> MasterDosageEntries { get; set; }=new List<MasterDosageEntry>();
+
+        //[ForeignKey("Medicine")]
+        //public int MedicinID { get; set; }
+
+        //[ForeignKey("Test")]
+        //public int TestID { get; set; }
+        //[ForeignKey("Symptom")]
+        //public int SymptomId { get; set; }
+        //[ForeignKey("Advice")]
+        //public int AdviceId { get; set; }
+        //[ForeignKey("Dosage")]
+        //public int DosageID { get; set; }
     }
 }
