@@ -16,7 +16,8 @@ namespace HMS.Models
         [Required(ErrorMessage = "Enter Dose")]
         [StringLength(50, ErrorMessage = "Please do not enter values over 50 characters")]
         public string DosageName { get; set; } = default!;
+        public virtual ICollection<MasterDosageEntry> MasterDosageEntries { get; set; } = new List<MasterDosageEntry>();
 
-        public ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+        //public ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
     }
 }

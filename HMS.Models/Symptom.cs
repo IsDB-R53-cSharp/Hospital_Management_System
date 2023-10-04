@@ -10,7 +10,8 @@ namespace HMS.Models
     {
         public int SymptomId { get; set; }
         public string SymptomName { get; set; } = default!;
+        public ICollection<MasterSymptomsEntry> masterSymptomsEntries { get; set; } = new List<MasterSymptomsEntry>();
         //nev
-        public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+        //public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
     }
 }
