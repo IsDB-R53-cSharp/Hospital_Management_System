@@ -1,4 +1,4 @@
-﻿using HMS.Models.SurgeryWard;
+﻿using HMS.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

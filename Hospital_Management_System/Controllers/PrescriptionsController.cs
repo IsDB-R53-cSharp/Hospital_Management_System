@@ -1,7 +1,7 @@
 ﻿using HMS.DAL.Data;
 //using HMS.DAL.Migrations;
 using HMS.Models;
-using HMS.Models.SurgeryWard;
+
 using HMS.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

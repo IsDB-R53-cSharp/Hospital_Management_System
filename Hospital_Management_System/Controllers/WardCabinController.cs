@@ -1,5 +1,5 @@
 ﻿using HMS.DAL.Data;
-using HMS.Models.SurgeryWard;
+using HMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

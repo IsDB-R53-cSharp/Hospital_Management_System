@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HMS.Models;
-using HMS.Models.SurgeryWard;
+
 
 namespace HMS.Models
 {

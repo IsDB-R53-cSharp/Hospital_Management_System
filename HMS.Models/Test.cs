@@ -1,4 +1,4 @@
-﻿using HMS.Models.SurgeryWard;
+﻿
 using HMS.Models.ViewModels;
 using System;
 using System.Collections.Generic;

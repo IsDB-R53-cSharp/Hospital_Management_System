@@ -1,5 +1,4 @@
 ﻿using HMS.Models.Attributes;
-using HMS.Models.SurgeryWard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +22,9 @@ namespace HMS.Models
         [Key]
         public int PatientID { get; set; }
 
+        public string? PatientIdentityNumber { get; set; } //auto populate by Number generator helper
+
+        //patient info
         [Required(ErrorMessage = "Enter Patient Name")]
         [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
         public string PatientName { get; set; } = default!;
