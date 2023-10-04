@@ -17,10 +17,10 @@ namespace HMS.Models
         public int PatientID { get; set; }//for necessary info of patient
 
         [ForeignKey("Doctor")]
-        public int DoctorID { get; set; }// appointment o outdoor doctor id same hote hobe
+        public int DoctorID { get; set; }
 
-        [ForeignKey("Outdoor")]
-        public int OutdoorID { get; set; } //for TicketNumber and 
+        //[ForeignKey("Outdoor")]
+        //public int OutdoorID { get; set; } //for TicketNumber and 
 
         public AppointmentType AppointmentType { get; set; }
 

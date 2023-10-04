@@ -30,9 +30,6 @@ namespace HMS.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime TreatmentDate { get; set; }
 
-        [Display(Name = "Outdoor Ticket Number")]
-        public string TicketNumber { get; set; } = default!;
-
         public string? Remarks { get; set; } = default!;
 
         public bool IsAdmissionRequired { get; set; }
