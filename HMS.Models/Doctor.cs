@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HMS.Models;
-using HMS.Models.SurgeryWard;
 
 namespace HMS.Models
 {
@@ -59,8 +58,8 @@ namespace HMS.Models
         [NotMapped]
         public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
 
-        [NotMapped]
-        public virtual ICollection<Surgery?> Surgeries { get; set; } = new List<Surgery?>();
+        //[NotMapped]
+        //public virtual ICollection<Surgery?> Surgeries { get; set; } = new List<Surgery?>();
     }
     public enum doctortype
     {

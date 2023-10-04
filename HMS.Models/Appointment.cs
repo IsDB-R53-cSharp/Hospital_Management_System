@@ -22,6 +22,8 @@ namespace HMS.Models
         [ForeignKey("Outdoor")]
         public int OutdoorID { get; set; } //for TicketNumber and 
 
+        public AppointmentType AppointmentType { get; set; }
+
         public DateTime AppointmentDate { get; set; }
 
         public AppointmentStatus AppointmentStatus { get; set; }
@@ -36,5 +38,9 @@ namespace HMS.Models
         Cancelled,
         Completed
     }
-
+    public enum AppointmentType
+    {
+        Indoor,
+        Outdoor
+    }
 }

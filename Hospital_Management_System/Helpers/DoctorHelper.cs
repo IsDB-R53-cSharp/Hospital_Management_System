@@ -1,5 +1,4 @@
 ﻿using HMS.Models;
-using HMS.Models.SurgeryWard;
 
 namespace Hospital_Management_System.Helpers
 {

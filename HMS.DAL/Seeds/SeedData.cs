@@ -1,4 +1,4 @@
-﻿using HMS.Models.SurgeryWard;
+﻿
 using HMS.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

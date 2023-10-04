@@ -1,4 +1,4 @@
-﻿using HMS.Models.SurgeryWard;
+﻿using HMS.Models;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
@@ -32,12 +32,6 @@ namespace HMS.Models
 
         [Display(Name = "Outdoor Ticket Number")]
         public string TicketNumber { get; set; } = default!;
-
-        //[ForeignKey("Bill")]
-        //public int BillID { get; set; }
-
-        //[ForeignKey("Doctor")]
-        //public int DoctorID { get; set; }
 
         public string? Remarks { get; set; } = default!;
 

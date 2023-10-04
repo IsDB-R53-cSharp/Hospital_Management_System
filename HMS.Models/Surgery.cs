@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HMS.Models;
 
-namespace HMS.Models.SurgeryWard
+namespace HMS.Models
 {
     public enum SurgeryType
     {

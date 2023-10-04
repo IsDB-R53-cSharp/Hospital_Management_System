@@ -1,5 +1,5 @@
 ﻿using HMS.Models;
-using HMS.Models.SurgeryWard;
+using HMS.Models.NumberGeneratorHelper;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +9,6 @@ using System.Numerics;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using LabTechnician = HMS.Models.LabTechnician;
 
 namespace HMS.DAL.Data
 {
@@ -58,11 +57,14 @@ namespace HMS.DAL.Data
         public DbSet<Bed> Beds { get; set; }
         public DbSet<PreoperativeDiagnosis> PreoperativeDiagnoses { get; set; }
         public DbSet<TestReport> TestReports { get; set; }
+
+		public DbSet<NumberCounterRecord> NumberCounterRecords { get; set; }
         
 
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SeedData.SeedDepartments(modelBuilder);
             SeedData.SeedWardCabins(modelBuilder);
