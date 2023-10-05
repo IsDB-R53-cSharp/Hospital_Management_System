@@ -14,12 +14,17 @@ namespace Hospital_Management_System.Helpers
 
 		public string GenerateNumber()
 		{
-			string currentDate = DateTime.Now.ToString("ddMMyyyy");
+			//today date as "ddMMyy"
+			string currentDate = DateTime.Now.ToString("ddMMyy");
 
+			//today date for Counter
 			int counter = GetCounterForDate(DateTime.Now.Date);
 
-			string code = counter.ToString("0000");
+			int minimumDigits = 1;
 
+			string code = (counter + 1).ToString(new string('0', minimumDigits));
+
+			// Update counter 
 			UpdateCounterForDate(DateTime.Now.Date, counter + 1);
 
 			string generatedNumber = currentDate + "-" + code;
@@ -29,28 +34,31 @@ namespace Hospital_Management_System.Helpers
 
 		private int GetCounterForDate(DateTime date)
 		{
-			var record = _context.NumberCounterRecords.FirstOrDefault(r => r.Date == date);
-
-			if (record == null)
+			// Initialize counter 0 if it doesn't exist
+			if (!_context.NumberCounterRecords.Any(r => r.Date == date))
 			{
-				// Create a new record for the date if it doesn't exist
-				record = new NumberCounterRecord { Date = date, Counter = 1 };
-				_context.NumberCounterRecords.Add(record);
-				_context.SaveChanges();
+				return 0;
 			}
+
+			var record = _context.NumberCounterRecords.First(r => r.Date == date);
 
 			return record.Counter;
 		}
 
 		private void UpdateCounterForDate(DateTime date, int newCounter)
 		{
-			var record = _context.NumberCounterRecords.FirstOrDefault(r => r.Date == date);
-
-			if (record != null)
+			//record doesn't exist, so creat
+			if (!_context.NumberCounterRecords.Any(r => r.Date == date))
 			{
-				record.Counter = newCounter;
-				_context.SaveChanges();
+				_context.NumberCounterRecords.Add(new NumberCounterRecord { Date = date, Counter = newCounter });
 			}
+			else
+			{
+				var record = _context.NumberCounterRecords.First(r => r.Date == date);
+				record.Counter = newCounter;
+			}
+
+			_context.SaveChanges();
 		}
 	}
 }
