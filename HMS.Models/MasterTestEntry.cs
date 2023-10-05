@@ -16,8 +16,8 @@ namespace HMS.Models
         public int TestID { get; set; }
         public bool IsDone { get; set; }
 
-        public virtual Prescription Prescription { get; set; }
-        public virtual Test Test { get; set; }
+        public  Prescription Prescription { get; set; }
+        public  Test Test { get; set; }
 
     }
 }

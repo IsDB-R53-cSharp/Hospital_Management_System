@@ -20,7 +20,7 @@ namespace HMS.Models
         public decimal SB_Subtotal { get; set; }
 
         // Navigation properties
-        public virtual PatientRegister PatientRegister { get; set; }
-        public virtual ICollection<Service> Services { get; set; } = new List<Service>();
+        public  PatientRegister PatientRegister { get; set; }
+        public  ICollection<Service> Services { get; set; } = new List<Service>();
     }
 }

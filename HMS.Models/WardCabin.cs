@@ -27,7 +27,7 @@ namespace HMS.Models
         [NotMapped]
         public  Department Departments { get; set; } = default!;
         [NotMapped]
-        public virtual ICollection<Bed> Beds { get; set; }=new List<Bed>();
+        public  ICollection<Bed> Beds { get; set; }=new List<Bed>();
     }
     public enum WardCabinType
     {

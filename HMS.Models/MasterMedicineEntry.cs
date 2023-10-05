@@ -17,7 +17,7 @@ namespace HMS.Models
         public int MedicineID { get; set; }
         public bool IsPrescribed { get; set; }
 
-        public virtual Prescription Prescription { get; set; }
-        public virtual Medicine Medicine { get; set; }  
+        public  Prescription Prescription { get; set; }
+        public  Medicine Medicine { get; set; }  
     }
 }

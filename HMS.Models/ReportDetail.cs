@@ -13,7 +13,7 @@ namespace HMS.Models
         public string TestName { get; set; } = default!;
         public string Reference_Value { get; set; } = default!;
         //NAV ForeignKey Hobe Na
-        public virtual Test? Test { get; set; }
+        public  Test? Test { get; set; }
         public ICollection<TestReport>? TestReports { get; set; } = new List<TestReport>();
 
     }

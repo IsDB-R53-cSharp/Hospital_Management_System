@@ -16,12 +16,11 @@ namespace HMS.Models
         [Required, MaxLength(100)]
         public string DepartmentName { get; set; } = default!;
         public string DepartmentDescription { get; set; } = default!;
-        public virtual ICollection<Nurse> Nurses { get; set; } = new List<Nurse>();
-        public virtual ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
-
-        public virtual ICollection<WardCabin>? WardCabins { get; set; } = null;
+        public  ICollection<Nurse> Nurses { get; set; } = new List<Nurse>();
+        public  ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
+        public  ICollection<WardCabin>? WardCabins { get; set; } = null;
         
         //= new List<WardCabin>();
-        //public virtual ICollection<Test> Tests { get; set; }=new List<Test>();
+        //public  ICollection<Test> Tests { get; set; }=new List<Test>();
     }
 }

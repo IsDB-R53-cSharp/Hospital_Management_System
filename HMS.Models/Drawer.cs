@@ -23,7 +23,7 @@ namespace HMS.Models
         [ForeignKey("Morgue")]
         public int MorgueID { get; set; }
 
-        public virtual Morgue? Morgue { get; set; }
+        public  Morgue? Morgue { get; set; }
     }
 
     public enum DrawerCondition
