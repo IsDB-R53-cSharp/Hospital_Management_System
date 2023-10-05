@@ -47,9 +47,9 @@ namespace HMS.Models
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = default!;
 
-        public virtual Department? Departments { get; set; } = default!;
+        public  Department? Departments { get; set; } = default!;
 
-        //public virtual ICollection<Test?> Labtest { get; set; } = new List<Test?>();
+        //public  ICollection<Test?> Labtest { get; set; } = new List<Test?>();
     }
     public enum TechnicianType
     {

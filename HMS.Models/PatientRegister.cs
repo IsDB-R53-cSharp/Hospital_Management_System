@@ -45,7 +45,7 @@ namespace HMS.Models
         public string? Email { get; set; } = string.Empty;
 
         [NotMapped]
-        public virtual ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
+        public  ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
         [NotMapped]
         public ICollection<IndoorPatient?> IndoorPatients { get; set; } = new List<IndoorPatient?>();
 

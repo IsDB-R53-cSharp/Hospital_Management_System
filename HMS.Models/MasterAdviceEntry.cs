@@ -15,7 +15,7 @@ namespace HMS.Models
         [ForeignKey("Advice")]
         public int AdviceId { get; set; }
 
-        public virtual Prescription Prescription { get; set; }
-        public virtual Advice Advice { get; set; }  
+        public  Prescription Prescription { get; set; }
+        public  Advice Advice { get; set; }  
     }
 }

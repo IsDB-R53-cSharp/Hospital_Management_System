@@ -43,7 +43,7 @@ namespace HMS.Models
         public int PrescriptionID { get; set; }
         //nev
         [NotMapped]
-        //public virtual Doctor? Doctor { get; set; } = default!;
-        public virtual Prescription? Prescriptions { get; set; } = default!;
+        //public  Doctor? Doctor { get; set; } = default!;
+        public  Prescription? Prescriptions { get; set; } = default!;
     }
 }

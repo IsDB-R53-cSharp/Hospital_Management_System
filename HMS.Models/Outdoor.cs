@@ -34,9 +34,7 @@ namespace HMS.Models
 
         public bool IsAdmissionRequired { get; set; }
 
-        public virtual PatientRegister? PatientRegister { get; set; }
-
-        public virtual ICollection<Service> Services { get; set; } = new List<Service>();
+        public  PatientRegister? PatientRegister { get; set; }
 
         public void InitializeTreatmentType()
         {

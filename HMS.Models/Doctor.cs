@@ -50,16 +50,16 @@ namespace HMS.Models
         public string Image { get; set; } = default!;
 
         [NotMapped]
-        public virtual Department? Department { get; set; } = default!;
+        public  Department? Department { get; set; } = default!;
 
         [NotMapped]
-        public virtual ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
+        public  ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
 
         [NotMapped]
-        public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
+        public  ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
 
         //[NotMapped]
-        //public virtual ICollection<Surgery?> Surgeries { get; set; } = new List<Surgery?>();
+        //public  ICollection<Surgery?> Surgeries { get; set; } = new List<Surgery?>();
     }
     public enum doctortype
     {

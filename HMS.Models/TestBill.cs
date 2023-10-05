@@ -24,7 +24,7 @@ namespace HMS.Models
 
         // Navigation properties
 
-        public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
-        public virtual PatientRegister PatientRegisters { get; set; } // only need PatientID, then why virtual?
+        public  ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+        public  PatientRegister PatientRegisters { get; set; } // only need PatientID, then why ?
     }
 }

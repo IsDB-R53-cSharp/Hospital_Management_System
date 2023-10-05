@@ -16,7 +16,7 @@ namespace HMS.Models
         [ForeignKey("Symptom")]
         public int SymptomId { get; set; }
 
-        public virtual Prescription Prescription { get; set; }
-        public virtual Symptom Symptom { get; set; }
+        public  Prescription Prescription { get; set; }
+        public  Symptom Symptom { get; set; }
     }
 }

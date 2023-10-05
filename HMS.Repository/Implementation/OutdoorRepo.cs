@@ -23,21 +23,6 @@ namespace HMS.Repository.Implementation
             _logger = logger;
         }
 
-        //public async Task<Outdoor> GetByIdAsync(int id)
-        //{
-        //    try
-        //    {
-        //        return await _dbContext
-        //                    .Outdoors
-        //                    .FromSqlRaw("EXEC GetOutdoorById @Id", new SqlParameter("@Id", id))
-        //                    .FirstOrDefaultAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, $"Error while getting Outdoor with ID {id}");
-        //        return null;
-        //    }
-        //}
         public async Task<Outdoor?> GetByIdAsync(int id)
         {
             try
@@ -53,7 +38,6 @@ namespace HMS.Repository.Implementation
                 return null;
             }
         }
-
 
         public async Task<IEnumerable<Outdoor>> GetAllAsync()
         {
@@ -119,6 +103,7 @@ namespace HMS.Repository.Implementation
             }
         }
 
+        //outddor by treatment date range add korte hobe
         public async Task AddAsync(Outdoor outdoor)
         {
             try
@@ -128,13 +113,12 @@ namespace HMS.Repository.Implementation
                     new SqlParameter("@PatientID", outdoor.PatientID),
                     new SqlParameter("@TreatmentType", (int)outdoor.TreatmentType),
                     new SqlParameter("@TreatmentDate", outdoor.TreatmentDate),
-                    new SqlParameter("@TicketNumber", outdoor.TicketNumber),
                     new SqlParameter("@Remarks", outdoor.Remarks),
                     new SqlParameter("@IsAdmissionRequired", outdoor.IsAdmissionRequired)
                 };
 
                 await _dbContext.Database
-                    .ExecuteSqlRawAsync("EXEC AddOutdoor @PatientID, @TreatmentType, @TreatmentDate, @TicketNumber, @Remarks, @IsAdmissionRequired", parameters.ToArray());
+                    .ExecuteSqlRawAsync("EXEC AddOutdoor @PatientID, @TreatmentType, @TreatmentDate, @Remarks, @IsAdmissionRequired", parameters.ToArray());
             }
             catch (Exception ex)
             {
@@ -152,13 +136,12 @@ namespace HMS.Repository.Implementation
                     new SqlParameter("@PatientID", outdoor.PatientID),
                     new SqlParameter("@TreatmentType", (int)outdoor.TreatmentType),
                     new SqlParameter("@TreatmentDate", outdoor.TreatmentDate),
-                    new SqlParameter("@TicketNumber", outdoor.TicketNumber),
                     new SqlParameter("@Remarks", outdoor.Remarks),
                     new SqlParameter("@IsAdmissionRequired", outdoor.IsAdmissionRequired)
                 };
 
                 await _dbContext.Database
-                    .ExecuteSqlRawAsync("EXEC UpdateOutdoor @OutdoorID, @PatientID, @TreatmentType, @TreatmentDate, @TicketNumber, @Remarks, @IsAdmissionRequired", parameters.ToArray());
+                    .ExecuteSqlRawAsync("EXEC UpdateOutdoor @OutdoorID, @PatientID, @TreatmentType, @TreatmentDate, @Remarks, @IsAdmissionRequired", parameters.ToArray());
             }
             catch (Exception ex)
             {

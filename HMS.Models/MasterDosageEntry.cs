@@ -14,7 +14,7 @@ namespace HMS.Models
         public int PrescriptionID { get; set; }
         [ForeignKey("Dosage")]
         public int DosageID { get; set; }
-        public virtual Prescription Prescription { get; set; }
-        public virtual Dosage Dosage { get; set; }  
+        public  Prescription Prescription { get; set; }
+        public  Dosage Dosage { get; set; }  
     }
 }

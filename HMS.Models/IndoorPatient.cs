@@ -46,11 +46,11 @@ namespace HMS.Models
 
         // Navigation property for the patient
         [NotMapped]
-        public virtual PatientRegister PatientRegisters { get; set; }
+        public  PatientRegister PatientRegisters { get; set; }
 
         // Navigation property for medical records
         [NotMapped]
-        public virtual MedicalRecords MedicalRecords { get; set; }
+        public  MedicalRecords MedicalRecords { get; set; }
 
         //AdmissionBill collection
 

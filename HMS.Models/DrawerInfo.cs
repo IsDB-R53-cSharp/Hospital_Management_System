@@ -30,15 +30,15 @@ namespace HMS.Models
 
         [ForeignKey("Drawer")]
         public int DrawerID { get; set; }
-        public virtual Drawer Drawer { get; set; }
+        public  Drawer Drawer { get; set; }
 
         [ForeignKey("PatientRegister")]
         public int? PatientID { get; set; }
-        public virtual PatientRegister? PatientRegister { get; set; }
+        public  PatientRegister? PatientRegister { get; set; }
 
         [ForeignKey("UnidentifiedDeadBody")]
         public int? UnidentifiedDeadBodyID { get; set; }
-        public virtual UnidentifiedDeadBody? UnidentifiedDeadBody { get; set; }
+        public  UnidentifiedDeadBody? UnidentifiedDeadBody { get; set; }
     }
 
 

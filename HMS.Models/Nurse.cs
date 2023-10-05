@@ -49,11 +49,11 @@ namespace HMS.Models
         public string PhoneNumber { get; set; } = default!;
 
         [NotMapped]
-        public virtual Department? Department { get; set; } = default!;
+        public  Department? Department { get; set; } = default!;
 
-        //public virtual ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
-        //public virtual ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
-        //public virtual ICollection<Surgery?> Surgeries { get; set; } = new List<Surgery?>();
+        //public  ICollection<Prescription?> Prescriptions { get; set; } = new List<Prescription?>();
+        //public  ICollection<Appointment?> Appointments { get; set; } = new List<Appointment?>();
+        //public  ICollection<Surgery?> Surgeries { get; set; } = new List<Surgery?>();
     }
     public enum NurseType
     {

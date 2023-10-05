@@ -70,14 +70,14 @@ namespace HMS.Models
         [NotMapped]
         public PatientRegister? PatientRegisters { get; set; } = default!;
 
-        public virtual ICollection<Outdoor?> Outdoors { get; set; } = new List<Outdoor?>();
+        public  ICollection<Outdoor?> Outdoors { get; set; } = new List<Outdoor?>();
 
 
-        public virtual ICollection<PrescriptionBill> PrescriptionBills { get; set; } = new List<PrescriptionBill>();
-        public virtual ICollection<ServiceBill> ServiceBills { get; set; } = new List<ServiceBill>();
-        public virtual ICollection<TestBill> TestBills { get; set; } = new List<TestBill>();
-        public virtual ICollection<MedicineBill> MedicineBill { get; set; } = new List<MedicineBill>();
-        public virtual ICollection<AdmissionBill> AdmissionBill { get; set; } = new List<AdmissionBill>();
+        public  ICollection<PrescriptionBill> PrescriptionBills { get; set; } = new List<PrescriptionBill>();
+        public  ICollection<ServiceBill> ServiceBills { get; set; } = new List<ServiceBill>();
+        public  ICollection<TestBill> TestBills { get; set; } = new List<TestBill>();
+        public  ICollection<MedicineBill> MedicineBill { get; set; } = new List<MedicineBill>();
+        public  ICollection<AdmissionBill> AdmissionBill { get; set; } = new List<AdmissionBill>();
     }
     public enum PaymentMethod
     {

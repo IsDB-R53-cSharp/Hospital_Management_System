@@ -87,23 +87,23 @@ namespace HMS.Models
         public string FollowUpInstructions { get; set; } = default!;
 
         [NotMapped]
-        public virtual Medicine? Medicine { get; set; } = default!;
+        public  Medicine? Medicine { get; set; } = default!;
         [NotMapped]
-        public virtual PatientRegister? PatientRegister { get; set; } = default!;
-        public virtual Doctor? Doctor { get; set; } = default!;
-        //public virtual Test? Test { get; set; } = default!;
-        //public virtual Symptom? Symptom { get; set; } = default!;
-        //public virtual Advice? Advice { get; set; } = default!;
-        //public virtual Dosage? Dosages { get; set; } = default!;
-        public virtual ICollection<MedicalRecords>? MedicalRecords { get; set; } = new List<MedicalRecords>();
-        public virtual ICollection<Surgery>? Surgeries { get; set; } = new List<Surgery>();
+        public  PatientRegister? PatientRegister { get; set; } = default!;
+        public  Doctor? Doctor { get; set; } = default!;
+        //public  Test? Test { get; set; } = default!;
+        //public  Symptom? Symptom { get; set; } = default!;
+        //public  Advice? Advice { get; set; } = default!;
+        //public  Dosage? Dosages { get; set; } = default!;
+        public  ICollection<MedicalRecords>? MedicalRecords { get; set; } = new List<MedicalRecords>();
+        public  ICollection<Surgery>? Surgeries { get; set; } = new List<Surgery>();
         public ICollection<TestReport>? TestReports { get; set; } = new List<TestReport>();
 
-        public virtual ICollection<MasterTestEntry> masterTestEntries { get; set; }=new List<MasterTestEntry>();
-        public virtual ICollection<MasterMedicineEntry> MasterMedicineEntries { get; set; }=new List<MasterMedicineEntry>();    
-        public virtual ICollection<MasterSymptomsEntry> masterSymptomsEntries { get; set; }=new List<MasterSymptomsEntry>();
-        public virtual ICollection<MasterAdviceEntry> MasterAdviceEntries { get; set; } = new List<MasterAdviceEntry>();
-        public virtual ICollection<MasterDosageEntry> MasterDosageEntries { get; set; }=new List<MasterDosageEntry>();
+        public  ICollection<MasterTestEntry> masterTestEntries { get; set; }=new List<MasterTestEntry>();
+        public  ICollection<MasterMedicineEntry> MasterMedicineEntries { get; set; }=new List<MasterMedicineEntry>();    
+        public  ICollection<MasterSymptomsEntry> masterSymptomsEntries { get; set; }=new List<MasterSymptomsEntry>();
+        public  ICollection<MasterAdviceEntry> MasterAdviceEntries { get; set; } = new List<MasterAdviceEntry>();
+        public  ICollection<MasterDosageEntry> MasterDosageEntries { get; set; }=new List<MasterDosageEntry>();
 
         //[ForeignKey("Medicine")]
         //public int MedicinID { get; set; }

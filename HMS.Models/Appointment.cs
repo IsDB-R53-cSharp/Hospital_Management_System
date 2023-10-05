@@ -1,46 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HMS.Models
 {
-    public class Appointment
-    {
-        [Key]
-        public int AppointmentID { get; set; }
+	public class Appointment
+	{
+		[Key]
+		public int AppointmentID { get; set; }
 
-        [ForeignKey("PatientRegister")]
-        public int PatientID { get; set; }//for necessary info of patient
+		[ForeignKey("PatientRegister")]
+		[Required]
+		public int PatientID { get; set; } // For necessary info of patient
 
-        [ForeignKey("Doctor")]
-        public int DoctorID { get; set; }
+		[ForeignKey("Doctor")]
+		[Required]
+		public int DoctorID { get; set; }
 
-        //[ForeignKey("Outdoor")]
-        //public int OutdoorID { get; set; } //for TicketNumber and 
+		[Required]
+		public AppointmentType AppointmentType { get; set; } // Indoor or Outdoor
 
-        public AppointmentType AppointmentType { get; set; }
+		[Required]
+		[DataType(DataType.Date)]
+		public DateTime AppointmentDate { get; set; } // Pending/Cancelled/Completed
 
-        public DateTime AppointmentDate { get; set; }
+		[Required]
+		[EnumDataType(typeof(AppointmentStatus))]
+		public AppointmentStatus AppointmentStatus { get; set; }
+	}
 
-        public AppointmentStatus AppointmentStatus { get; set; }
+	public enum AppointmentStatus
+	{
+		Pending,
+		Cancelled,
+		Completed
+	}
 
-        [NotMapped]
-        public List<Doctor>? Doctor { get; set; }
-    }
-    public enum AppointmentStatus
-    {
-        Pending,
-        Confirmed,
-        Cancelled,
-        Completed
-    }
-    public enum AppointmentType
-    {
-        Indoor,
-        Outdoor
-    }
+	public enum AppointmentType
+	{
+		Indoor,
+		Outdoor
+	}
 }

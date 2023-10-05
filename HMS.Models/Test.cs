@@ -24,10 +24,10 @@ namespace HMS.Models
         public decimal Price { get; set; }
 
         //nav
-        //public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
-        public virtual ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
-        public virtual ICollection<Surgery> Surgeries { get; set; } = new List<Surgery>();
+        //public  ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+        public  ICollection<MedicalRecords> MedicalRecords { get; set; } = new List<MedicalRecords>();
+        public  ICollection<Surgery> Surgeries { get; set; } = new List<Surgery>();
         public ICollection<ReportDetail> ReportDetails { get; set; } = new List<ReportDetail>();
-        public virtual ICollection<MasterTestEntry> masterTestEntries { get; set; } = new List<MasterTestEntry>();
+        public  ICollection<MasterTestEntry> masterTestEntries { get; set; } = new List<MasterTestEntry>();
     }
 }

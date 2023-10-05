@@ -23,7 +23,7 @@ namespace HMS.Models
         public decimal MB_Subtotal { get; set; }
 
         //Nav
-        //public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+        //public  ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
 
         public ICollection<Medicine> Medicines { get; set; }
         public PatientRegister PatientRegister { get; set; }

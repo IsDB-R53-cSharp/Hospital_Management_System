@@ -19,6 +19,6 @@ namespace HMS.Models
         [Display(Name = "Las tLocation")]
         public string LastLocation { get; set; } = default!;
         public bool Availability { get; set; }
-        public virtual ICollection<OtherEmployee> OtherEmployees { get; set; } = new List<OtherEmployee>();
+        public  ICollection<OtherEmployee> OtherEmployees { get; set; } = new List<OtherEmployee>();
     }
 }
