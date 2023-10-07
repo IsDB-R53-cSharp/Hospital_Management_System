@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using HMS.Models;
 
@@ -42,7 +43,7 @@ namespace HMS.Models
         [ForeignKey("Prescription")]
         public int PrescriptionID { get; set; }
         //nev
-        [NotMapped]
+        [JsonIgnore]
         //public  Doctor? Doctor { get; set; } = default!;
         public  Prescription? Prescriptions { get; set; } = default!;
     }

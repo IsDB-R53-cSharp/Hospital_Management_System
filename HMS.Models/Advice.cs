@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace HMS.Models
@@ -11,6 +12,7 @@ namespace HMS.Models
         public int AdviceId { get; set; }
 
         public string AdviceName { get; set; } = default!;
+        [JsonIgnore]
         public  ICollection<MasterAdviceEntry> MasterAdviceEntries { get; set; } = new List<MasterAdviceEntry>();
 
 

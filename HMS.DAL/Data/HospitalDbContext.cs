@@ -77,16 +77,20 @@ namespace HMS.DAL.Data
 			SeedData.SeedServices(modelBuilder);
 			SeedData.SeedManufacturer(modelBuilder);
 			SeedData.SeedMedicines(modelBuilder);
+			SeedData.SeedAdvices(modelBuilder);
+			SeedData.SeedSymptoms(modelBuilder);
+			SeedData.SeedBeds(modelBuilder);
+			SeedData.SeedPreoperativeDiagnosis(modelBuilder);
 
 
 
-			//for auth
-			//modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
-			//modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
-			//modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
-			// or for auth
+            //for auth
+            //modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+            // or for auth
 
-			base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 		}
 
 	}

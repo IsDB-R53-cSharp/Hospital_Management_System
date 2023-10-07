@@ -11,22 +11,34 @@ namespace Hospital_Management_System.Controllers
     public class BedsController : ControllerBase
     {
         private readonly HospitalDbContext _context;
+
         public BedsController(HospitalDbContext context)
         {
             _context = context;
         }
+
+        // GET: api/Bed
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bed>>> GetBeds()
         {
-            var beds = await _context.Beds.ToListAsync();
-            return Ok(beds);
+            return await _context.Beds.ToListAsync();
         }
+
+        // GET: api/Bed/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Bed>>> GetBedsById(int id)
+        public async Task<ActionResult<Bed>> GetBed(int id)
         {
-            var beds= _context.Beds.FirstOrDefault(x=>x.BedID==id);
-            return Ok(beds);
+            var bed = await _context.Beds.FindAsync(id);
+
+            if (bed == null)
+            {
+                return NotFound();
+            }
+
+            return bed;
         }
+
+        // POST: api/Bed
         [HttpPost]
         public async Task<ActionResult<Bed>> PostBed(Bed bed)
         {
@@ -36,7 +48,7 @@ namespace Hospital_Management_System.Controllers
             return CreatedAtAction("GetBed", new { id = bed.BedID }, bed);
         }
 
-        // PUT: api/beds/5
+        // PUT: api/Bed/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBed(int id, Bed bed)
         {
@@ -66,9 +78,25 @@ namespace Hospital_Management_System.Controllers
             return NoContent();
         }
 
+        // DELETE: api/Bed/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBed(int id)
+        {
+            var bed = await _context.Beds.FindAsync(id);
+            if (bed == null)
+            {
+                return NotFound();
+            }
+
+            _context.Beds.Remove(bed);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool BedExists(int id)
         {
-            return _context.Beds.Any(b => b.BedID == id);
+            return _context.Beds.Any(e => e.BedID == id);
         }
     }
 }

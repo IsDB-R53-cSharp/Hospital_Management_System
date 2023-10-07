@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using HMS.Models;
 
@@ -24,9 +25,9 @@ namespace HMS.Models
         [ForeignKey("Departments")]
         public int DepartmentID { get; set; }
         //nev
-        [NotMapped]
-        public  Department Departments { get; set; } = default!;
-        [NotMapped]
+        [JsonIgnore]
+        public  Department? Departments { get; set; } = default!;
+        [JsonIgnore]
         public  ICollection<Bed> Beds { get; set; }=new List<Bed>();
     }
     public enum WardCabinType
