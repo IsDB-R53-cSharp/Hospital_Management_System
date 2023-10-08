@@ -222,8 +222,9 @@ namespace HMS.DAL.Data
                 new Service { ServiceID = 18, ServiceName = "Orthopedic Device charge (crutches, wheelchair)", ServiceCharge = 250 },
                 new Service { ServiceID = 19, ServiceName = "Pathological Sample Collection Fee (from Bed/Home)", ServiceCharge = 200 },
                 new Service { ServiceID = 20, ServiceName = "Counseling fee", ServiceCharge = 400 },
-                new Service { ServiceID = 21, ServiceName = "Rehabilitation fee", ServiceCharge = 400 }
-            );
+                new Service { ServiceID = 21, ServiceName = "Rehabilitation fee", ServiceCharge = 400 },
+				new Service { ServiceID = 22, ServiceName = "Admission Charge", ServiceCharge = 500 }
+			);
         }
         public static void SeedAdvices(ModelBuilder modelBuilder)
         {

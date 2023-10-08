@@ -1,31 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HMS.Models
 {
-    public class MedicineBill
-    {
-        public int MedicineBillID { get; set; }
+	public class MedicineBill
+	{
+		public int MedicineBillId { get; set; }
 
-        [ForeignKey("Medicine")]
-        public int MedicineID { get; set; }
+		[Required(ErrorMessage = "Enter Medicine Name")]
+		[StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
+		public string MedicineName { get; set; }
 
-        [ForeignKey("PatientRegister")]
-        public int PatientID { get; set; }
+		public int? PrescriptionID { get; set; }
 
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal MB_Subtotal { get; set; }
+		public int MedicineCount { get; set; }
 
-        //Nav
-        //public  ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
+		[Required, Range(0, Double.MaxValue, ErrorMessage = "Price Amount must be greater than 0")]
+		[DataType(DataType.Currency)]
+		[Column(TypeName = "decimal(18,2)")]
+		public decimal? Price { get; set; }
 
-        public ICollection<Medicine> Medicines { get; set; }
-        public PatientRegister PatientRegister { get; set; }
-    }
+		[Required, Range(0, Double.MaxValue, ErrorMessage = "Net Price Amount must be greater than 0")]
+		[DataType(DataType.Currency)]
+		[Column(TypeName = "decimal(18,2)")]
+		[NotMapped]
+		public decimal NetPrice { get; set; }
+
+		public bool IsComplete { get; set; }
+		[Column(TypeName = "decimal(18, 2)")]
+		public decimal? PaidAmount { get; set; }
+
+		// Include a reference to the DueCalculator
+		[NotMapped]
+		public DueCalculator DueCalculator { get; } = new DueCalculator();
+
+		[Column(TypeName = "decimal(18, 2)")]
+		// Use the DueCalculator to calculate the Due property
+		public decimal? Due => DueCalculator.CalculateDue(NetPrice, PaidAmount);
+	}
+
+	public class DueCalculator
+	{
+		public decimal? CalculateDue(decimal? NetPrice, decimal? paidAmount)
+		{
+			return NetPrice.HasValue && paidAmount.HasValue ? NetPrice.Value - paidAmount.Value : 0;
+		}
+	}
+
 }

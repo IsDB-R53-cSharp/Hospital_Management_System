@@ -43,24 +43,23 @@ namespace HMS.DAL.Data
 		public DbSet<MedicalRecords> MedicalRecords { get; set; }
 		public DbSet<Surgery> Surgeries { get; set; }
 		public DbSet<DischargeTransfer> DischargeTransfers { get; set; }
-		public DbSet<TotalBill> TotalBills { get; set; }
+		public DbSet<Bill> Bills { get; set; }
 		public DbSet<Service> Services { get; set; }
 		public DbSet<WardCabin>? WardCabins { get; set; } = null;
 		public DbSet<Symptom> Symptoms { get; set; }
 		public DbSet<Advice> Advices { get; set; }
 		public DbSet<TestBill> TestBills { get; set; }
 		public DbSet<PrescriptionBill> PrescriptionBills { get; set; }
-		public DbSet<ServiceBill> ServiceBills { get; set; }
+		public DbSet<TakenService> ServiceBills { get; set; }
 		public DbSet<AdmissionBill> AdmissionBills { get; set; }
 		public DbSet<MedicineBill> MedicineBills { get; set; }
 		public DbSet<IndoorPatient> IndoorPatients { get; set; }
 		public DbSet<Bed> Beds { get; set; }
 		public DbSet<PreoperativeDiagnosis> PreoperativeDiagnoses { get; set; }
 		public DbSet<TestReport> TestReports { get; set; }
-
 		public DbSet<NumberCounterRecord> NumberCounterRecords { get; set; }
 		public DbSet<Ticket> Tickets { get; set; }
-
+		public DbSet<TakenService> TakenServices { get; set; }
 
 
 
@@ -84,13 +83,18 @@ namespace HMS.DAL.Data
 
 
 
-            //for auth
-            //modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
-            //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
-            //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
-            // or for auth
+			//for auth
+			//modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+			//modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+			//modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+			// or for auth
 
-            base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<MedicineBill>()
+							  .Property("NetPrice")
+							 .HasComputedColumnSql("[MedicineCount]*[Price]");
+
+			base.OnModelCreating(modelBuilder);
 		}
 
 	}

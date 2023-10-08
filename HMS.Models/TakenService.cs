@@ -4,16 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HMS.Models
 {
-	public class TestBill
+	public class TakenService
 	{
+		public int TakenServiceId { get; set; }
+		public string TakenServiceName { get; set; } = default!;
 
-		public int TestBillId { get; set; }
-
-		[Required(ErrorMessage = "Enter Patient Name")]
-		[StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
-		public string TestBillName { get; set; }
-
-		public int? PrescriptionID { get; set; }
+		public DateTime Date { get; set; }
+		public int PatientID { get; set; }
 
 		[Required, Range(0, Double.MaxValue, ErrorMessage = "Price Amount must be greater than 0")]
 		[DataType(DataType.Currency)]
@@ -22,16 +19,13 @@ namespace HMS.Models
 
 		public bool IsComplete { get; set; }
 
-		[Required, Range(0, Double.MaxValue, ErrorMessage = "Paid Amount must be greater than 0")]
-		[DataType(DataType.Currency)]
-		[Column(TypeName = "decimal(18,2)")]
+		[Column(TypeName = "decimal(18, 2)")]
 		public decimal? PaidAmount { get; set; }
 
 		[NotMapped]
 		public DueCalculator DueCalculator { get; } = new DueCalculator();
 
+		[Column(TypeName = "decimal(18, 2)")]
 		public decimal? Due => DueCalculator.CalculateDue(Price, PaidAmount);
 	}
-
-
 }

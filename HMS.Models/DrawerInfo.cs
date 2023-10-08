@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 
 namespace HMS.Models
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     public class DrawerInfo
     {
         public int DrawerInfoID { get; set; }
@@ -40,6 +36,4 @@ namespace HMS.Models
         public int? UnidentifiedDeadBodyID { get; set; }
         public  UnidentifiedDeadBody? UnidentifiedDeadBody { get; set; }
     }
-
-
 }
