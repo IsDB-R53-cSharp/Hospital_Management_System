@@ -60,7 +60,7 @@ namespace HMS.DAL.Data
 		public DbSet<NumberCounterRecord> NumberCounterRecords { get; set; }
 		public DbSet<Ticket> Tickets { get; set; }
 		public DbSet<TakenService> TakenServices { get; set; }
-
+		public DbSet<Dosage> Dosages { get; set; }
 
 
 
@@ -80,6 +80,7 @@ namespace HMS.DAL.Data
 			SeedData.SeedSymptoms(modelBuilder);
 			SeedData.SeedBeds(modelBuilder);
 			SeedData.SeedPreoperativeDiagnosis(modelBuilder);
+			SeedData.SeedMedicineGeneric(modelBuilder);
 
 
 
