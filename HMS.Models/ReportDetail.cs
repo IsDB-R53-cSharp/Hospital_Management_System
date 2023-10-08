@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace HMS.Models
 {
-    public class ReportDetail
-    {
-        public int ReportDetailID { get; set; }
-        public int TestID { get; set; }
-        public string TestName { get; set; } = default!;
-        public string Reference_Value { get; set; } = default!;
-        //NAV ForeignKey Hobe Na
-        public  Test? Test { get; set; }
-        public ICollection<TestReport>? TestReports { get; set; } = new List<TestReport>();
+	public class ReportDetail
+	{
+		public int ReportDetailID { get; set; }
+		public int TestID { get; set; }
+		public string TestName { get; set; } = default!;
+		public string Reference_Value { get; set; } = default!;
+		//NAV ForeignKey Hobe Na
+		public virtual Test? Test { get; set; }
+		public ICollection<TestReport>? TestReports { get; set; } = new List<TestReport>();
 
-    }
+	}
 }
