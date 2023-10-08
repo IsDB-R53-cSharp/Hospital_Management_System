@@ -12,9 +12,9 @@ namespace HMS.Models.Attributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var bill = (TotalBill)validationContext.ObjectInstance;
+            var bill = (Bill)validationContext.ObjectInstance;
 
-            if (bill.Due.HasValue && bill.Due > 0.6m * bill.TotalAmount)
+            if (bill.Due.HasValue && bill.Due > 0.6m * bill.NetAmount)
             {
                 return new ValidationResult("Due Amount cannot exceed 60% of Bill Amount", new[] { validationContext.MemberName });
             }
