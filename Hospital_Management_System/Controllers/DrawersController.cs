@@ -18,7 +18,7 @@ namespace Hospital_Management_System.Controllers
 
         public DrawersController(IDrawerRepo _drawerRepo)
         {
-            _drawerRepo = _drawerRepo;
+            this._drawerRepo = _drawerRepo;
         }
         [HttpGet]
         [Route("GetDrawer")]
