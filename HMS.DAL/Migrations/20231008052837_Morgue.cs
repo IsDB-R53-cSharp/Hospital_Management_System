@@ -8,17 +8,17 @@ namespace HMS.DAL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			string getall = @"create proc SpGetAllMorgues
+            string getall = @"create proc SpGetAllMorgues
               as
               BEGIN
               SELECT * FROM Morgues
               END";
-			string getbyid = @"create proc SpMorguesgetById(@id int)
+            string getbyid = @"create proc SpMorguesgetById(@id int)
             as
             BEGIN
             SELECT * FROM Morgues where MorgueID=@id 
             END";
-			string InsertMorgue = @"
+            string InsertMorgue = @"
             CREATE PROCEDURE InsertMorgue
                 @MorgueName NVARCHAR(100),
                 @Capacity INT,
@@ -28,11 +28,10 @@ namespace HMS.DAL.Migrations
                 INSERT INTO Morgues (MorgueName,Capacity, IsolationCapability)
                 VALUES (@MorgueName, @Capacity, @IsolationCapability);
             END";
-			string UpdateMorgue = @"
+            string UpdateMorgue = @"
             CREATE PROCEDURE UpdateMorgue
                 @MorgueID INT,
                 @MorgueName NVARCHAR(100),
-            
                 @Capacity INT,
                 @IsolationCapability BIT
             AS
@@ -43,7 +42,7 @@ namespace HMS.DAL.Migrations
                     IsolationCapability = @IsolationCapability
                 WHERE MorgueID = @MorgueID;
             END";
-			string DeleteMorgue = @"
+            string DeleteMorgue = @"
             CREATE PROCEDURE DeleteMorgue
                 @MorgueID INT
             AS
@@ -51,22 +50,28 @@ namespace HMS.DAL.Migrations
                 DELETE FROM Morgues
                 WHERE MorgueID = @MorgueID;
             END";
-		}
+
+            migrationBuilder.Sql(getall);
+            migrationBuilder.Sql(getbyid);
+            migrationBuilder.Sql(InsertMorgue);
+            migrationBuilder.Sql(UpdateMorgue);
+            migrationBuilder.Sql(DeleteMorgue);
+        }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-			string getall = @"Drop proc SpGetAllMorgues";
-			string getbyid = @"Drop proc SpMorguesgetById";
-			string InsertMorgue = @"Drop proc InsertMorgue";
-			string UpdateMorgue = @"Drop proc UpdateMorgue";
-			string DeleteMorgue = @"Drop proc DeleteMorgue";
+            string getall = @"Drop proc SpGetAllMorgues";
+            string getbyid = @"Drop proc SpMorguesgetById";
+            string InsertMorgue = @"Drop proc InsertMorgue";
+            string UpdateMorgue = @"Drop proc UpdateMorgue";
+            string DeleteMorgue = @"Drop proc DeleteMorgue";
 
 
-			migrationBuilder.Sql(getall);
-			migrationBuilder.Sql(getbyid);
-			migrationBuilder.Sql(InsertMorgue);
-			migrationBuilder.Sql(UpdateMorgue);
-			migrationBuilder.Sql(DeleteMorgue);
-		}
+            migrationBuilder.Sql(getall);
+            migrationBuilder.Sql(getbyid);
+            migrationBuilder.Sql(InsertMorgue);
+            migrationBuilder.Sql(UpdateMorgue);
+            migrationBuilder.Sql(DeleteMorgue);
+        }
     }
 }

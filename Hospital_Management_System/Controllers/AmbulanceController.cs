@@ -58,13 +58,21 @@ namespace Hospital_Management_System.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteAmbulance(int id)
 		{
-			var ID = await db.Ambulances.FirstOrDefaultAsync(x => x.AmbulanceID == id);
-			await db.Database.ExecuteSqlRawAsync("EXEC DeleteAmbulance @AmbulanceID={0}", ID);
-			if (ID == null)
+			try
 			{
-				return BadRequest(" Ambulance Data Not Found!!!");
+                var ID = await db.Ambulances.FirstOrDefaultAsync(x => x.AmbulanceID == id);
+                await db.Database.ExecuteSqlRawAsync("EXEC DeleteAmbulance @AmbulanceID={0}", id);
+                if (ID == null)
+                {
+                    return BadRequest(" Ambulance Data Not Found!!!");
+                }
+                return Ok("Ambulance deleted successfully.");
+            }
+			catch (Exception ex)
+			{
+
+				return Ok(ex.Message);
 			}
-			return Ok("Ambulance deleted successfully.");
 		}
 
 
