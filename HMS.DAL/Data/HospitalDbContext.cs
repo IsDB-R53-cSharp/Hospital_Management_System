@@ -98,6 +98,14 @@ namespace HMS.DAL.Data
 							 .HasComputedColumnSql("[MedicineCount]*[Price]");
 
 			base.OnModelCreating(modelBuilder);
+      
+                  modelBuilder.Entity<Morgue>()
+                .ToTable("Morgues")
+                .HasKey(m => m.MorgueID);
+
+            modelBuilder.Entity<Ambulance>()
+               .ToTable("Ambulances")
+               .HasKey(a => a.AmbulanceID);
 		}
 
 	}
