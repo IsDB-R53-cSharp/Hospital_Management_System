@@ -81,6 +81,8 @@ namespace HMS.DAL.Data
 			SeedData.SeedBeds(modelBuilder);
 			SeedData.SeedPreoperativeDiagnosis(modelBuilder);
 			SeedData.SeedMedicineGeneric(modelBuilder);
+			SeedData.SeedMorgues(modelBuilder);
+			SeedData.SeedDrawers(modelBuilder);
 
 
 

@@ -338,5 +338,47 @@ namespace HMS.DAL.Data
             );
 
         }
-    }
+
+		public static void SeedMorgues(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Morgue>().HasData(
+				new Morgue
+				{
+					MorgueID = 1,
+					MorgueName = "Morgue-1",
+					Capacity = 50,
+					IsolationCapability = true
+				},
+				new Morgue
+				{
+					MorgueID = 2,
+					MorgueName = "Morgue-2",
+					Capacity = 100,
+					IsolationCapability = false
+				}
+			);
+		}
+		public static void SeedDrawers(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Drawer>().HasData(
+				new Drawer
+				{
+					DrawerID = 1,
+					DrawerNo = "Drawer-001",
+					DrawerCondition = DrawerCondition.Clean,
+					IsOccupied = false,
+					MorgueID = 1
+				},
+				new Drawer
+				{
+					DrawerID = 2,
+					DrawerNo = "Drawer-002",
+					DrawerCondition = DrawerCondition.Dirty,
+					IsOccupied = true,
+					MorgueID = 2 
+				}
+			);
+		}
+
+	}
 }
