@@ -6,7 +6,11 @@ namespace Hospital_Management_System.Helpers
 {
     public class AppointmentHelper
     {
-        public int PatientID { get; set; }
+        //public AppointmentHelper() 
+        //{ 
+            
+        //}
+        public int? PatientID { get; set; }
         public HMS.Models.ViewModels.AppointmentType AppointmentType { get; set; }
         public DateTime AppointmentDate { get; set; }
         public HMS.Models.ViewModels.AppointmentStatus AppointmentStatus { get; set; }
@@ -19,23 +23,24 @@ namespace Hospital_Management_System.Helpers
         public int DoctorID { get; set; }
 
         // Constructor to initialize properties from AppointmentVM
-        public AppointmentHelper(AppointmentVM appointment)
+        public AppointmentHelper(AppointmentVM _appointment)
         {
-            PatientID = appointment.PatientID;
-            AppointmentType = appointment.AppointmentType;
-            AppointmentDate = appointment.AppointmentDate;
-            AppointmentStatus = appointment.AppointmentStatus;
-            PatientName = appointment.PatientName;
-            PatientIdentityNumber = appointment.PatientIdentityNumber;
-            Gender = appointment.Gender;
-            PhoneNumber = appointment.PhoneNumber;
+            PatientID = _appointment.PatientID;
+            AppointmentType = _appointment.AppointmentType;
+            AppointmentDate = _appointment.AppointmentDate;
+            AppointmentStatus = _appointment.AppointmentStatus;
+            PatientName = _appointment.PatientName;
+            PatientIdentityNumber = _appointment.PatientIdentityNumber;
+            Gender = _appointment.Gender;
+            PhoneNumber = _appointment.PhoneNumber;
+            DoctorID = _appointment.DoctorID;
         }
 
         public AppointmentVM GetAppointmentVM()
         {
             var appointmentVM = new AppointmentVM
             {
-                PatientID = this.PatientID,
+                PatientID = (int)this.PatientID,
                 AppointmentType = this.AppointmentType,
                 AppointmentDate = this.AppointmentDate,
                 AppointmentStatus = this.AppointmentStatus,
@@ -51,7 +56,7 @@ namespace Hospital_Management_System.Helpers
 
         public void UpdateAppointmentVM(Appointment existingAppointment)
         {
-            existingAppointment.PatientID = this.PatientID;
+            existingAppointment.PatientID = (int)this.PatientID;
             existingAppointment.AppointmentType = (HMS.Models.AppointmentType)this.AppointmentType;
             existingAppointment.AppointmentDate = this.AppointmentDate;
             existingAppointment.AppointmentStatus = (HMS.Models.AppointmentStatus)this.AppointmentStatus;

@@ -20,6 +20,23 @@ namespace Hospital_Management_System.Controllers
             _appointmentRepo = appointmentRepo;
         }
 
+        //[HttpGet]
+        //[Route("GetAll")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //public IActionResult GetAllAppointments()
+        //{
+        //    try
+        //    {
+        //        var appointments = _appointmentRepo.GetAllAsync();
+        //        return Ok(appointments);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
         [HttpGet]
         [Route("GetAppointmentById/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -128,29 +145,14 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("GetAll")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public IActionResult GetAllAppointments()
-        //{
-        //    try
-        //    {
-        //        var appointments = _appointmentRepo.GetAllAsync();
-        //        return Ok(appointments);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+
 
 
         //[HttpPost]
-        //[Route("AddAppointment")]
+        //[Route("CreateAppointment")]
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public IActionResult AddAppointment([FromBody] AppointmentHelper appointmentHelper)
+        //public IActionResult AddAppointment(AppointmentHelper appointmentHelper)
         //{
         //    try
         //    {

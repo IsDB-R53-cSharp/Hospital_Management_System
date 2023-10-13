@@ -11,26 +11,27 @@ namespace HMS.Models.ViewModels
     public class AppointmentVM
     {
         public int AppointmentID { get; set; }
-        public string PatientName { get; set; }
-        public string PatientIdentityNumber { get; set; }
+        public string PatientName { get; set; } = string.Empty;
+        public string PatientIdentityNumber { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
         public int Gender { get; set; }
-        public string PhoneNumber { get; set; }
+
 
 
         public int PatientID { get; set; } // For necessary info of patient
 
-        [ForeignKey("Doctor")]
-        [Required]
+        //[ForeignKey("Doctor")]
+        //[Required]
         public int DoctorID { get; set; }
 
-        [Required]
+        //[Required]
         public AppointmentType AppointmentType { get; set; } // Indoor or Outdoor
 
-        [Required]
+        //[Required]
         [DataType(DataType.Date)]
         public DateTime AppointmentDate { get; set; } // Pending/Cancelled/Completed
 
-        [Required]
+        //[Required]
         [EnumDataType(typeof(AppointmentStatus))]
         public AppointmentStatus AppointmentStatus { get; set; }
     }
