@@ -23,21 +23,38 @@ namespace HMS.Repository.Implementation
             _logger = logger;
         }
 
-        public async Task<Outdoor?> GetByIdAsync(int id)
+        //public async Task<Outdoor?> GetByIdAsync(int id)
+        //{
+        //    try
+        //    {
+        //        return await _dbContext
+        //                    .Outdoors
+        //                    .FromSqlRaw("EXEC GetOutdoorById @Id", new SqlParameter("@Id", id))
+        //                    .FirstOrDefaultAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, $"Error while getting Outdoor with ID {id}");
+        //        return null;
+        //    }
+        //}
+
+        public IEnumerable<Outdoor> GetByIdAsync(int id)
         {
             try
             {
-                return await _dbContext
-                            .Outdoors
-                            .FromSqlRaw("EXEC GetOutdoorById @Id", new SqlParameter("@Id", id))
-                            .FirstOrDefaultAsync();
+                return _dbContext
+                    .Outdoors
+                    .FromSqlRaw("EXEC GetOutdoorById @Id", new SqlParameter("@Id", id))
+                    .AsEnumerable();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error while getting Outdoor with ID {id}");
-                return null;
+                return Enumerable.Empty<Outdoor>();
             }
         }
+
 
         public async Task<IEnumerable<Outdoor>> GetAllAsync()
         {

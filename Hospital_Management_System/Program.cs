@@ -21,6 +21,7 @@ using System.Diagnostics;
 
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Newtonsoft.Json;
 
 namespace Hospital_Management_System
 {
@@ -44,7 +45,13 @@ namespace Hospital_Management_System
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             //add newtonsoft.json support
 
-            builder.Services.AddControllers().AddNewtonsoftJson();
+            //builder.Services.AddControllers().AddNewtonsoftJson();
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
+
 
             //add cors policy
             builder.Services.AddCors(options =>
