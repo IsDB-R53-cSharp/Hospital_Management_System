@@ -39,7 +39,7 @@ namespace HMS.Repository.Implementation
         //    }
         //}
 
-        public IEnumerable<Outdoor> GetByIdAsync(int id)
+        public IEnumerable<Outdoor> GetById(int id)
         {
             try
             {
