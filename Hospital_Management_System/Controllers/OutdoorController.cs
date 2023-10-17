@@ -46,7 +46,7 @@ namespace Hospital_Management_System.Controllers
         {
             try
             {
-                var outdoor = _outdoorRepo.GetByIdAsync(id);
+                var outdoor = _outdoorRepo.GetById(id);
 
                 if (outdoor == null)
                 {
@@ -79,13 +79,16 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
+
         [HttpPut]
         [Route("Update/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutOutdoor(int id, [FromBody] OutdoorHelper outdoorHelper)
         {
             try
             {
-                Outdoor existingOutdoor = await _outdoorRepo.GetByIdAsync(id);
+                var existingOutdoor = _outdoorRepo.GetById(id).FirstOrDefault();
 
                 if (existingOutdoor == null)
                 {
@@ -104,26 +107,78 @@ namespace Hospital_Management_System.Controllers
             }
         }
 
-
         [HttpDelete]
         [Route("Delete/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult DeleteOutdoor(int id)
         {
             try
             {
-                var existingOutdoor = _outdoorRepo.GetByIdAsync(id);
+                var existingOutdoor = _outdoorRepo.GetById(id).FirstOrDefault();
 
                 if (existingOutdoor == null)
                 {
                     return NotFound($"Outdoor record with ID {id} not found.");
                 }
-                return BadRequest("Outdoor record can't be deleted.");
+
+                _outdoorRepo.DeleteAsync(id);
+
+                return Ok($"Outdoor record with ID {id} has been deleted.");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+
+        //[HttpPut]
+        //[Route("Update/{id}")]
+        //public async Task<IActionResult> PutOutdoor(int id, [FromBody] OutdoorHelper outdoorHelper)
+        //{
+        //    try
+        //    {
+        //        //Outdoor existingOutdoor = await _outdoorRepo.GetByIdAsync(id);
+        //        Outdoor existingOutdoor = await _outdoorRepo.GetById(id);
+
+        //        if (existingOutdoor == null)
+        //        {
+        //            return NotFound($"Outdoor record with ID {id} not found.");
+        //        }
+
+        //        outdoorHelper.UpdateOutdoor(existingOutdoor);
+
+        //        await _outdoorRepo.UpdateAsync(existingOutdoor);
+
+        //        return Ok(existingOutdoor);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
+
+        //[HttpDelete]
+        //[Route("Delete/{id}")]
+        //public IActionResult DeleteOutdoor(int id)
+        //{
+        //    try
+        //    {
+        //        var existingOutdoor = _outdoorRepo.GetByIdAsync(id);
+
+        //        if (existingOutdoor == null)
+        //        {
+        //            return NotFound($"Outdoor record with ID {id} not found.");
+        //        }
+        //        return BadRequest("Outdoor record can't be deleted.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
     }
 }

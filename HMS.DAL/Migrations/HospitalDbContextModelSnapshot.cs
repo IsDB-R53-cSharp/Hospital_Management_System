@@ -111,7 +111,7 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("AmbulanceID");
 
-                    b.ToTable("Ambulances");
+                    b.ToTable("Ambulances", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Models.ApplicationRole", b =>
@@ -596,6 +596,24 @@ namespace HMS.DAL.Migrations
                     b.HasIndex("MorgueID");
 
                     b.ToTable("Drawers");
+
+                    b.HasData(
+                        new
+                        {
+                            DrawerID = 1,
+                            DrawerCondition = 1,
+                            DrawerNo = "Drawer-001",
+                            IsOccupied = false,
+                            MorgueID = 1
+                        },
+                        new
+                        {
+                            DrawerID = 2,
+                            DrawerCondition = 2,
+                            DrawerNo = "Drawer-002",
+                            IsOccupied = true,
+                            MorgueID = 2
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.DrawerInfo", b =>
@@ -1188,7 +1206,23 @@ namespace HMS.DAL.Migrations
 
                     b.HasKey("MorgueID");
 
-                    b.ToTable("Morgues");
+                    b.ToTable("Morgues", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            MorgueID = 1,
+                            Capacity = 50,
+                            IsolationCapability = true,
+                            MorgueName = "Morgue-1"
+                        },
+                        new
+                        {
+                            MorgueID = 2,
+                            Capacity = 100,
+                            IsolationCapability = false,
+                            MorgueName = "Morgue-2"
+                        });
                 });
 
             modelBuilder.Entity("HMS.Models.NumberGeneratorHelper.NumberCounterRecord", b =>
