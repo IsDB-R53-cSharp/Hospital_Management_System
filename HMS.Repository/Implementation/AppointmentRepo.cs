@@ -11,6 +11,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
+
 namespace HMS.Repository
 {
     public class AppointmentRepo : IAppointmentRepo
@@ -120,34 +121,90 @@ namespace HMS.Repository
         //        _dbContext.Database.CloseConnection();
         //    }
         //}
+
+        // Helper method for mapping Appointment to AppointmentVM
+        //private AppointmentVM MapAppointmentVMToAppointment(AppointmentVM appointmentVM)
+        //{
+        //    return new AppointmentVM
+        //    {
+        //        AppointmentID = appointmentVM.AppointmentID,
+        //        PatientName = appointmentVM.PatientName,
+        //        PatientIdentityNumber = appointmentVM.PatientIdentityNumber,
+        //        PhoneNumber = appointmentVM.PhoneNumber,
+        //        Gender = appointmentVM.Gender,
+        //        PatientID = appointmentVM.PatientID,
+        //        DoctorID = appointmentVM.DoctorID,
+        //        AppointmentType = (Models.ViewModels.AppointmentType)appointmentVM.AppointmentType,
+        //        AppointmentDate = appointmentVM.AppointmentDate,
+        //        AppointmentStatus = (Models.ViewModels.AppointmentStatus)appointmentVM.AppointmentStatus
+        //    };
+        //}
+        //public IEnumerable<AppointmentVM> GetAppointmentsByPatientName(string? patientName, string? patientIdentityNumber)
+        //{
+        //    // Call the stored procedure using Entity Framework
+        //    var appointments = _dbContext.Appointments.FromSqlRaw("EXEC GetAppointmentsByPatientName @PatientName={0}, @PatientIdentityNumber={1}", patientName, patientIdentityNumber);
+
+        //    // Map the database entities to AppointmentVM view models
+        //    var appointmentVMs = new List<AppointmentVM>();
+        //    foreach (var appointment in appointments)
+        //    {
+        //        var appointmentvm = MapAppointmentVMToAppointment(appointmentVM);
+        //        //var appointmentVM = new AppointmentVM
+        //        //{
+        //        //    AppointmentID = appointment.AppointmentID,
+        //        //    PatientName = appointment.PatientName,
+        //        //    PatientIdentityNumber = appointment.PatientIdentityNumber,
+        //        //    PhoneNumber = appointment.PhoneNumber,
+        //        //    Gender = appointment.Gender,
+        //        //    PatientID = appointment.PatientID,
+        //        //    DoctorID = appointment.DoctorID,
+        //        //    AppointmentType = (Models.ViewModels.AppointmentType)appointment.AppointmentType,
+        //        //    AppointmentDate = appointment.AppointmentDate,
+        //        //    AppointmentStatus = (Models.ViewModels.AppointmentStatus)appointment.AppointmentStatus
+
+        //        //};
+
+        //        appointmentVMs.Add(appointmentvm);
+        //    }
+
+        //    return appointmentVMs;
+        //}
+
+        private AppointmentVM MapAppointmentToAppointmentVM(Appointment appointment)
+        {
+            return new AppointmentVM
+            {
+                AppointmentID = appointment.AppointmentID,
+                //PatientName = appointment.PatientName,  // Map the PatientName property
+                //PatientIdentityNumber = appointment.PatientIdentityNumber,  // Map the PatientIdentityNumber property
+                //PhoneNumber = appointment.PhoneNumber,  // Map the PhoneNumber property
+                //Gender = appointment.Gender,
+                PatientID = appointment.PatientID,
+                DoctorID = appointment.DoctorID,
+                AppointmentType = (Models.ViewModels.AppointmentType)appointment.AppointmentType,
+                AppointmentDate = appointment.AppointmentDate,
+                AppointmentStatus = (Models.ViewModels.AppointmentStatus)appointment.AppointmentStatus
+            };
+        }
+
         public IEnumerable<AppointmentVM> GetAppointmentsByPatientName(string? patientName, string? patientIdentityNumber)
         {
             // Call the stored procedure using Entity Framework
             var appointments = _dbContext.Appointments.FromSqlRaw("EXEC GetAppointmentsByPatientName @PatientName={0}, @PatientIdentityNumber={1}", patientName, patientIdentityNumber);
 
-            // Map the database entities to AppointmentVM view models
+            // Map the database entities to AppointmentVM view models using the mapping method
             var appointmentVMs = new List<AppointmentVM>();
             foreach (var appointment in appointments)
             {
-                var appointmentVM = new AppointmentVM
-                {
-                    AppointmentID = appointment.AppointmentID,
-                    PatientName = appointment.PatientName,
-                    PatientIdentityNumber = appointment.PatientIdentityNumber,
-                    PhoneNumber = appointment.PhoneNumber,
-                    Gender = appointment.Gender,
-                    PatientID = appointment.PatientID,
-                    DoctorID = appointment.DoctorID,
-                    AppointmentType = appointment.AppointmentType,
-                    AppointmentDate = appointment.AppointmentDate,
-                    AppointmentStatus = appointment.AppointmentStatus
-                };
-
+                var appointmentVM = MapAppointmentToAppointmentVM(appointment);
                 appointmentVMs.Add(appointmentVM);
             }
 
             return appointmentVMs;
         }
+
+
+
 
         public IEnumerable<Appointment> GetAppointmentsByDateRange(DateTime startDate, DateTime endDate)
         {
@@ -291,4 +348,6 @@ namespace HMS.Repository
             }
         }
     }
+
+
 }
