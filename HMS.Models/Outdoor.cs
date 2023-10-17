@@ -34,6 +34,7 @@ namespace HMS.Models
 
         public bool IsAdmissionRequired { get; set; }
 
+
         public  PatientRegister? PatientRegister { get; set; }
 
         public void InitializeTreatmentType()
