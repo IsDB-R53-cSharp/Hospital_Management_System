@@ -66,59 +66,87 @@ namespace HMS.Repository
             }
         }
 
-        public IEnumerable<AppointmentVM> GetAppointmentsByPatientName(string patientName, string? patientIdentityNumber)
+        //public IEnumerable<AppointmentVM> GetAppointmentsByPatientName(string? patientName, string? patientIdentityNumber)
+        //{
+        //    try
+        //    {
+        //        var parameters = new List<SqlParameter>
+        //    {
+        //        new SqlParameter("@PatientName", patientName),
+        //        new SqlParameter("@PatientIdentityNumber", patientIdentityNumber)
+        //    };
+
+        //        var sql = "EXEC GetAppointmentsByPatientName @PatientName, @PatientIdentityNumber";
+
+        //        using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+        //        {
+        //            command.CommandText = sql;
+        //            command.Parameters.AddRange(parameters.ToArray());
+        //            command.CommandType = CommandType.StoredProcedure;
+
+        //            _dbContext.Database.OpenConnection();
+
+        //            using (var result = command.ExecuteReader())
+        //            {
+        //                var appointmentVMs = new List<AppointmentVM>();
+        //                while (result.Read())
+        //                {
+        //                    var appointmentVM = new AppointmentVM
+        //                    {
+        //                        AppointmentID = Convert.ToInt32(result["AppointmentID"]),
+        //                        PatientName = result["PatientName"].ToString(),
+        //                        PatientIdentityNumber = result["PatientIdentityNumber"].ToString(),
+        //                        Gender = Convert.ToInt32(result["Gender"]),
+        //                        PhoneNumber = result["PhoneNumber"].ToString(),
+        //                        DoctorID = Convert.ToInt32(result["DoctorID"]),
+        //                        AppointmentType = (HMS.Models.ViewModels.AppointmentType)Enum.Parse(typeof(HMS.Models.ViewModels.AppointmentType), result["AppointmentType"].ToString()),
+        //                        AppointmentDate = Convert.ToDateTime(result["AppointmentDate"]),
+        //                        AppointmentStatus = (HMS.Models.ViewModels.AppointmentStatus)Enum.Parse(typeof(HMS.Models.ViewModels.AppointmentStatus), result["AppointmentStatus"].ToString())
+
+        //                    };
+        //                    appointmentVMs.Add(appointmentVM);
+        //                }
+        //                return appointmentVMs;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, $"Error while getting appointments for patient: {patientName}");
+        //        return Enumerable.Empty<AppointmentVM>();
+        //    }
+        //    finally
+        //    {
+        //        _dbContext.Database.CloseConnection();
+        //    }
+        //}
+        public IEnumerable<AppointmentVM> GetAppointmentsByPatientName(string? patientName, string? patientIdentityNumber)
         {
-            try
-            {
-                var parameters = new List<SqlParameter>
-            {
-                new SqlParameter("@PatientName", patientName),
-                new SqlParameter("@PatientIdentityNumber", patientIdentityNumber)
-            };
+            // Call the stored procedure using Entity Framework
+            var appointments = _dbContext.Appointments.FromSqlRaw("EXEC GetAppointmentsByPatientName @PatientName={0}, @PatientIdentityNumber={1}", patientName, patientIdentityNumber);
 
-                var sql = "EXEC GetAppointmentsByPatientName @PatientName, @PatientIdentityNumber";
-
-                using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+            // Map the database entities to AppointmentVM view models
+            var appointmentVMs = new List<AppointmentVM>();
+            foreach (var appointment in appointments)
+            {
+                var appointmentVM = new AppointmentVM
                 {
-                    command.CommandText = sql;
-                    command.Parameters.AddRange(parameters.ToArray());
-                    command.CommandType = CommandType.StoredProcedure;
+                    AppointmentID = appointment.AppointmentID,
+                    PatientName = appointment.PatientName,
+                    PatientIdentityNumber = appointment.PatientIdentityNumber,
+                    PhoneNumber = appointment.PhoneNumber,
+                    Gender = appointment.Gender,
+                    PatientID = appointment.PatientID,
+                    DoctorID = appointment.DoctorID,
+                    AppointmentType = appointment.AppointmentType,
+                    AppointmentDate = appointment.AppointmentDate,
+                    AppointmentStatus = appointment.AppointmentStatus
+                };
 
-                    _dbContext.Database.OpenConnection();
+                appointmentVMs.Add(appointmentVM);
+            }
 
-                    using (var result = command.ExecuteReader())
-                    {
-                        var appointmentVMs = new List<AppointmentVM>();
-                        while (result.Read())
-                        {
-                            var appointmentVM = new AppointmentVM
-                            {
-                                AppointmentID = Convert.ToInt32(result["AppointmentID"]),
-                                PatientName = result["PatientName"].ToString(),
-                                PatientIdentityNumber = result["PatientIdentityNumber"].ToString(),
-                                Gender = Convert.ToInt32(result["Gender"]),
-                                PhoneNumber = result["PhoneNumber"].ToString(),
-                                DoctorID = Convert.ToInt32(result["DoctorID"]),
-                                AppointmentType = (HMS.Models.ViewModels.AppointmentType)Enum.Parse(typeof(HMS.Models.ViewModels.AppointmentType), result["AppointmentType"].ToString()),
-                                AppointmentDate = Convert.ToDateTime(result["AppointmentDate"]),
-                                AppointmentStatus = (HMS.Models.ViewModels.AppointmentStatus)Enum.Parse(typeof(HMS.Models.ViewModels.AppointmentStatus), result["AppointmentStatus"].ToString())
-
-                            };
-                            appointmentVMs.Add(appointmentVM);
-                        }
-                        return appointmentVMs;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error while getting appointments for patient: {patientName}");
-                return Enumerable.Empty<AppointmentVM>();
-            }
-            finally
-            {
-                _dbContext.Database.CloseConnection();
-            }
+            return appointmentVMs;
         }
 
         public IEnumerable<Appointment> GetAppointmentsByDateRange(DateTime startDate, DateTime endDate)

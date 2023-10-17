@@ -13,7 +13,7 @@ namespace HMS.Repository.Interface
         /*Task<IEnumerable<Appointment>> GetAllAppointment();*///Returns all appointment record
         Appointment GetAppointmentById(int appointmentID);
         IEnumerable<Appointment> GetAppointmentsForDoctor(int doctorID);
-        IEnumerable<AppointmentVM> GetAppointmentsByPatientName(string patientName, string? patientIdentityNumber);
+        IEnumerable<AppointmentVM> GetAppointmentsByPatientName(string? patientName, string? patientIdentityNumber);
         IEnumerable<Appointment> GetAppointmentsByDateRange(DateTime startDate, DateTime endDate);
         IEnumerable<Appointment> GetAppointmentsByType(int appointmentType);
         IEnumerable<Appointment> GetAppointmentsByStatus(int appointmentStatus);

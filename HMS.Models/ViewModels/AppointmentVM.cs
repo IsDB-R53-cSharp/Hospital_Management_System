@@ -16,8 +16,6 @@ namespace HMS.Models.ViewModels
         public string PhoneNumber { get; set; } = string.Empty;
         public int Gender { get; set; }
 
-
-
         public int PatientID { get; set; } // For necessary info of patient
 
         //[ForeignKey("Doctor")]

@@ -81,7 +81,7 @@ namespace Hospital_Management_System.Controllers
         [Route("GetAppointmentsByPatientName")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetAppointmentsByPatientName(string patientName, string? patientIdentityNumber)
+        public IActionResult GetAppointmentsByPatientName(string? patientName, string? patientIdentityNumber)
         {
             try
             {
