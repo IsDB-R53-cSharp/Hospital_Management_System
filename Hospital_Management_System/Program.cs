@@ -21,7 +21,9 @@ using System.Diagnostics;
 
 using Microsoft.Extensions.Logging;
 using Serilog;
+using HMS.Repository;
 using Newtonsoft.Json;
+
 
 namespace Hospital_Management_System
 {
@@ -132,6 +134,7 @@ namespace Hospital_Management_System
             builder.Services.AddScoped<ILabTechnicianRepo, LabTechnicianRepo>();
             builder.Services.AddScoped<IOtherEmployeeRepo, OtherEmployeeRepo>();
             builder.Services.AddScoped<IOutdoorRepo,OutdoorRepo>();
+            builder.Services.AddScoped<IAppointmentRepo, AppointmentRepo>();
 
             builder.Services.AddScoped<IServiceRepo, ServiceRepo>();
             builder.Services.AddScoped<IManufacturerRepo, ManufacturerRepo>();
