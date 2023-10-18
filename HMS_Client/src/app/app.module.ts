@@ -15,6 +15,8 @@ import { SurgeryService } from './service/surgery.service';
 import { WardCabinService } from './service/ward-cabin.service';
 import { NurseComponent } from './componenets/nurse/nurse.component';
 import { NurseService } from './service/nurse.service';
+import { DoctorComponent } from './componenets/doctor/doctor.component';
+import { DoctorService } from './service/doctor.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { NurseService } from './service/nurse.service';
     PreoperativeDiagnosisComponent,
     SurgeryComponent,
     WardCabinComponent,
-    NurseComponent
+    NurseComponent,
+    DoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { NurseService } from './service/nurse.service';
     PreoperativeDiagnosisService,
     SurgeryService,
     WardCabinService,
-    NurseService
+    NurseService,
+    DoctorService
   ],
   bootstrap: [AppComponent]
 })
