@@ -1,8 +1,8 @@
-<h1>Round 53 cSharp</h1>
-<div class="text-danger">Round 53 cSharp</div>
+<h1 class="display-2">Round 53 cSharp</h1>
+<div class="text-danger">Round 53 c#</div>
 
 
-<section>
+<!-- <section>
   <div class="example-label">Basic</div>
   <div class="example-button-row">
     <button mat-button>Basic</button>
@@ -12,17 +12,21 @@
     <button mat-button disabled>Disabled</button>
     <a mat-button href="https://www.google.com/" target="_blank">Link</a>
   </div>
-</section>
+</section> -->
 
 <section>
-  <div class="example-label">Raised</div>
+  <!-- <div class="example-label">Raised</div> -->
   <div class="example-button-row">
-    <button mat-raised-button>Basic</button>
+    <!-- <button mat-raised-button>Basic</button>
     <button mat-raised-button color="primary">Primary</button>
     <button mat-raised-button color="accent">Accent</button>
     <button mat-raised-button color="warn">Warn</button>
-    <button mat-raised-button disabled>Disabled</button>
-    <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
+    <button mat-raised-button disabled>Disabled</button> -->
+    <a mat-raised-button style="margin-right: 10px;" class="mr-3" color="warn" [routerLink]="['/bed']">Bed</a>
+    <a mat-raised-button style="margin-right: 10px;" color="accent" [routerLink]="['/preoperativeDiagnosis']">Preoperative Diagnosis</a>
+    <a mat-raised-button style="margin-right: 10px;" color="primary" [routerLink]="['/surgery']">Surgery</a>
+    <a mat-raised-button style="margin-right: 10px;" color="warn" [routerLink]="['/wardCabin']">Ward Cabin</a>
+    <!-- <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a> -->
   </div>
 </section>
 
