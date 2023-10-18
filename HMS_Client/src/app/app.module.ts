@@ -13,6 +13,8 @@ import { WardCabinComponent } from './componenets/ward-cabin/ward-cabin.componen
 import { PreoperativeDiagnosisService } from './service/preoperative-diagnosis.service';
 import { SurgeryService } from './service/surgery.service';
 import { WardCabinService } from './service/ward-cabin.service';
+import { NurseComponent } from './componenets/nurse/nurse.component';
+import { NurseService } from './service/nurse.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { WardCabinService } from './service/ward-cabin.service';
     BedComponent,
     PreoperativeDiagnosisComponent,
     SurgeryComponent,
-    WardCabinComponent
+    WardCabinComponent,
+    NurseComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { WardCabinService } from './service/ward-cabin.service';
     BedService,
     PreoperativeDiagnosisService,
     SurgeryService,
-    WardCabinService
+    WardCabinService,
+    NurseService
   ],
   bootstrap: [AppComponent]
 })
