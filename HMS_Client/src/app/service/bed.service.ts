@@ -7,9 +7,6 @@ import { Bed } from '../models/bed';
   providedIn: 'root'
 })
 export class BedService {
-  static getAllBed() {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(private http:HttpClient) { }
   getAllBed(): Observable<any>{
@@ -19,7 +16,7 @@ export class BedService {
     return this.http.post<Bed>("http://localhost:5041/api/Beds",b);
   }
   updateBed(b:Bed): Observable<Bed>{
-    return this.http.put<Bed>("http://localhost:5041/api/Beds/"+b.bedId,b);
+    return this.http.put<Bed>("http://localhost:5041/api/Beds/"+b.bedID,b);
   }
   deleteBed(id:number): Observable<any>{
     return this.http.delete<any>("http://localhost:5041/api/Beds"+id);

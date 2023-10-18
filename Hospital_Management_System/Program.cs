@@ -168,7 +168,13 @@ namespace Hospital_Management_System
                 app.UseSwaggerUI();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HospitalManagement v1"));
             }
-
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseCors(_loginOrigin);

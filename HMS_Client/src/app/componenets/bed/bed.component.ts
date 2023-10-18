@@ -12,9 +12,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class BedComponent {
   Bed: any;
   postBed: Bed = {
-    bedId: undefined,
+    // bedId: undefined,
+    // bedNumber: '',
+    // isOccupid: true
+    bedID: undefined,
     bedNumber: '',
-    isOccupid: true
+    isOccupied: true
   }
   constructor(private bedSer: BedService, private route: Router) { }
   ngOnInit() {
@@ -27,24 +30,24 @@ export class BedComponent {
     });
   }
   insertBed() {
-    if (this.postBed.bedId === undefined) {
+    if (this.postBed.bedID === undefined) {
       this.bedSer.postBed(this.postBed).subscribe(p => {
         console.log(p);
         this.route.navigate(['/bed']);
         this.GetAllBed();
         this.postBed = {
-          bedId: undefined,
+          bedID: undefined,
           bedNumber: '',
-          isOccupid:undefined
+          isOccupied: true
         }
       });
     }
     else {
       this.updateBed(this.postBed)
       this.postBed = {
-        bedId: undefined,
+        bedID: undefined,
         bedNumber: '',
-        isOccupid: undefined
+        isOccupied: true
       }
     }
   }

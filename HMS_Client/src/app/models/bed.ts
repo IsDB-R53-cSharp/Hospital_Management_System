@@ -1,7 +1,7 @@
 export class Bed {
     constructor(
-        public bedId?: number,
+        public bedID?: number,
         public bedNumber?: string,
-        public isOccupid?: boolean
+        public isOccupied?: boolean
     ){}
 }

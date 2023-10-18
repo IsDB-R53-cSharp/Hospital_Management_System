@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 const modules=[
   CommonModule,
   MatButtonModule,
   MatFormFieldModule,
-  FormsModule
+  FormsModule,
+  MatToolbarModule
 ]
 
 @NgModule({
