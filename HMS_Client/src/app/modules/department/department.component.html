@@ -20,6 +20,8 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
+
+
         <div class="card">
           <div class="card-header">
             <button data-toggle="modal" data-target="#modal-edit-department" type="button"
@@ -44,6 +46,7 @@
                 <tr>
                   <th style="width: 40px;" class="text-center">#</th>
                   <th>Department Name</th>
+                  <th>Department Description</th>
 
                   <th class="text-center" style="width:40px">Action</th>
                 </tr>
@@ -53,6 +56,7 @@
                   <td class="text-center">{{ndx + 1}}</td>
 
                   <td>{{item.departmentName}}</td>
+                  <td>{{item.departmentDescription}}</td>
 
                   <td class="text-center">
                     <div class="btn-group">
@@ -107,7 +111,11 @@
                         <label>Department Name</label>
                         <input type="text" class="form-control" formControlName="departmentName">
                         <span *ngIf="departmentName?.invalid && formSubmitAttempt || departmentName?.invalid && departmentName?.touched"
-                              class="error invalid-message">Please enter departmentName Name </span>
+                              class="error invalid-message">Please enter department Name </span>
+                        <input type="text" class="form-control" formControlName="departmentDescription">
+                        <span *ngIf="departmentDescription?.invalid && formSubmitAttempt || departmentDescription?.invalid && departmentDescription?.touched"
+                              class="error invalid-message">Please enter departmentDescription
+                        </span>
                       </div>
                     </div>
                   </div>

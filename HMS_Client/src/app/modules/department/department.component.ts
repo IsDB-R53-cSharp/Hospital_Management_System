@@ -42,50 +42,48 @@ export class DepartmentComponent implements OnInit {
   public deptInfoForm = this.formBuilder.group({
     departmentId: [0],
     departmentName: ['', Validators.required],
+    departmentDescription: ['', Validators.required],
   })
 
   get departmentName() { return this.deptInfoForm.get("departmentName") };
+  get departmentDescription() { return this.deptInfoForm.get("departmentDescription") };
  
 
   pupulateForm(selectedRecord: DepartmentInfoModel) {
     this.deptInfoForm.patchValue({
       departmentId: selectedRecord.departmentId,
       departmentName: selectedRecord.departmentName,
+      departmentDescription: selectedRecord.departmentDescription,
   });
 
   }
 
   onSubmit() {
-    if(this.deptInfoForm.valid){
+    if (this.deptInfoForm.valid) {
       this.deptInfoFormService.departmentInfoModel.departmentId = this.deptInfoForm.value.departmentId || 0;
-      /* this.deptInfoFormService.departmentInfoModel.departmentName = this.deptInfoForm.value.departmentName; */
-      if (this.deptInfoForm.valid) {
-        const departmentName = this.deptInfoForm.value.departmentName;
 
-        if (departmentName !== null && departmentName !== undefined) {
-          this.deptInfoFormService.departmentInfoModel.departmentName = departmentName;
-        } else {
-          // Handle the case when departmentName is null or undefined, e.g., assign a default value
-          this.deptInfoFormService.departmentInfoModel.departmentName = "Default Value";
-        }
-
-        // Continue with the rest of your code
+      if (this.deptInfoForm.value.departmentName) {
+        this.deptInfoFormService.departmentInfoModel.departmentName = this.deptInfoForm.value.departmentName;
       } else {
-        this.formSubmitAttempt = true;
+        this.deptInfoFormService.departmentInfoModel.departmentName = "Default Value";
+      }
+
+      if (this.deptInfoForm.value.departmentDescription) {
+        this.deptInfoFormService.departmentInfoModel.departmentDescription = this.deptInfoForm.value.departmentDescription;
+      } else {
+        this.deptInfoFormService.departmentInfoModel.departmentDescription = "Default Description";
       }
 
       if (this.deptInfoForm.value.departmentId == 0 || this.deptInfoForm.value.departmentId == null) {
         this.insert();
-      }
-      else {
+      } else {
         this.update();
       }
-    }else{
-      this.formSubmitAttempt=true;
+    } else {
+      this.formSubmitAttempt = true;
     }
+  }
 
-   
-  };
 
   insert() {
     this.deptInfoFormService.insert().subscribe((data: ResponseModel) => {
@@ -145,6 +143,7 @@ export class DepartmentComponent implements OnInit {
     this.formSubmitAttempt=false;
     this.deptInfoForm.get('departmentId')?.setValue(0);
     this.deptInfoForm.get('departmentName')?.setValue('');
+    this.deptInfoForm.get('departmentDescription')?.setValue('');
   }
 
 }

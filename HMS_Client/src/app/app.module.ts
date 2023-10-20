@@ -22,6 +22,7 @@ import { DeshboardModule } from './modules/deshboard/deshboard.module';
 import { HrManagementModule } from './modules/hr-management.module';
 import { ToastrModule } from 'ngx-toastr';
 
+
 @NgModule({
   declarations: [
     AppComponent,
