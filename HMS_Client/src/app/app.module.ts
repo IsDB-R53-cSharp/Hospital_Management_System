@@ -17,6 +17,10 @@ import { NurseComponent } from './componenets/nurse/nurse.component';
 import { NurseService } from './service/nurse.service';
 import { DoctorComponent } from './componenets/doctor/doctor.component';
 import { DoctorService } from './service/doctor.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DeshboardModule } from './modules/deshboard/deshboard.module';
+import { HrManagementModule } from './modules/hr-management.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,13 @@ import { DoctorService } from './service/doctor.service';
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientModule,
-    MatModule
+    MatModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DeshboardModule,
+    HrManagementModule,
+    ToastrModule.forRoot()
+
   ],
   providers: [
     BedService,
