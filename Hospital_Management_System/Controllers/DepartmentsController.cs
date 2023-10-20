@@ -20,7 +20,6 @@ namespace Hospital_Management_System.Controllers
             _db = db;
             _iDepartment = iDepartment;
         }
-        [Authorize(Roles = "IT")]
         [HttpGet("GetAll")]
         public async Task<ActionResult> GetAll()
         {
@@ -34,7 +33,7 @@ namespace Hospital_Management_System.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        [Authorize(Roles = "ABC")]
+    
         [HttpGet("{id:int}")]
         public async Task<ActionResult<DepartmentVM>> GetById(int id)
         {

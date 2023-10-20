@@ -48,23 +48,27 @@ namespace Hospital_Management_System
             //add newtonsoft.json support
 
             //builder.Services.AddControllers().AddNewtonsoftJson();
-            builder.Services.AddControllers()
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                });
+            builder.Services.AddControllersWithViews()
+                 .AddNewtonsoftJson(option => {
+                     option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+                     option.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+                 });
 
 
-            //add cors policy
-            builder.Services.AddCors(options =>
+            ////add cors policy
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddDefaultPolicy(builder =>
+            //    {
+            //        builder.AllowAnyOrigin()
+            //                .AllowAnyMethod()
+            //                .AllowAnyHeader();
+            //    });
+            //});
+            builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
             {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader();
-                });
-            });
+                builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            }));
             builder.Services.AddEndpointsApiExplorer();
 
             builder.Services.AddSwaggerGen(c =>
@@ -180,7 +184,9 @@ namespace Hospital_Management_System
             });
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-            app.UseCors(_loginOrigin);
+            // app.UseCors(_loginOrigin);
+            app.UseCors("corsapp");
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
