@@ -1,9 +1,10 @@
 ﻿using HMS.DAL.Data;
 using HMS.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -11,61 +12,102 @@ namespace Hospital_Management_System.Controllers
     [ApiController]
     public class BillController : ControllerBase
     {
-        //private readonly HospitalDbContext _context;
+        private readonly HospitalDbContext _db;
 
-        //public BillController(HospitalDbContext context)
-        //{
-        //    _context = context;
-        //}
+        public BillController(HospitalDbContext db)
+        {
+            _db = db;
+        }
 
+        // GET: api/Bill
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Bill>>> GetBills()
+        {
+            return await _db.Bills.ToListAsync();
+        }
 
-        //[HttpGet]
-        //public IActionResult GetAllBills()
-        //{
-        //    IQueryable<Bill> bills = _context.Bills.FromSqlRaw("GetAllBills").AsQueryable();
-        //    if (bills == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(bills);
-        //}
+        // GET: api/Bill/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Bill>> GetBill(int id)
+        {
+            var bill = await _db.Bills.FindAsync(id);
 
-        //[HttpGet("{id}")]
-        //public ActionResult GetBillById(int id)
-        //{
-        //    var idParameter = new SqlParameter("@id", id);
+            if (bill == null)
+            {
+                return NotFound();
+            }
 
-        //    IQueryable<Bill> bills = _context.Bills
-        //        .FromSqlRaw("EXEC GetBillById @id", idParameter)
-        //        .AsQueryable();
+            return bill;
+        }
 
-        //    if (bills == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // POST: api/Bill
+        [HttpPost]
+        public async Task<ActionResult<Bill>> PostBill(Bill bill)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    return Ok(bills);
-        //}
+            _db.Bills.Add(bill);
+            await _db.SaveChangesAsync();
 
-        //[HttpPost]
-        //public IActionResult InsertBill([FromForm] Bill bill)
-        //{
-        //    using (var transaction = _context.Database.BeginTransaction())
-        //    {
-        //        try
-        //        {
-        //            _context.Database.ExecuteSqlRaw("EXEC AddBills @PatientID={0}, @TransactionInfo={1}, @BillAmount={2}, @Discount={3}, @PaidAmount={4}, @Due={5},@PaymentMethod={6},@PaymentStatus={7}, @BillDate={8}, @isInsurance={9}, @InsuranceInfo={10}, @BillingAddress={11}, @BillingNotes={12}, @PreparedBy={13},@ServiceID={14} ",
-        //                bill.PatientID, bill.TransactionInfo, bill.BillAmount, bill.Discount, bill.PaidAmount, bill.Due, bill.PaymentMethod, bill.PaymentStatus, bill.BillDate, bill.isInsurance, bill.InsuranceInfo, bill.BillingAddress, bill.BillingNotes, bill.PreparedBy, bill.ServiceID);
+            return CreatedAtAction("GetBill", new { id = bill.BillId }, bill);
+        }
 
-        //            transaction.Commit();
-        //            return Ok("Bill inserted successfully.");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            transaction.Rollback();
-        //            return BadRequest($"Failed to insert bill. Error: {ex.Message}");
-        //        }
-        //    }
-        //}
+        // PUT: api/Bill/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutBill(int id, Bill bill)
+        {
+            if (id != bill.BillId)
+            {
+                return BadRequest("Invalid request");
+            }
+
+            _db.Entry(bill).State = EntityState.Modified;
+
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BillExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/Bill/5
+        [HttpDelete("{id}")]
+
+        public async Task<ActionResult> DeleteBill(int id)
+        {
+            try
+            {
+                var bill = await _db.Bills.FindAsync(id);
+                if (bill == null)
+                {
+                    return NotFound($"Bills record with ID {id} not found.");
+                }
+                return BadRequest("Bills record can't be deleted.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        private bool BillExists(int id)
+        {
+            return _db.Bills.Any(e => e.BillId == id);
+        }
     }
 }
