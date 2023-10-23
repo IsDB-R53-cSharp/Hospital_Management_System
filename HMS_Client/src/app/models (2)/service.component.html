@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center">Service Information</p>
+    <div class="col-4">
+
+      <!--<form (ngSubmit)="insertTest()">
+        <div>
+          <label>Test Name</label>
+          <input name="testName" type="text" [(ngModel)]="POSTTEST.testName" class="form-control" />
+        </div>
+        <div>
+          <label>Test Type</label>
+          <input name="testType" type="text" [(ngModel)]="POSTTEST.testType" class="form-control" />
+        </div>
+        <div>
+          <label>Test Price</label>
+          <input name="price" type="number" [(ngModel)]="POSTTEST.price" class="form-control" />
+        </div>
+        <div class="offset-5 mt-1">
+         <a class="btn btn-outline-info">SAVE</a>
+        </div>
+      </form>-->
+      <form (ngSubmit)="insertService()" class="bg-info">
+        <div>
+          <label for="serviceName">Service Name</label>
+          <input id="serviceName" name="serviceName" type="text" [(ngModel)]="POSTService.serviceName" class="form-control" />
+        </div>
+        <div>
+          <label for="serviceCharge">Service Charge</label>
+          <input id="serviceCharge" name="serviceCharge" type="number" [(ngModel)]="POSTService.serviceCharge" class="form-control" />
+        </div>
+        <div class="offset-5 mt-1">
+          <button type="submit" class="btn btn-outline-info text-black">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-8">
+      <table class="table table-bordered">
+        <thead class="table table-info">
+          <tr>
+            <th>ServiceName</th>
+            <th>ServiceCharge</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of Service">
+            <td>{{ok.serviceName}}</td>
+            <td>{{ok.serviceCharge}}</td>
+            <td class="text-center">
+              <a (click)="PopulateService(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <a (click)="ServiceDelete(ok.ServiceID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

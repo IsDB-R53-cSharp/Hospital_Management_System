@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center" style="color:navy; font-family:'Times New Roman';font-style:italic">WasteManagement Info</p>
+    <div class="col-3">
+      <form (ngSubmit)="insertWasteManagement()">
+        <div>
+          <label>WasteType</label>
+          <input name="wasteType" type="number" [(ngModel)]="POSTWasteManagement.wasteType" class="form-control" />
+        </div>
+
+        <div>
+          <label>DisposalDate</label>
+          <input name="disposalDate" type="date" [(ngModel)]="POSTWasteManagement.disposalDate" class="form-control" />
+        </div>
+
+        <div>
+          <label> DisposalMethod</label>
+          <input name="disposalMethod" type="text" [(ngModel)]="POSTWasteManagement.disposalMethod" class="form-control" />
+        </div>
+
+        <div>
+          <label>Quantity</label>
+          <input name="quantity" type="number" [(ngModel)]="POSTWasteManagement.quantity" class="form-control" />
+        </div>
+
+        <div>
+          <label>NextScheduleDate</label>
+          <input name="nextScheduleDate" type="date" [(ngModel)]="POSTWasteManagement.nextScheduleDate" class="form-control" />
+        </div>
+
+        <div>
+          <label>ContactNumber</label>
+          <input name="contactNumber" type="text" [(ngModel)]="POSTWasteManagement.contactNumber" class="form-control" />
+        </div>
+        <div>
+          <button class="btn btn-outline-info">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-9">
+      <table class="table table-bordered">
+        <thead class="table table-primary">
+          <tr>
+            <th>WasteType</th>
+            <th>DisposalDate</th>
+            <th>DisposalMethod</th>
+            <th>Quantity</th>
+            <th>NextScheduleDate</th>
+            <th>ContactNumber</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of waste">
+            <td>{{ok.wasteType}}</td>
+            <td>{{ok.disposalDate}}</td>
+            <td>{{ok.disposalMethod}}</td>
+            <td>{{ok.quantity}}</td>
+            <td>{{ok.nextScheduleDate}}</td>
+            <td>{{ok.contactNumber}}</td>
+            <td class="text-center">
+              <a (click)="PopulateWasteManagement(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <a (click)="WasteManagementDelete(ok.wasteID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
