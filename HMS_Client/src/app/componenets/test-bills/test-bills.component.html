@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center">TestBill Information</p>
+    <div class="col-4">
+      <form (ngSubmit)="postTestBills()" class="bg-info">
+        <div>
+          <label for="testBillName">Test Bill Name</label>
+          <input type="text" id="testBillName" name="testBillName" [(ngModel)]="PostTestBill.testBillName" class="form-control" required>
+        </div>
+        <div>
+          <label for="prescriptionID">Prescription ID</label>
+          <input type="text" id="prescriptionID" name="prescriptionID" [(ngModel)]="PostTestBill.prescriptionID" class="form-control" required>
+        </div>
+        <div>
+          <label for="price">Price</label>
+          <input type="number" id="price" name="price" [(ngModel)]="PostTestBill.price" class="form-control" required>
+        </div>
+        <div>
+          <label for="isComplete">IsComplete</label>
+          <input type="checkbox" id="isComplete" name="isComplete" [(ngModel)]="PostTestBill.isComplete">
+        </div>
+        <div>
+          <label for="paidAmount">Paid Amount</label>
+          <input type="number" id="paidAmount" name="paidAmount" [(ngModel)]="PostTestBill.paidAmount" class="form-control" required>
+        </div>
+        <label for="due">Due</label>
+        <input type="text" id="due" name="due" [(ngModel)]="PostTestBill.due" class="form-control" [value]="PostTestBill.due" disabled>
+        <div class="offset-5 mt-1">
+          <button type="submit" class="btn btn-outline-info text-black">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-8">
+      <table class="table table-bordered">
+        <thead class="table table-info">
+          <tr>
+            <th>Test Bill Name</th>
+            <th>PrescriptionID</th>
+            <th>Price</th>
+            <th>IsComplete</th>
+            <th>PaidAmount</th>
+            <th>due</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of TestBills">
+            <td>{{ok.testBillName}}</td>
+            <td>{{ok.prescriptionID}}</td>
+            <td>{{ok.price}}</td>
+            <td>{{ok.isComplete}}</td>
+            <td>{{ok.paidAmount}}</td>
+            <td>{{ok.due}}</td>
+            <td class="text-center">
+              <a (click)="PopulateTestBills(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <!--<a (click)="ServiceDelete(ok.ServiceID)" class="btn btn-danger">DELETE</a>-->
+            </td>
+          </tr>
+        </tbody>
+        <!--<div class="subtotal">
+          <p>Total Price Amount (Subtotal Price Amount): {{ calculateSubtotalPriceAmount() | currency }}</p>
+        </div>
+
+        <div class="subtotal">
+          <p>Total Paid Amount (Subtotal Paid Amount): {{ calculateSubtotalPaidAmount() | currency }}</p>
+        </div>
+
+        <div class="subtotal">
+          <p>Total Due (Subtotal Due): {{ calculateSubtotalDue() | currency }}</p>
+        </div>-->
+      </table>
+    </div>
+  </div>
+
+</div>
+<!--<div class="container">
+  <h2>Add a New Service</h2>-->
+<!-- Your form content here -->
+<!-- Display Subtotal Price Amount, Subtotal Paid Amount, and Subtotal Due -->
+<!--<div class="subtotal">
+    <p>Total Price Amount (Subtotal Price Amount): {{ calculateSubtotalPriceAmount() | currency }}</p>
+  </div>
+
+  <div class="subtotal">
+    <p>Total Paid Amount (Subtotal Paid Amount): {{ calculateSubtotalPaidAmount() | currency }}</p>
+  </div>
+
+  <div class="subtotal">
+    <p>Total Due (Subtotal Due): {{ calculateSubtotalDue() | currency }}</p>
+  </div>
+</div>-->

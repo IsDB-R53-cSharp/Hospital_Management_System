@@ -21,6 +21,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeshboardModule } from './modules/deshboard/deshboard.module';
 import { HrManagementModule } from './modules/hr-management.module';
 import { ToastrModule } from 'ngx-toastr';
+import { ServicesService } from './service/services.service';
+import { ServiceComponent } from './componenets/service/service.component';
+import { TestBillsComponent } from './componenets/test-bills/test-bills.component';
+import { TestBillsService } from './service/test-bills.service';
+import { TakenServicesComponent } from './componenets/taken-services/taken-services.component';
+import { TakenServicesService } from './service/taken-services.service';
+import { MedicineBillsComponent } from './componenets/medicine-bills/medicine-bills.component';
+import { MedicineBillsService } from './service/medicine-bills.service';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +39,12 @@ import { ToastrModule } from 'ngx-toastr';
     SurgeryComponent,
     WardCabinComponent,
     NurseComponent,
-    DoctorComponent
+    DoctorComponent,
+    ServiceComponent,
+    TestBillsComponent,
+    TakenServicesComponent,
+    MedicineBillsComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -52,7 +66,11 @@ import { ToastrModule } from 'ngx-toastr';
     SurgeryService,
     WardCabinService,
     NurseService,
-    DoctorService
+    DoctorService,
+    ServicesService,
+    TestBillsService,
+    TakenServicesService,
+    MedicineBillsService
   ],
   bootstrap: [AppComponent]
 })

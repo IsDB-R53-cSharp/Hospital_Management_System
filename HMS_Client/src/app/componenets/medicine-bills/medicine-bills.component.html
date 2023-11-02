@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center">MedicineBill Information</p>
+    <div class="col-4">
+      <form (ngSubmit)="insertMedicineBills()" class="bg-info">
+        <div>
+          <label for="medicineName">Medicine Name</label>
+          <input type="text" id="medicineName" name="medicineName" [(ngModel)]="PostMedicineBills.medicineName" class="form-control" required>
+        </div>
+        <div>
+          <label for="prescriptionID">Prescription ID</label>
+          <input type="number" id="prescriptionID" name="prescriptionID" [(ngModel)]="PostMedicineBills.prescriptionID" class="form-control" required>
+        </div>
+        <div>
+          <label for="medicineCount">Medicine Count</label>
+          <input type="number" id="medicineCount" name="medicineCount" [(ngModel)]="PostMedicineBills.medicineCount" class="form-control" required>
+        </div>
+        <div>
+          <label for="price">Price:</label>
+          <input type="number" id="price" name="price" [(ngModel)]="PostMedicineBills.price" class="form-control" required>
+        </div>
+        <label for="netPrice">Net Price</label>
+        <input type="text" id="netPrice" name="netPrice" [(ngModel)]="PostMedicineBills.netPrice" class="form-control" [value]="PostMedicineBills.netPrice" disabled>
+        <div>
+          <div>
+            <label for="isComplete">IsComplete</label>
+            <input type="checkbox" id="isComplete" name="isComplete" [(ngModel)]="PostMedicineBills.isComplete">
+          </div>
+          <label for="paidAmount">Paid Amount</label>
+          <input type="number" id="paidAmount" name="paidAmount" [(ngModel)]="PostMedicineBills.paidAmount" class="form-control" required>
+        </div>
+        <label for="due">Due</label>
+        <input type="text" id="due" name="due" [(ngModel)]="PostMedicineBills.due" class="form-control" [value]="PostMedicineBills.due" disabled>
+        <div class="offset-5 mt-1">
+          <button type="submit" class="btn btn-outline-info text-black">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-8">
+      <table class="table table-bordered">
+        <thead class="table table-info">
+          <tr>
+            <th>Medicine Name</th>
+            <th>PrescriptionID</th>
+            <th>Medicine Count</th>
+            <th>Price</th>
+            <th>Net Price</th>
+            <th>IsComplete</th>
+            <th>PaidAmount</th>
+            <th>due</th>
+
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of MedicineBills">
+            <td>{{ok.medicineName}}</td>
+            <td>{{ok.prescriptionID}}</td>
+            <td>{{ok.medicineCount}}</td>
+            <td>{{ok.price}}</td>
+            <td>{{ok.netPrice}}</td>
+            <td>{{ok.isComplete}}</td>
+            <td>{{ok.paidAmount}}</td>
+            <td>{{ok.due}}</td>
+            <td class="text-center">
+              <a (click)="PopulateMedicineBills(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <!--<a (click)="ServiceDelete(ok.ServiceID)" class="btn btn-danger">DELETE</a>-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

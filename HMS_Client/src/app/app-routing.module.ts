@@ -8,6 +8,10 @@ import { NurseComponent } from './componenets/nurse/nurse.component';
 import { DoctorComponent } from './componenets/doctor/doctor.component';
 import { PageNotFoundComponent } from './modules/deshboard/page-not-found/page-not-found.component';
 import { DepartmentComponent } from './modules/department/department.component';
+import { ServiceComponent } from './componenets/service/service.component';
+import { TestBillsComponent } from './componenets/test-bills/test-bills.component';
+import { TakenServicesComponent } from './componenets/taken-services/taken-services.component';
+import { MedicineBillsComponent } from './componenets/medicine-bills/medicine-bills.component';
 
 const routes: Routes = [
   {path:'bed',component:BedComponent},
@@ -17,9 +21,10 @@ const routes: Routes = [
   {path:'nurse',component:NurseComponent},
   { path: 'doctor', component: DoctorComponent },
 
-
-
-
+  { path: 'Service', component: ServiceComponent },
+  { path: 'TestBills', component: TestBillsComponent },
+  { path: 'TakenServices', component: TakenServicesComponent },
+  { path: 'MedicineBills', component: MedicineBillsComponent },
 
   { path: "department-designation", component: DepartmentComponent },
   { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
