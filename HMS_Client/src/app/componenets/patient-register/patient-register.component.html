@@ -1,0 +1,144 @@
+<!--<div class="row">
+  <p class="display-4 alert alert-warning text-center">Patient Register</p>
+  <div class="col-4">
+    <form (submit)="addPatient()" class="bg-warning">
+      <div>
+        <label for="patientName">Patient Name</label>
+        <input id="patientName" name="patientName" type="text" [(ngModel)]="newPatient.patientName" class="form-control" required>
+      </div>
+      <div>
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" [(ngModel)]="newPatient.gender" class="form-control" required>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+          <option value="3">Other</option>
+          <option value="4">Prefer Not to Say</option>
+        </select>
+      </div>
+      <div>
+        <label for="address">Address</label>
+        <input id="address" name="address" type="text" [(ngModel)]="newPatient.address" class="form-control">
+      </div>
+      <div>
+        <label for="phoneNumber">Phone Number</label>
+        <input id="phoneNumber" name="phoneNumber" type="text" [(ngModel)]="newPatient.phoneNumber" class="form-control" required>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="text" [(ngModel)]="newPatient.email" class="form-control">
+      </div>
+      <div class="offset-5 mt-1">
+        <button type="submit" class="btn btn-outline-info">SAVE</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-8">
+    <table class="table table-bordered">
+      <thead class="table table-primary">
+        <tr>
+          <th>Patient Name</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patients">
+          <td>{{ patient.patientName }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.address }}</td>
+          <td>{{ patient.phoneNumber }}</td>
+          <td>{{ patient.email }}</td>
+          <td class="text-center">-->
+<!--<a (click)="editPatient(patient)" class="btn btn-primary mr-5">EDIT</a>
+<a (click)="DeletePatient(patient.patientID)" class="btn btn-danger">DELETE</a>-->
+<!--</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>-->
+
+
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center">Patient Information</p>
+    <div class="col-4">
+      <form (ngSubmit)="InsertPatient()" class="bg-info">
+        <div>
+          <label for="patientIdentityNumber">patientIdentityNumber</label>
+          <input id="patientIdentityNumber" name="patientIdentityNumber" type="text" [(ngModel)]="POSTPatient.patientIdentityNumber" class="form-control" />
+        </div>
+        <div>
+          <label for="patientName">patient Name</label>
+          <input id="patientName" name="patientName" type="text" [(ngModel)]="POSTPatient.patientName" class="form-control" />
+        </div>
+
+        <div>
+          <label for="gender">gender</label>
+          <select id="gender" name="gender" [(ngModel)]="POSTPatient.gender" class="form-select">
+            <option [ngValue]="1">Male</option>
+            <option [ngValue]="2">Female</option>
+            <option [ngValue]="3">Other</option>
+            <option [ngValue]="4">PreferNotToSay</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="address">address</label>
+          <input id="address" name="address" type="text" [(ngModel)]="POSTPatient.address" class="form-control" />
+        </div>
+        <div>
+          <label for="phoneNumber">phoneNumber</label>
+          <input id="phoneNumber" name="phoneNumber" type="text" [(ngModel)]="POSTPatient.phoneNumber" class="form-control" />
+        </div>
+        <div>
+          <label for="email">email</label>
+          <input id="email" name="email" type="text" [(ngModel)]="POSTPatient.email" class="form-control" />
+        </div>
+        <div class="offset-5 mt-1">
+          <button type="submit" class="btn btn-outline-info text-black">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-8">
+      <table class="table table-bordered">
+        <thead class="table table-info">
+          <tr>
+            <th>patientIdentityNumber</th>
+            <th>patientName</th>
+            <th>gender</th>
+            <th>address</th>
+            <th>phoneNumber</th>
+            <th>email</th>
+
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of Patient">
+            <td>{{ok.patientIdentityNumber}}</td>
+            <td>{{ok.patientName}}</td>
+            <td>{{ ok.gender === 1 ? 'Male' : ok.gender === 2 ? 'Female' :  ok.gender === 3 ? 'Other' :  'PreferNotToSay'}}</td>
+            <td>{{ok.address}}</td>
+            <td>{{ok.phoneNumber}}</td>
+            <td>{{ok.email}}</td>
+
+            <td class="text-center">
+              <a (click)="populatePatient(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <a (click)="PatientDelete(ok.patientID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+

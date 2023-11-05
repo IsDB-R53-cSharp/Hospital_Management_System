@@ -26,7 +26,7 @@ export class BedComponent {
 
   GetAllBed() {
     this.bedSer.getAllBed().subscribe(b => {
-      this.bedSer = b;
+      this.Bed = b;
     });
   }
   insertBed() {

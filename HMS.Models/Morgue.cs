@@ -21,7 +21,7 @@ namespace HMS.Models
         //if the morgue can handle infectious cases (Ex: corona dead body)
         public bool IsolationCapability { get; set; }
 
-        public ICollection<Drawer> Drawers { get; set; } = new List<Drawer>();
+        public ICollection<Drawer?> Drawers { get; set; } = new List<Drawer?>();
     }
 
     ///concept

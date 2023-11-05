@@ -24,7 +24,7 @@ export class SurgeryComponent {
 
   GetAllSurgery() {
     this.surgeryService.getAllSurgery().subscribe(b => {
-      this.surgeryService = b;
+      this.Surgery = b;
     });
   }
   insertSurgery() {

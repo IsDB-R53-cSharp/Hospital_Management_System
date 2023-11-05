@@ -21,7 +21,7 @@ export class PreoperativeDiagnosisComponent {
 
   GetAllPreoperativeDiagnosis() {
     this.preoperativeDiagnosisService.getAllPreoperativeDiagnosis().subscribe(b => {
-      this.preoperativeDiagnosisService = b;
+      this.preoperativeDiagnosis = b;
     });
   }
   insertPreoperativeDiagnosis() {

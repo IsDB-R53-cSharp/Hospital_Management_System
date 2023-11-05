@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center" style="color:navy; font-family:'Times New Roman';font-style:italic">DrawerInfo</p>
+    <div class="col-3">
+      <form (ngSubmit)="insertDrawerInfo()">
+        <div>
+          <label for="receivedDate">ReceivedDate</label>
+          <input name="receivedDate" type="date" [(ngModel)]="PostDrawerInfo.receivedDate" class="form-control" />
+        </div>
+
+        <div>
+          <label for="releaseDate">ReleaseDate</label>
+          <input name="releaseDate" type="date" [(ngModel)]="PostDrawerInfo.releaseDate" class="form-control" />
+        </div>
+
+        <div>
+          <label for="isPatient">IsPatient</label>
+          <input name="isPatient" type="checkbox" [(ngModel)]="PostDrawerInfo.isPatient" class="form-control-check" />
+        </div>
+
+        <div>
+          <label for="drawerID">Drawer</label>
+          <input name="drawerID" type="number" [(ngModel)]="PostDrawerInfo.drawerID" class="form-control" />
+        </div>
+
+        <div>
+          <label for="patientID">PatientRegister</label>
+          <input name="patientID" type="number" [(ngModel)]="PostDrawerInfo.patientID" class="form-control" />
+        </div>
+
+        <div>
+          <label for="unidentifiedDeadBodyID">UnidentifiedDeadBody</label>
+          <input name="unidentifiedDeadBodyID" type="number" [(ngModel)]="PostDrawerInfo.unidentifiedDeadBodyID" class="form-control" />
+        </div>
+
+        <div>
+          <button class="btn btn-outline-info">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-9">
+      <table class="table table-bordered">
+        <thead class="table table-primary">
+          <tr>
+            <th>ReceivedDate</th>
+            <th>ReleaseDate</th>
+            <th>IsPatient</th>
+            <th>Drawer</th>
+            <th>PatientRegister</th>
+            <th>UnidentifiedDeadBody</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of drawerInfo">
+            <td>{{ok.receivedDate | date:'yyyy-MM-dd'}}</td>
+            <td>{{ok.releaseDate | date:'yyyy-MM-dd'}}</td>
+            <td>{{ok.isPatient}}</td>
+            <td>{{ok.drawerID}}</td>
+            <td>{{ok.patientID}}</td>
+            <td>{{ok.unidentifiedDeadBodyID}}</td>
+            <td class="text-center">
+              <a (click)="PopulateDrawerInfo(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <a (click)="DrawerInfoDelete(ok.drawerInfoID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

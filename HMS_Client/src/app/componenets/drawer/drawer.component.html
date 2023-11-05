@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center" style="color:navy; font-family:'Times New Roman';font-style:italic">Drawer</p>
+    <div class="col-3">
+      <form (ngSubmit)="insertDrawer()">
+        <div>
+          <label for="drawerNo">DrawerNo</label>
+          <input name="drawerNo" type="number" [(ngModel)]="POSTDrawer.drawerNo" class="form-control" />
+        </div>
+
+        <div>
+          <label for="drawerCondition">DrawerCondition</label>
+          <select id="drawerCondition" name="drawerCondition" [(ngModel)]="POSTDrawer.drawerCondition" class="form-select">
+            <option value="1">Clean</option>
+            <option value="2">Dirty</option>
+            <option value="3">UnderMaintenance</option>
+            <option value="4">OutOfService</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="isOccupied">IsOccupied</label>
+          <input name="isOccupied" type="checkbox" [(ngModel)]="POSTDrawer.isOccupied" class="form-control-check" />
+        </div>
+
+        <div>
+          <label for="morgue">Morgue</label>
+          <input name="morgue" type="text" [(ngModel)]="POSTDrawer.morgue" class="form-control" />
+        </div>
+
+        <!--<div>
+          <label for="morgue">Morgue</label>
+          <input name="morgue" type="text" [(ngModel)]="POSTDrawer.morgue" class="form-control" />
+        </div>-->
+
+
+        <div>
+          <button class="btn btn-outline-info">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-9">
+      <table class="table table-bordered">
+        <thead class="table table-primary">
+          <tr>
+            <th>DrawerNo</th>
+            <th>DrawerCondition</th>
+            <th>IsOccupied</th>
+            <!--<th>MorgueID</th>-->
+            <th>Morgue</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of drawer">
+            <td>{{ok.drawerNo}}</td>
+            <!--<td>{{ok.drawerCondition}}</td>-->
+            <td>{{ ok.drawerCondition === 1 ? 'Clean' : ok.drawerCondition === 2 ? 'Dirty' :  ok.drawerCondition === 3 ? 'UnderMaintenance' :  ok.drawerCondition === 4 ? 'OutOfService':'' }}</td>
+            <td>{{ok.isOccupied}}</td>
+            <td>{{ok.quantity}}</td>
+            <!--<td>{{ok.morgueID}}</td>-->
+            <td>{{ok.morgue}}</td>
+            <td class="text-center">
+              <a (click)="PopulateDrawer(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <a (click)="DrawerDelete(ok.drawerID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

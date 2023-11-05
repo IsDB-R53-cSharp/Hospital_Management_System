@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center" style="color:navy; font-family:'Times New Roman';font-style:italic">WasteManagement Info</p>
+    <div class="col-2">
+      <form (ngSubmit)="insertWasteManagement()">
+        <div>
+          <label for="wasteType">WasteType</label>
+          <select id="wasteType" name="wasteType" [(ngModel)]="POSTWasteManagement.wasteType" class="form-select">
+            <option [ngValue]="1">General</option>
+            <option [ngValue]="2">Biological</option>
+            <option [ngValue]="3">Hazardous</option>
+            <option [ngValue]="4">Electronic</option>
+            <option [ngValue]="5">Pharmaceutical</option>
+            <option [ngValue]="6">Sharps</option>
+            <option [ngValue]="7">Chemical</option>
+            <option [ngValue]="8">Radiological</option>
+          </select>
+         
+        </div>
+        <div>
+          <label for="disposalDate">DisposalDate</label>
+          <input name="disposalDate" type="date" [(ngModel)]="POSTWasteManagement.disposalDate" class="form-control" />
+        </div>
+        <div>
+          <label for="disposalMethod"> DisposalMethod</label>
+          <input name="disposalMethod" type="text" [(ngModel)]="POSTWasteManagement.disposalMethod" class="form-control" />
+        </div>
+        <div>
+          <label for="quantity">Quantity</label>
+          <input name="quantity" type="number" [(ngModel)]="POSTWasteManagement.quantity" class="form-control" />
+        </div>
+        <div>
+          <label for="nextScheduleDate">NextScheduleDate</label>
+          <input name="nextScheduleDate" type="date" [(ngModel)]="POSTWasteManagement.nextScheduleDate" class="form-control" />
+        </div>
+        <div>
+          <label for="contactNumber">ContactNumber</label>
+          <input name="contactNumber" type="text" [(ngModel)]="POSTWasteManagement.contactNumber" class="form-control" />
+        </div>
+
+        <div>
+          <button class="btn btn-outline-info">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-10">
+      <table class="table table-bordered">
+        <thead class="table table-primary">
+          <tr>
+            <th>WasteType</th>
+            <th>DisposalDate</th>
+            <th>DisposalMethod</th>
+            <th>Quantity</th>
+            <th>NextScheduleDate</th>
+            <th>ContactNumber</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of waste">
+            <td>{{ ok.wasteType === 1 ? 'General' : ok.wasteType === 2 ? 'Biological' :  ok.wasteType === 3 ? 'Hazardous' :  ok.wasteType === 4 ? 'Electronic': ok.wasteType === 5 ? 'Pharmaceutical': ok.wasteType === 6 ? 'Sharps' :ok.wasteType === 7 ? 'Chemical': ok.wasteType === 8 ? 'Radiological':'' }}</td>
+            <!--<td>{{ok.wasteType}}</td>-->
+            <td>{{ok.disposalDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{ok.disposalMethod}}</td>
+            <td>{{ok.quantity}}</td>
+            <td>{{ok.nextScheduleDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{ok.contactNumber}}</td>
+            <td class="text-center">
+              <a (click)="PopulateWasteManagement(ok)" class="btn btn-primary mt-0">EDIT</a>
+              <a (click)="WasteManagementDelete(ok.wasteID)" class="btn btn-danger">DELETE</a>
+              <!--<a (click)="WasteManagementDetails(ok.wasteID)" class="btn btn-outline-info">Details</a>-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

@@ -26,7 +26,7 @@ namespace HMS.Models
 
         [ForeignKey("Drawer")]
         public int DrawerID { get; set; }
-        public  Drawer Drawer { get; set; }
+        public  Drawer? Drawer { get; set; }
 
         [ForeignKey("PatientRegister")]
         public int? PatientID { get; set; }

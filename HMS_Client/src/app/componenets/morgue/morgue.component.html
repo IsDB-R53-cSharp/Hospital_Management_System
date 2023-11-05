@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center" style="color:navy; font-family:'Times New Roman';font-style:italic">Morgue Info</p>
+    <div class="col-3">
+      <form (ngSubmit)="insertMorgue()">
+        <div>
+          <label for="morgueName">Morgue Name</label>
+          <input name="morgueName" type="text" [(ngModel)]="PostMorgue.morgueName" class="form-control" />
+        </div>
+
+        <div>
+          <label for="capacity">Capacity</label>
+          <input name="capacity" type="number" [(ngModel)]="PostMorgue.capacity" class="form-control" />
+        </div>
+
+        <div>
+          <label for="isolationCapability">IsolationCapability</label>
+          <input name="isolationCapability" type="checkbox" [(ngModel)]="PostMorgue.isolationCapability" class="form-control-check" />
+        </div>
+
+        <div>
+          <button class="btn btn-outline-info">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-9">
+      <table class="table table-bordered">
+        <thead class="table table-primary">
+          <tr>
+            <th>MorgueName</th>
+            <th>Capacity</th>
+            <th>IsolationCapability</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of morgue">
+            <td>{{ok.morgueName}}</td>
+            <td>{{ok.capacity}}</td>
+            <td>{{ok.isolationCapability}}</td>
+            <td class="text-center">
+              <a (click)="PopulateMorgue(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <a (click)="MorgueDelete(ok.morgueID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

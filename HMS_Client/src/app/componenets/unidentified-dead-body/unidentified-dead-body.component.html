@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center">UnIdenfied DeadBody Info</p>
+    <div class="col-3">
+      <form (ngSubmit)="insertUnIdenfiedDeadBody()">
+        <div>
+          <label>TagNumber</label>
+          <input name="tagNumber" type="number" [(ngModel)]="POSTUnIdenfiedDeadBody.tagNumber" class="form-control" />
+        </div>
+        <div>
+          <label>DeceasedName</label>
+          <input name="deceasedName" type="text" [(ngModel)]="POSTUnIdenfiedDeadBody.deceasedName" class="form-control" />
+        </div>
+        <div>
+          <label>DateOfDeath</label>
+          <input name="dateOfDeath" type="date" [(ngModel)]="POSTUnIdenfiedDeadBody.dateOfDeath" class="form-control" />
+        </div>
+
+        <div>
+          <label> CauseOfDeath</label>
+          <input name="causeOfDeath" type="text" [(ngModel)]="POSTUnIdenfiedDeadBody.causeOfDeath" class="form-control" />
+        </div>
+
+        <div>
+          <button class="btn btn-outline-info">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-9">
+      <table class="table table-bordered">
+        <thead class="table table-primary">
+          <tr>
+            <th>TagNumber</th>
+            <th>DeceasedName</th>
+            <th>DateOfDeath</th>
+            <th>CauseOfDeath</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of UnIdenfiedDeadBody">
+            <td>{{ok.tagNumber}}</td>
+            <td>{{ok.deceasedName}}</td>
+            <td>{{ok.dateOfDeath|date:'yyyy-MM-dd'}}</td>
+            <td>{{ok.causeOfDeath}}</td>
+            <td class="text-center">
+              <a (click)="PopulateUnIdenfiedDeadBody(ok)" class="btn btn-primary mr-2">EDIT</a>
+              <a (click)="UnIdenfiedDeadBodyDelete(ok.unIdenfiedDeadBodyID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

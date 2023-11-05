@@ -21,6 +21,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeshboardModule } from './modules/deshboard/deshboard.module';
 import { HrManagementModule } from './modules/hr-management.module';
 import { ToastrModule } from 'ngx-toastr';
+import { UnidentifiedDeadBodyComponent } from './componenets/unidentified-dead-body/unidentified-dead-body.component';
+import { WasteManagementComponent } from './componenets/waste-management/waste-management.component';
+import { DrawerComponent } from './componenets/drawer/drawer.component';
+import { WasteManagementService } from './service/waste-management.service';
+import { UnIdenfiedDeadBodyService } from './service/un-idenfied-dead-body.service';
+import { DrawerService } from './service/drawer.service';
+import { DrawerInfoComponent } from './componenets/drawer-info/drawer-info.component';
+import { DrawerInfoService } from './service/drawer-info.service';
+import { MorgueComponent } from './componenets/morgue/morgue.component';
+import { MorgueService } from './service/morgue.service';
+import { PatientRegisterComponent } from './componenets/patient-register/patient-register.component';
+import { PatientRegisterService } from './service/patient-register.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +42,13 @@ import { ToastrModule } from 'ngx-toastr';
     SurgeryComponent,
     WardCabinComponent,
     NurseComponent,
-    DoctorComponent
+    DoctorComponent,
+    UnidentifiedDeadBodyComponent,
+    WasteManagementComponent,
+    DrawerComponent,
+    DrawerInfoComponent,
+    MorgueComponent,
+    PatientRegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +70,13 @@ import { ToastrModule } from 'ngx-toastr';
     SurgeryService,
     WardCabinService,
     NurseService,
-    DoctorService
+    DoctorService,
+    UnIdenfiedDeadBodyService,
+    WasteManagementService,
+    DrawerService,
+    DrawerInfoService,
+    MorgueService,
+    PatientRegisterService,
   ],
   bootstrap: [AppComponent]
 })
