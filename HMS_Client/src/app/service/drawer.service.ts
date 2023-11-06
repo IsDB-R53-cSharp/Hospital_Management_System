@@ -24,14 +24,4 @@ export class DrawerService {
   DeleteDrawer(id: number): Observable<any> {
     return this.http.delete<any>("http://localhost:5041/api/Drawers/" + id);
   }
-  GetAllMorgue(): Observable<any> {
-    return this.http.get<any>("http://localhost:5041/api/Morgue");
-  }
-  PostMorgue(modell: Morgue): Observable<Morgue> {
-    return this.http.post<Morgue>("http://localhost:5041/api/Morgue", modell)
-  }
-  UpdateMorgue(modell: Morgue): Observable<Morgue> {
-    return this.http.put<Morgue>("http://localhost:5041/api/Morgue/" + modell.morgueID, modell);
-  }
- 
 }

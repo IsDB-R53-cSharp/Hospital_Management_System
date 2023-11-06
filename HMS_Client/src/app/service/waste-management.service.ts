@@ -23,7 +23,4 @@ export class WasteManagementService {
   DeleteWasteManagement(id: number): Observable<any> {
     return this.http.delete<any>("http://localhost:5041/api/WasteManagement/" + id);
   }
-  //WasteManagementDetails(id: number): Observable<any> {
-  //  return this.http.get<any>("http://localhost:5041/api/WasteManagement" + id);
-  //}
 }

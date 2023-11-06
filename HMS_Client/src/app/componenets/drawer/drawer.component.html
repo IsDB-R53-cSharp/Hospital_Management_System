@@ -46,7 +46,6 @@
             <th>DrawerNo</th>
             <th>DrawerCondition</th>
             <th>IsOccupied</th>
-            <!--<th>MorgueID</th>-->
             <th>Morgue</th>
             <th>ACTION</th>
           </tr>
@@ -54,7 +53,6 @@
         <tbody>
           <tr *ngFor="let ok of drawer">
             <td>{{ok.drawerNo}}</td>
-            <!--<td>{{ok.drawerCondition}}</td>-->
             <td>{{ ok.drawerCondition === 1 ? 'Clean' : ok.drawerCondition === 2 ? 'Dirty' :  ok.drawerCondition === 3 ? 'UnderMaintenance' :  ok.drawerCondition === 4 ? 'OutOfService':'' }}</td>
             <td>{{ok.isOccupied}}</td>
             <td>{{ok.quantity}}</td>
