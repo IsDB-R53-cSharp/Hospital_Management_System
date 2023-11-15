@@ -4,6 +4,6 @@ export class Morgue {
     public morgueName?: string,
     public capacity?: number,
     public isolationCapability?: boolean,
-    public drawers?: []
+    public drawers?:[]
   ) { }
 }

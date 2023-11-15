@@ -5,6 +5,7 @@ import { Drawer } from '../models/drawer';
 import { Morgue } from '../models/morgue';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,15 +14,24 @@ export class DrawerService {
   constructor(private http: HttpClient) { }
 
   GetAllDrawer(): Observable<any> {
-    return this.http.get<any>("http://localhost:5041/api/Drawers");
+    return this.http.get<any>("http://localhost:5041/api/Drawers/GetDrawer");
   }
   PostDrawer(modell: Drawer): Observable<Drawer> {
-    return this.http.post<Drawer>("http://localhost:5041/api/Drawers", modell)
+    return this.http.post<Drawer>("http://localhost:5041/api/Drawers/Insert", modell)
   }
   UpdateDrawer(modell: Drawer): Observable<Drawer> {
-    return this.http.put<Drawer>("http://localhost:5041/api/Drawers/" + modell.drawerID, modell);
+    return this.http.put<Drawer>("http://localhost:5041/api/Drawers/Update/" + modell.drawerID, modell);
   }
   DeleteDrawer(id: number): Observable<any> {
-    return this.http.delete<any>("http://localhost:5041/api/Drawers/" + id);
+    return this.http.delete<any>("http://localhost:5041/api/Drawers/Delete/" + id);
+  }
+  GetAllMorgue(): Observable<any> {
+    return this.http.get<any>("http://localhost:5041/api/Morgue");
+  }
+  PostMorgue(modell: Morgue): Observable<Morgue> {
+    return this.http.post<Morgue>("http://localhost:5041/api/Morgue", modell)
+  }
+  UpdateMorgue(modell: Morgue): Observable<Morgue> {
+    return this.http.put<Morgue>("http://localhost:5041/api/Morgue/" + modell.morgueID, modell);
   }
 }
