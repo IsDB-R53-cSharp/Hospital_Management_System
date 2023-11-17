@@ -2,13 +2,16 @@ export class WardCabin {
     constructor(
         public wardCabinId?: number,
         public wardCabinName?: string,
-        public wardCabinType?: WardCabinType
+        public wardCabinType?: WardCabinType,
+        public Department?: number,
+        public BedId?: number,
+        
     ){}
 }
 export enum WardCabinType {
-    Regular = 1,
-    VIP = 2,
-    ICU = 3,
+    Ward = 1,
+    SingleCabin, 
+    DoubleCabin 
     // Add more types as needed
   }
   

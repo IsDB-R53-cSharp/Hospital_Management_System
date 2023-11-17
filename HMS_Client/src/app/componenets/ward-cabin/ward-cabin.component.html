@@ -10,7 +10,12 @@
           </div>
           <div>
             <label for="wardCabinType">Ward Cabin Type</label>
-            <input id="wardCabinType" name="wardCabinType" type="text" [(ngModel)]="postWardCabin.wardCabinType"  class="form-control" />
+            <!-- <input id="wardCabinType" name="wardCabinType" type="text" [(ngModel)]="postWardCabin.wardCabinType"  class="form-control" /> -->
+            <select id="wardCabinType" name="wardCabinType" [(ngModel)]="WardCabin.wardCabinType" class="form-select">
+              <option [ngValue]="1">Ward</option>
+              <option [ngValue]="2">SingleCabin</option>
+              <option [ngValue]="3">DoubleCabin</option>
+            </select>
           </div>
           <div class="offset-5 mt-1">
             <button type="submit" class="btn btn-outline-primary">SAVE</button>
@@ -23,12 +28,14 @@
             <tr>
               <th>Ward Cabin Name</th>
               <th>Ward Cabin Type</th>
+              <th>Department</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let ok of WardCabin">
               <td>{{ok.wardCabinName}}</td>
+              <td>{{ok.wardCabinType}}</td>
               <td>{{ok.wardCabinType}}</td>
               <td class="text-center">
                 <a (click)="PopulateData(ok)" class="btn btn-primary mr-5">EDIT</a>

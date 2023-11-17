@@ -20,7 +20,7 @@ namespace Hospital_Management_System.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WardCabin>>> GetWardCabins()
         {
-            return await _context.WardCabins.ToListAsync();
+            return await _context.WardCabins.Include(x => x.Beds).ToListAsync();
         }
 
         // GET: api/WardCabin/5

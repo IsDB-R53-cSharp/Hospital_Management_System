@@ -22,7 +22,7 @@ export class WardCabinComponent {
 
   GetAllWardCabin() {
     this.wardCabinService.getAllWardCabin().subscribe(b => {
-      this.wardCabinService = b;
+      this.WardCabin = b;
     });
   }
   insertWardCabin() {

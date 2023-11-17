@@ -12,6 +12,12 @@ export class WardCabinService {
   getAllWardCabin(): Observable<any>{
     return this.http.get<any>("http://localhost:5041/api/WardCabin");
   }
+  getAllDepartment(): Observable<any>{
+    return this.http.get<any>("http://localhost:5041/api/Departments/GatALL");
+  }
+  getAllBed(): Observable<any>{
+    return this.http.get<any>("http://localhost:5041/api/Beds");
+  }
   postWardCabin(b: WardCabin): Observable<WardCabin>{
     return this.http.post<WardCabin>("http://localhost:5041/api/WardCabin",b);
   }

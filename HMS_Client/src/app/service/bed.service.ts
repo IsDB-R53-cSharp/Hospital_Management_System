@@ -19,6 +19,6 @@ export class BedService {
     return this.http.put<Bed>("http://localhost:5041/api/Beds/"+b.bedID,b);
   }
   deleteBed(id:number): Observable<any>{
-    return this.http.delete<any>("http://localhost:5041/api/Beds"+id);
+    return this.http.delete<any>(`http://localhost:5041/api/Beds/$(id)`);
   }
 }

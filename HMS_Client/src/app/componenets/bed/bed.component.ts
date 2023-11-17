@@ -17,7 +17,7 @@ export class BedComponent {
     // isOccupid: true
     bedID: undefined,
     bedNumber: '',
-    isOccupied: true
+    isOccupied: undefined
   }
   constructor(private bedSer: BedService, private route: Router) { }
   ngOnInit() {
@@ -26,7 +26,7 @@ export class BedComponent {
 
   GetAllBed() {
     this.bedSer.getAllBed().subscribe(b => {
-      this.bedSer = b;
+      this.Bed = b;
     });
   }
   insertBed() {
@@ -38,7 +38,7 @@ export class BedComponent {
         this.postBed = {
           bedID: undefined,
           bedNumber: '',
-          isOccupied: true
+          isOccupied: undefined
         }
       });
     }
@@ -47,7 +47,7 @@ export class BedComponent {
       this.postBed = {
         bedID: undefined,
         bedNumber: '',
-        isOccupied: true
+        isOccupied: undefined
       }
     }
   }
