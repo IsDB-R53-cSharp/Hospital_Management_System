@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <p class="display-4 alert alert-warning text-center " style="color:blue; font-family:'Times New Roman';font-style:italic">Ambulance Information</p>
+    <div class="col-3">
+      <form (ngSubmit)="insertAmbulance()">
+        <div>
+          <label>AmbulanceNumber</label>
+          <input name="ambulanceNumber" type="text" [(ngModel)]="PostAmbulance.ambulanceNumber" class="form-control" />
+        </div>
+        <div>
+          <label>LastLocation</label>
+          <input name="lastLocation" type="text" [(ngModel)]="PostAmbulance.lastLocation" class="form-control" />
+        </div>
+        <div>
+          <label>Availability</label>
+          <input name="availability" type="checkbox" [(ngModel)]="PostAmbulance.availability" class="form-control-check" />
+        </div>
+
+        <div>
+          <button class="btn btn-outline-info">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-9">
+      <table class="table table-bordered">
+        <thead class="table table-primary">
+          <tr>
+            <th>AmbulanceNumber</th>
+            <th>LastLocation</th>
+            <th>Availability</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ok of Ambulance">
+            <td>{{ok.ambulanceNumber}}</td>
+            <td>{{ok.lastLocation}}</td>
+            <td>{{ok.availability}}</td>
+            <td class="text-center">
+              <a (click)="PopulateAmbulance(ok)" class="btn btn-primary mr-5">EDIT</a>
+              <a (click)="AmbulanceDelete(ok.ambulanceID)" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

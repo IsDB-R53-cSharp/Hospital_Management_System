@@ -8,6 +8,7 @@ import { NurseComponent } from './componenets/nurse/nurse.component';
 import { DoctorComponent } from './componenets/doctor/doctor.component';
 import { PageNotFoundComponent } from './modules/deshboard/page-not-found/page-not-found.component';
 import { DepartmentComponent } from './modules/department/department.component';
+import { AmbulanceComponent } from './componenets/ambulance/ambulance.component';
 
 const routes: Routes = [
   {path:'bed',component:BedComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'wardCabin',component:WardCabinComponent},
   {path:'nurse',component:NurseComponent},
   { path: 'doctor', component: DoctorComponent },
+  { path: 'Ambulance', component: AmbulanceComponent },
 
 
 

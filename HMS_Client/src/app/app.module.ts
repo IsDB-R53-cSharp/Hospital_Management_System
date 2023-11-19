@@ -21,6 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeshboardModule } from './modules/deshboard/deshboard.module';
 import { HrManagementModule } from './modules/hr-management.module';
 import { ToastrModule } from 'ngx-toastr';
+import { AmbulanceComponent } from './componenets/ambulance/ambulance.component';
+import { AmbulanceService } from './service/ambulance.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ToastrModule } from 'ngx-toastr';
     SurgeryComponent,
     WardCabinComponent,
     NurseComponent,
-    DoctorComponent
+    DoctorComponent,
+    AmbulanceComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { ToastrModule } from 'ngx-toastr';
     SurgeryService,
     WardCabinService,
     NurseService,
-    DoctorService
+    DoctorService,
+    AmbulanceService
   ],
   bootstrap: [AppComponent]
 })
