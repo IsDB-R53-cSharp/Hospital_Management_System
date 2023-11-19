@@ -47,7 +47,7 @@
             <th>IsPatient</th>
             <th>Drawer</th>
             <th>PatientRegister</th>
-            <th>UnidentifiedDeadBody</th>
+            <th>UniIdeDeadBody</th>
             <th>ACTION</th>
           </tr>
         </thead>
@@ -60,8 +60,8 @@
             <td>{{ok.patientID}}</td>
             <td>{{ok.unidentifiedDeadBodyID}}</td>
             <td class="text-center">
-              <a (click)="PopulateDrawerInfo(ok)" class="btn btn-primary mr-5">EDIT</a>
-              <a (click)="DrawerInfoDelete(ok.drawerInfoID)" class="btn btn-danger">DELETE</a>
+              <a (click)="PopulateDrawerInfo(ok)" class="btn btn-primary btn-sm mr-1">EDIT</a>
+              <a (click)="DrawerInfoDelete(ok.drawerInfoID)" class="btn btn-danger btn-sm">DELETE</a>
             </td>
           </tr>
         </tbody>
