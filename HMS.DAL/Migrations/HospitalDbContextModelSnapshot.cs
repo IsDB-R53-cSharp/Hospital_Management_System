@@ -1331,7 +1331,7 @@ namespace HMS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeID"), 1L, 1);
 
-                    b.Property<int?>("AmbulanceID")
+                    b.Property<int>("AmbulanceID")
                         .HasColumnType("int");
 
                     b.Property<string>("Education_Info")
@@ -1374,6 +1374,7 @@ namespace HMS.DAL.Migrations
                         new
                         {
                             EmployeeID = 1,
+                            AmbulanceID = 0,
                             Education_Info = "JSC",
                             Image = "wordboy1.jpg",
                             JoinDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1385,6 +1386,7 @@ namespace HMS.DAL.Migrations
                         new
                         {
                             EmployeeID = 2,
+                            AmbulanceID = 0,
                             Education_Info = "SSC",
                             Image = "driver1.jpg",
                             JoinDate = new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -2406,9 +2408,13 @@ namespace HMS.DAL.Migrations
 
             modelBuilder.Entity("HMS.Models.OtherEmployee", b =>
                 {
-                    b.HasOne("HMS.Models.Ambulance", null)
+                    b.HasOne("HMS.Models.Ambulance", "Ambulance")
                         .WithMany("OtherEmployees")
-                        .HasForeignKey("AmbulanceID");
+                        .HasForeignKey("AmbulanceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ambulance");
                 });
 
             modelBuilder.Entity("HMS.Models.Outdoor", b =>

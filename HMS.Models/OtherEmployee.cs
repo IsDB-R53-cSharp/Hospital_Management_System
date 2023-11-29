@@ -41,6 +41,8 @@ namespace HMS.Models
         [Required, RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be 11 digits.")]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = default!;
+        public int AmbulanceID { get; set; }
+        public Ambulance Ambulance { get; set; }
     }
     public enum EmployeeStatus
     {
